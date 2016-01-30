@@ -1,9 +1,6 @@
 class Member < ActiveRecord::Base
   
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :area
   belongs_to :sector
@@ -16,5 +13,13 @@ class Member < ActiveRecord::Base
   has_and_belongs_to_many :activites
   has_and_belongs_to_many :knowledges
   has_and_belongs_to_many :projects
+
+  def admin?
+    self.role.description == "Administrador"
+  end
+
+  def member_name
+    "#{self.name} #{self.last_name}"
+  end
 
 end

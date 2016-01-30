@@ -1,0 +1,22 @@
+h1 Membros
+
+table
+
+  thead
+    tr
+      th Nome
+      th Email
+      th Perfil
+      th Núcleo
+      th Área
+
+  tbody
+
+    - @members.each do |member|
+
+      tr
+        td = member.member_name
+        td = member.email
+        td = member.role.description
+        td = member.sector.name
+        td = member.area.name
