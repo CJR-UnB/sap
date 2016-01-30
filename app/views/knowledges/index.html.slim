@@ -1,0 +1,25 @@
+h1 Listing knowledges
+
+table
+  thead
+    tr
+      th Description
+      th Technology
+      th Knowledge level
+      th
+      th
+      th
+
+  tbody
+    - @knowledges.each do |knowledge|
+      tr
+        td = knowledge.description
+        td = knowledge.technology
+        td = knowledge.knowledge_level
+        td = link_to 'Show', knowledge
+        td = link_to 'Edit', edit_knowledge_path(knowledge)
+        td = link_to 'Destroy', knowledge, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Knowledge', new_knowledge_path

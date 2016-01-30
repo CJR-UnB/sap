@@ -1,0 +1,25 @@
+h1 Listing member_has_projects
+
+table
+  thead
+    tr
+      th Member
+      th Project
+      th Project role
+      th
+      th
+      th
+
+  tbody
+    - @member_has_projects.each do |member_has_project|
+      tr
+        td = member_has_project.member
+        td = member_has_project.project
+        td = member_has_project.project_role
+        td = link_to 'Show', member_has_project
+        td = link_to 'Edit', edit_member_has_project_path(member_has_project)
+        td = link_to 'Destroy', member_has_project, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Member has project', new_member_has_project_path

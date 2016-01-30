@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
 
+gem 'devise', '~> 3.5', '>= 3.5.5'
+gem 'cancan', '~> 1.6', '>= 1.6.10'
+
+gem 'sass', '~> 3.4', '>= 3.4.21'
+gem 'sass-rails', '~> 5.0'
+
+gem 'slim', '~> 3.0', '>= 3.0.6'
+gem 'slim-rails', '~> 3.0', '>= 3.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'

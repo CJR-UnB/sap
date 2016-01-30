@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Member:
+  = @member_has_knowledge.member
+p
+  strong Knowledge:
+  = @member_has_knowledge.knowledge
+
+= link_to 'Edit', edit_member_has_knowledge_path(@member_has_knowledge)
+'|
+= link_to 'Back', member_has_knowledges_path

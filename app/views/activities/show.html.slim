@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Description:
+  = @activity.description
+p
+  strong Credit numbers:
+  = @activity.credit_numbers
+p
+  strong Activity type:
+  = @activity.activity_type
+
+= link_to 'Edit', edit_activity_path(@activity)
+'|
+= link_to 'Back', activities_path

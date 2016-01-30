@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Observation:
+  = @project_member_history.observation
+p
+  strong Member:
+  = @project_member_history.member
+p
+  strong Project:
+  = @project_member_history.project
+p
+  strong Project role:
+  = @project_member_history.project_role
+
+= link_to 'Edit', edit_project_member_history_path(@project_member_history)
+'|
+= link_to 'Back', project_member_histories_path

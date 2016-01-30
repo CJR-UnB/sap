@@ -1,0 +1,23 @@
+h1 Listing member_has_activities
+
+table
+  thead
+    tr
+      th Member
+      th Activity
+      th
+      th
+      th
+
+  tbody
+    - @member_has_activities.each do |member_has_activity|
+      tr
+        td = member_has_activity.member
+        td = member_has_activity.activity
+        td = link_to 'Show', member_has_activity
+        td = link_to 'Edit', edit_member_has_activity_path(member_has_activity)
+        td = link_to 'Destroy', member_has_activity, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Member has activity', new_member_has_activity_path

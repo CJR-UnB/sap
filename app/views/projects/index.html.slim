@@ -1,0 +1,27 @@
+h1 Listing projects
+
+table
+  thead
+    tr
+      th Description
+      th Price
+      th Link
+      th Project status
+      th
+      th
+      th
+
+  tbody
+    - @projects.each do |project|
+      tr
+        td = project.description
+        td = project.price
+        td = project.link
+        td = project.project_status
+        td = link_to 'Show', project
+        td = link_to 'Edit', edit_project_path(project)
+        td = link_to 'Destroy', project, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Project', new_project_path

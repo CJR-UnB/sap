@@ -1,0 +1,21 @@
+h1 Listing member_statuses
+
+table
+  thead
+    tr
+      th Description
+      th
+      th
+      th
+
+  tbody
+    - @member_statuses.each do |member_status|
+      tr
+        td = member_status.description
+        td = link_to 'Show', member_status
+        td = link_to 'Edit', edit_member_status_path(member_status)
+        td = link_to 'Destroy', member_status, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Member status', new_member_status_path

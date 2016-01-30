@@ -1,0 +1,21 @@
+h1 Listing project_statuses
+
+table
+  thead
+    tr
+      th Description
+      th
+      th
+      th
+
+  tbody
+    - @project_statuses.each do |project_status|
+      tr
+        td = project_status.description
+        td = link_to 'Show', project_status
+        td = link_to 'Edit', edit_project_status_path(project_status)
+        td = link_to 'Destroy', project_status, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Project status', new_project_status_path

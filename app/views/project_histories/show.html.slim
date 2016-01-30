@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Observation:
+  = @project_history.observation
+p
+  strong Project:
+  = @project_history.project
+
+= link_to 'Edit', edit_project_history_path(@project_history)
+'|
+= link_to 'Back', project_histories_path

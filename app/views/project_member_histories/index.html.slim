@@ -1,0 +1,27 @@
+h1 Listing project_member_histories
+
+table
+  thead
+    tr
+      th Observation
+      th Member
+      th Project
+      th Project role
+      th
+      th
+      th
+
+  tbody
+    - @project_member_histories.each do |project_member_history|
+      tr
+        td = project_member_history.observation
+        td = project_member_history.member
+        td = project_member_history.project
+        td = project_member_history.project_role
+        td = link_to 'Show', project_member_history
+        td = link_to 'Edit', edit_project_member_history_path(project_member_history)
+        td = link_to 'Destroy', project_member_history, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Project member history', new_project_member_history_path

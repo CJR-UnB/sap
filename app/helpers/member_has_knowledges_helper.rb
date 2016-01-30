@@ -1,0 +1,2 @@
+module MemberHasKnowledgesHelper
+end

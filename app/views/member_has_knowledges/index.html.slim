@@ -1,0 +1,23 @@
+h1 Listing member_has_knowledges
+
+table
+  thead
+    tr
+      th Member
+      th Knowledge
+      th
+      th
+      th
+
+  tbody
+    - @member_has_knowledges.each do |member_has_knowledge|
+      tr
+        td = member_has_knowledge.member
+        td = member_has_knowledge.knowledge
+        td = link_to 'Show', member_has_knowledge
+        td = link_to 'Edit', edit_member_has_knowledge_path(member_has_knowledge)
+        td = link_to 'Destroy', member_has_knowledge, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Member has knowledge', new_member_has_knowledge_path

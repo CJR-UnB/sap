@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Description:
+  = @project.description
+p
+  strong Price:
+  = @project.price
+p
+  strong Link:
+  = @project.link
+p
+  strong Project status:
+  = @project.project_status
+
+= link_to 'Edit', edit_project_path(@project)
+'|
+= link_to 'Back', projects_path

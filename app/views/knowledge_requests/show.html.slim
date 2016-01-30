@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Member:
+  = @knowledge_request.member
+p
+  strong Knowledge:
+  = @knowledge_request.knowledge
+p
+  strong Request status:
+  = @knowledge_request.request_status
+
+= link_to 'Edit', edit_knowledge_request_path(@knowledge_request)
+'|
+= link_to 'Back', knowledge_requests_path

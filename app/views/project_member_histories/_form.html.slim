@@ -1,0 +1,21 @@
+= form_for @project_member_history do |f|
+  - if @project_member_history.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@project_member_history.errors.count, "error")} prohibited this project_member_history from being saved:"
+      ul
+        - @project_member_history.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :observation
+    = f.text_area :observation
+  .field
+    = f.label :member
+    = f.text_field :member
+  .field
+    = f.label :project
+    = f.text_field :project
+  .field
+    = f.label :project_role
+    = f.text_field :project_role
+  .actions = f.submit

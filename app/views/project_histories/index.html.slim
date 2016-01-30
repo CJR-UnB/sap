@@ -1,0 +1,23 @@
+h1 Listing project_histories
+
+table
+  thead
+    tr
+      th Observation
+      th Project
+      th
+      th
+      th
+
+  tbody
+    - @project_histories.each do |project_history|
+      tr
+        td = project_history.observation
+        td = project_history.project
+        td = link_to 'Show', project_history
+        td = link_to 'Edit', edit_project_history_path(project_history)
+        td = link_to 'Destroy', project_history, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Project history', new_project_history_path

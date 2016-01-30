@@ -1,0 +1,9 @@
+p#notice = notice
+
+p
+  strong Description:
+  = @member_status.description
+
+= link_to 'Edit', edit_member_status_path(@member_status)
+'|
+= link_to 'Back', member_statuses_path

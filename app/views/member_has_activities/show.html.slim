@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Member:
+  = @member_has_activity.member
+p
+  strong Activity:
+  = @member_has_activity.activity
+
+= link_to 'Edit', edit_member_has_activity_path(@member_has_activity)
+'|
+= link_to 'Back', member_has_activities_path

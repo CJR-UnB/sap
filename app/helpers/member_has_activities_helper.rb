@@ -1,0 +1,2 @@
+module MemberHasActivitiesHelper
+end
