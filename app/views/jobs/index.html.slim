@@ -1,21 +1,23 @@
-h1 Listing jobs
+.box
 
-table
-  thead
-    tr
-      th Description
-      th
-      th
-      th
+  h1 Listing jobs
 
-  tbody
-    - @jobs.each do |job|
+  table.table
+    thead
       tr
-        td = job.description
-        td = link_to 'Show', job
-        td = link_to 'Edit', edit_job_path(job)
-        td = link_to 'Destroy', job, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Description
+        th
+        th
+        th
 
-br
+    tbody
+      - @jobs.each do |job|
+        tr
+          td = job.description
+          td = link_to 'Show', job
+          td = link_to 'Edit', edit_job_path(job)
+          td = link_to 'Destroy', job, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-= link_to 'New Job', new_job_path
+  br
+
+  = link_to 'New Job', new_job_path

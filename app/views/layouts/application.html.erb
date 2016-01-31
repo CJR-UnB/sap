@@ -4,11 +4,106 @@
   <title>Sap</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 
-<%= yield %>
+  <aside class="sidebar-left-collapse">
+
+    <a href="#" class="company-logo"><%= image_tag("cjr.png", class:'cjr-logo') %></a>
+
+    <div class="sidebar-links">
+
+      <div class="link-blue selected">
+
+        <a href="#">
+          <i class="fa fa-picture-o"></i>Photography
+        </a>
+
+        <ul class="sub-links">
+          <li><a href="#">Portraits</a></li>
+          <li><a href="#">Landscape</a></li>
+          <li><a href="#">Studio shots</a></li>
+          <li><a href="#">Macros</a></li>
+        </ul>
+
+      </div>
+
+      <div class="link-red">
+
+        <a href="#">
+          <i class="fa fa-heart-o"></i>Favorites
+        </a>
+
+        <ul class="sub-links">
+          <li><a href="#">Link 1</a></li>
+          <li><a href="#">Link 2</a></li>
+          <li><a href="#">Link 3</a></li>
+          <li><a href="#">Link 4</a></li>
+        </ul>
+
+      </div>
+
+      <div class="link-yellow">
+
+        <a href="#">
+          <i class="fa fa-keyboard-o"></i>Projects
+        </a>
+
+        <ul class="sub-links">
+          <li><a href="#">Link 1</a></li>
+          <li><a href="#">Link 2</a></li>
+          <li><a href="#">Link 3</a></li>
+          <li><a href="#">Link 4</a></li>
+        </ul>
+
+      </div>
+
+      <div class="link-green">
+
+        <a href="#">
+          <i class="fa fa-map-marker"></i>Places
+        </a>
+
+        <ul class="sub-links">
+          <li><a href="#">Link 1</a></li>
+          <li><a href="#">Link 2</a></li>
+          <li><a href="#">Link 3</a></li>
+          <li><a href="#">Link 4</a></li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    $(function () {
+
+      var links = $('.sidebar-links > div');
+
+      links.on('click', function () {
+
+        links.removeClass('selected');
+        $(this).addClass('selected');
+
+      });
+    });
+
+  </script>
 
 </body>
 </html>

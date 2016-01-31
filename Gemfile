@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'devise', '~> 3.5', '>= 3.5.5'
 gem 'cancan', '~> 1.6', '>= 1.6.10'
 
+gem 'bootstrap-sass', '~> 3.3.6'
+
 gem 'sass', '~> 3.4', '>= 3.4.21'
 gem 'sass-rails', '~> 5.0'
 
