@@ -1,0 +1,25 @@
+@media screen and (min-width: 0px) and (max-width: 450px) {
+
+  .main-content {
+    padding: 70px 20px 40px 20px;
+    margin-top: 10px;
+  }
+
+}
+
+@media screen and (min-width: 451px) and (max-width: 900px) {
+
+  .main-content {
+    padding: 60px 20px 40px 20px;
+  }
+
+}
+
+@media screen and (min-width: 901px) {
+
+  .main-content {
+    padding: 20px 20px 40px 100px;
+    margin-left: 100px;
+  }
+
+}

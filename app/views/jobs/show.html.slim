@@ -1,9 +1,9 @@
-p#notice = notice
+.box
 
-p
-  strong Description:
-  = @job.description
+  p
+    strong Description:
+    = @job.description
 
-= link_to 'Edit', edit_job_path(@job)
-'|
-= link_to 'Back', jobs_path
+  = link_to 'Edit', edit_job_path(@job)
+  '|
+  = link_to 'Back', jobs_path
