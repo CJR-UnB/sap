@@ -1,23 +1,32 @@
 .box
 
-  h1 Listing jobs
+  h3 Cargos
 
-  table.table
+  hr.divider
+
+  table.table.table-responsive.table-hover
+
     thead
       tr
-        th Description
-        th
+        - if current_member.admin?  
+          th Código
+        th Descrição
         th
         th
 
     tbody
       - @jobs.each do |job|
         tr
+          - if current_member.admin?
+            td = job.id
           td = job.description
-          td = link_to 'Show', job
-          td = link_to 'Edit', edit_job_path(job)
-          td = link_to 'Destroy', job, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-  br
+          td align="right"
+            = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
 
-  = link_to 'New Job', new_job_path
+          td align="right"
+            = link_to job, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
+
+  = link_to 'Novo Cargo', new_job_path, data: { modal: true }, class:'btn btn-success'

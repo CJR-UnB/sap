@@ -104,7 +104,6 @@
 
 }
 
-
 /* The left-collapsing sidebar */
 
 .sidebar-left-collapse {
@@ -187,8 +186,8 @@
 }
 
 .sidebar-links div.selected ul.sub-links {
-  max-height: 150px;
-  padding: 12px 0 12px 30px;
+  max-height: 180px;
+  padding: 12px 0 12px 12px;
 }
 
 .sidebar-links div .sub-links a {
@@ -272,7 +271,13 @@
     bottom: -60px;
   }
 
+  .sidebar-links div.selected .sub-links .fix {
+    bottom: -120px;
+  }
+
+
 }
+
 
 /* Making the sidebar responsive */
 

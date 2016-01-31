@@ -1,12 +1,11 @@
-= form_for @job do |f|
-  - if @job.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@job.errors.count, "error")} prohibited this job from being saved:"
-      ul
-        - @job.errors.full_messages.each do |message|
-          li = message
+= form_for(@job, remote: request.xhr?, html: { data: { modal: true } }) do |f|
 
-  .field
-    = f.label :description
-    = f.text_field :description
-  .actions = f.submit
+  .modal-body
+
+    .form-group
+      = f.label 'Descrição'
+      = f.text_field :description, class:'form-control'
+
+  .modal-footer
+
+    = f.button 'Enviar', class:'btn btn-success'

@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
   <%= csrf_meta_tags %>
 </head>
-
 <body>
+
+  <div id="modal-holder"></div>
 
   <aside class="sidebar-left-collapse">
 
@@ -20,14 +21,14 @@
       <div class="link-blue selected">
 
         <a href="#">
-          <i class="fa fa-picture-o"></i>Photography
+          <i class="fa fa-user"></i>Membros
         </a>
 
         <ul class="sub-links">
-          <li><a href="#">Portraits</a></li>
-          <li><a href="#">Landscape</a></li>
-          <li><a href="#">Studio shots</a></li>
-          <li><a href="#">Macros</a></li>
+          <li><a href="#">Ver Perfil</a></li>
+          <li><a href="#">Atualizar Dados</a></li>
+          <li><%= link_to 'Todos os Membros', members_path %></li>
+          <li><%= link_to 'Sair', logout_path %></li>
         </ul>
 
       </div>
@@ -35,14 +36,14 @@
       <div class="link-red">
 
         <a href="#">
-          <i class="fa fa-heart-o"></i>Favorites
+          <i class="fa fa-book"></i>Conhecimentos
         </a>
 
         <ul class="sub-links">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#">Link 3</a></li>
-          <li><a href="#">Link 4</a></li>
+          <li><%= link_to 'Todos os Conhecimentos', knowledges_path %></li>
+          <li><%= link_to 'Níveis de Conhecimento', knowledge_levels_path %></li>
+          <li><%= link_to 'Tecnologias', technologies_path %></li>
+          <li><%= link_to 'Histórico de Requisições', request_histories_path %></li>
         </ul>
 
       </div>
@@ -50,29 +51,29 @@
       <div class="link-yellow">
 
         <a href="#">
-          <i class="fa fa-keyboard-o"></i>Projects
+          <i class="fa fa-keyboard-o"></i>Projetos
         </a>
 
         <ul class="sub-links">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#">Link 3</a></li>
-          <li><a href="#">Link 4</a></li>
+          <li><a href="#">Todos os Projetos</a></li>
+          <li><a href="#">Status de Projeto</a></li>
+          <li><a href="#">Histórico de Projetos</a></li>
         </ul>
 
       </div>
 
+
       <div class="link-green">
 
         <a href="#">
-          <i class="fa fa-map-marker"></i>Places
+          <i class="fa fa-navicon"></i>Outros
         </a>
 
         <ul class="sub-links">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#">Link 3</a></li>
-          <li><a href="#">Link 4</a></li>
+          <li><a href="#">Cargos</a></li>
+          <li><a href="#">Núcleos</a></li>
+          <li><a href="#">Áreas</a></li>
+          <li><a href="#">Status de Membro</a></li>
         </ul>
 
       </div>

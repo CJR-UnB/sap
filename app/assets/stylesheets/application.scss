@@ -8,10 +8,16 @@
 @import "sidebar";
 
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Roboto';
+}
 
 body {
   background-color: #f1f1f1;
   font: 12px 'Open Sans';
+  color: #545454;
   padding: 0;
   margin: 0;
 }
@@ -45,5 +51,34 @@ body {
 .box {
   background-color: white;
   border: 1px solid #DCDCDC;
-  padding: 20px;
+  padding: 25px;
+}
+
+.btn, .form-control {
+  border-radius: 0;
+}
+
+.modal-content  {
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important; 
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }
