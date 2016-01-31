@@ -14,5 +14,6 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require collapsible
+//= require modal
 //= require turbolinks
 //= require_tree .
