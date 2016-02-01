@@ -1,4 +1,4 @@
-.alert, .btn, {
+.alert, .btn, .navbar {
   font: 14px 'Roboto';
 }
 
@@ -10,4 +10,8 @@
 
 .btn, .form-control {
   border-radius: 0;
+}
+
+.navbar {
+  padding: 2px;
 }

@@ -38,4 +38,6 @@ Rails.application.routes.draw do
   resources :areas
   resources :sectors
   
+  get '/home' => 'home#index'
+
 end

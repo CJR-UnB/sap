@@ -1,0 +1,84 @@
+<aside class="sidebar-left-collapse">
+
+  <a href="/" class="company-logo"><%= image_tag("cjr.png", class:'cjr-logo') %></a>
+
+  <div class="sidebar-links">
+
+    <div class="link-blue selected">
+
+      <a href="#">
+        <i class="fa fa-user"></i>Membros
+      </a>
+
+      <ul class="sub-links">
+        <li><a href="#">Ver Perfil</a></li>
+        <li><a href="#">Atualizar Dados</a></li>
+        <li><%= link_to 'Todos os Membros', members_path %></li>
+        <li><%= link_to 'Sair', logout_path %></li>
+      </ul>
+
+    </div>
+
+    <div class="link-red">
+
+      <a href="#">
+        <i class="fa fa-book"></i>Conhecimentos
+      </a>
+
+      <ul class="sub-links">
+        <li><%= link_to 'Todos os Conhecimentos', knowledges_path %></li>
+        <li><%= link_to 'Níveis de Conhecimento', knowledge_levels_path %></li>
+        <li><%= link_to 'Tecnologias', technologies_path %></li>
+        <li><%= link_to 'Histórico de Requisições', request_histories_path %></li>
+      </ul>
+
+    </div>
+
+    <div class="link-yellow">
+
+      <a href="#">
+        <i class="fa fa-keyboard-o"></i>Projetos
+      </a>
+
+      <ul class="sub-links">
+        <li><%= link_to 'Todos os Projetos', projects_path %></li>
+        <li><%= link_to 'Status de Projeto', project_statuses_path %></li>
+        <li><%= link_to 'Histórico de Projetos', project_histories_path %></li>
+      </ul>
+
+    </div>
+
+
+    <div class="link-green">
+
+      <a href="#">
+        <i class="fa fa-navicon"></i>Outros
+      </a>
+
+      <ul class="sub-links">
+        <li><%= link_to 'Cargos', jobs_path %></li>
+        <li><%= link_to 'Núcleos', sectors_path %></li>
+        <li><%= link_to 'Áreas', areas_path %></li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</aside>
+
+<script>
+
+  $(function () {
+
+    var links = $('.sidebar-links > div');
+
+    links.on('click', function () {
+
+      links.removeClass('selected');
+      $(this).addClass('selected');
+
+    });
+  });
+
+</script>

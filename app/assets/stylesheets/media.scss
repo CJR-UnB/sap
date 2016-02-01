@@ -4,7 +4,15 @@
     padding: 70px 20px 80px 20px;
     margin-top: 10px;
   }
-  
+
+  .devise-login, .alert-loginpage {
+    width: 90%;
+  }
+
+  .alert-loginpage {
+    margin-bottom: 40px;
+  }
+
 }
 
 @media screen and (min-width: 451px) and (max-width: 900px) {
@@ -13,6 +21,13 @@
     padding: 60px 20px 80px 20px;
   }
 
+  .devise-login, .alert-loginpage {
+    width: 400px;
+  }
+
+  .alert-loginpage {
+    margin-bottom: 40px;
+  }
 }
 
 @media screen and (min-width: 901px) {
@@ -20,6 +35,14 @@
   .main-content {
     padding: 20px 20px 80px 100px;
     margin-left: 100px;
+  }
+
+  .devise-login, .alert-loginpage {
+    width: 400px;
+  }
+
+  .alert-loginpage {
+    margin-bottom: 40px;
   }
 
 }

@@ -17,6 +17,15 @@ h1, h2, h3, h4, h5 {
   font-family: 'Roboto';
 }
 
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+html {
+  display: table;
+}
+
 body {
   background-color: #f1f1f1;
   font: 12px 'Open Sans';
@@ -25,13 +34,27 @@ body {
   margin: 0;
 }
 
-.box {
+.box, .navbar {
   background-color: white;
   border: 1px solid #DCDCDC;
-  padding: 25px;
-  margin-bottom: -40px;
+  border-radius: 0;
 }
+
+.box {
+  padding: 25px;
+}
+
 
 #flash {
   border-radius: 0;
+}
+
+body.devise {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+body.devise > .box {
+  display: block;
+  margin: 0 auto;
 }

@@ -1,3 +1,3 @@
 jQuery ->
 
-    $('#flash').hide().fadeIn(800).delay(100000).fadeOut(800)
+    $('#flash').hide().fadeIn(800).delay(2000).fadeOut(800)

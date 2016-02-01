@@ -8,118 +8,27 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
   <%= csrf_meta_tags %>
 </head>
-<body>
 
-  <div id="modal-holder"></div>
+<% if member_signed_in? %>
 
-  <aside class="sidebar-left-collapse">
+  <body>
 
-    <a href="#" class="company-logo"><%= image_tag("cjr.png", class:'cjr-logo') %></a>
+    <%= render 'layouts/sidebar' %>
 
-    <div class="sidebar-links">
+    <%= render 'layouts/main_content' %>
 
-      <div class="link-blue selected">
+  </body>
 
-        <a href="#">
-          <i class="fa fa-user"></i>Membros
-        </a>
+<% else %>
 
-        <ul class="sub-links">
-          <li><a href="#">Ver Perfil</a></li>
-          <li><a href="#">Atualizar Dados</a></li>
-          <li><%= link_to 'Todos os Membros', members_path %></li>
-          <li><%= link_to 'Sair', logout_path %></li>
-        </ul>
+  <body class="devise">
 
-      </div>
+    <%= render 'layouts/flash' %>
 
-      <div class="link-red">
+    <%= yield %>
+    
+  </body>
 
-        <a href="#">
-          <i class="fa fa-book"></i>Conhecimentos
-        </a>
+<% end %>
 
-        <ul class="sub-links">
-          <li><%= link_to 'Todos os Conhecimentos', knowledges_path %></li>
-          <li><%= link_to 'Níveis de Conhecimento', knowledge_levels_path %></li>
-          <li><%= link_to 'Tecnologias', technologies_path %></li>
-          <li><%= link_to 'Histórico de Requisições', request_histories_path %></li>
-        </ul>
-
-      </div>
-
-      <div class="link-yellow">
-
-        <a href="#">
-          <i class="fa fa-keyboard-o"></i>Projetos
-        </a>
-
-        <ul class="sub-links">
-          <li><a href="#">Todos os Projetos</a></li>
-          <li><a href="#">Status de Projeto</a></li>
-          <li><a href="#">Histórico de Projetos</a></li>
-        </ul>
-
-      </div>
-
-
-      <div class="link-green">
-
-        <a href="#">
-          <i class="fa fa-navicon"></i>Outros
-        </a>
-
-        <ul class="sub-links">
-          <li><a href="#">Cargos</a></li>
-          <li><a href="#">Núcleos</a></li>
-          <li><a href="#">Áreas</a></li>
-          <li><a href="#">Status de Membro</a></li>
-        </ul>
-
-      </div>
-
-    </div>
-
-  </aside>
-
-  <div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
-        <% flash.each do |name, msg| %>
-          <% if msg.is_a?(String) %>
-            <% if current_member.present? %>
-              <div id="flash" class="alert-crud alert center-block text-center alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <%= content_tag :div, msg, :id => "flash_#{name}" %>
-              </div>
-            <% else %>
-              <div id="flash" class="alert-loginpage alert center-block text-center alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <%= content_tag :div, msg, :id => "flash_#{name}" %>
-              </div>
-            <% end %>
-          <% end %>
-        <% end %>
-        <%= yield %>
-      </div>
-    </div>
-  </div>
-
-  <script>
-
-    $(function () {
-
-      var links = $('.sidebar-links > div');
-
-      links.on('click', function () {
-
-        links.removeClass('selected');
-        $(this).addClass('selected');
-
-      });
-    });
-
-  </script>
-
-</body>
 </html>
