@@ -1,9 +1,11 @@
-.box
+= content_for :title, 'Exibindo Cargo'
+
+.modal-body
 
   p
-    strong Description:
+    strong Descrição: 
     = @job.description
 
-  = link_to 'Edit', edit_job_path(@job)
-  '|
-  = link_to 'Back', jobs_path
+.modal-footer
+
+  = link_to 'Fechar', jobs_path, class:'btn btn-success'

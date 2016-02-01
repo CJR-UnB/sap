@@ -15,11 +15,14 @@
         th
 
     tbody
+
       - @jobs.each do |job|
+      
         tr
           - if current_member.try(:admin?)
             td = job.id
-          td = job.description
+            
+          td = link_to job.description, job, data: { modal: true }
 
           td align="right"
             = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do

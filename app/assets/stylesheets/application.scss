@@ -5,6 +5,7 @@
   
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap_fix";
 @import "sidebar";
 @import "media";
 @import "modal";
@@ -31,6 +32,6 @@ body {
   margin-bottom: -40px;
 }
 
-.btn, .form-control {
+#flash {
   border-radius: 0;
 }

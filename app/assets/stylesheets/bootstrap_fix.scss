@@ -1,0 +1,13 @@
+.alert, .btn, {
+  font: 14px 'Roboto';
+}
+
+.alert-success {
+  background-color: #80c780;
+  border-color: #4cae4c;
+  color: #fff;
+}
+
+.btn, .form-control {
+  border-radius: 0;
+}
