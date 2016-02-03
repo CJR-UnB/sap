@@ -1,21 +1,38 @@
-h1 Listing activity_types
+.box
 
-table
-  thead
-    tr
-      th Description
-      th
-      th
-      th
+  h3 Tipos de Atividade
 
-  tbody
-    - @activity_types.each do |activity_type|
+  hr.divider
+
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = activity_type.description
-        td = link_to 'Show', activity_type
-        td = link_to 'Edit', edit_activity_type_path(activity_type)
-        td = link_to 'Destroy', activity_type, data: {:confirm => 'Are you sure?'}, :method => :delete
+        - unless current_member.try(:user?)
+          th Código
+        th Descrição
+        - unless current_member.try(:user?)
+          th
+          th
 
-br
+    tbody
 
-= link_to 'New Activity type', new_activity_type_path
+      - @activity_types.each do |activity_type|
+
+        tr
+          - unless current_member.try(:user?)
+            td = activity_type.id
+
+          td = link_to activity_type.description, activity_type, data: { modal: true }
+
+          - unless current_member.try(:user?)
+
+            td align="right"
+              = link_to edit_activity_type_path(activity_type), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+            td align="right"
+              = link_to activity_type, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  = link_to 'Novo Tipo de Atividade', new_activity_type_path, class:'btn btn-success', data: { modal: true }

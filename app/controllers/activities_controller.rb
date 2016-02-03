@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
 
+  respond_to :html, :json
   before_action :authenticate_member!
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
 
@@ -8,13 +9,16 @@ class ActivitiesController < ApplicationController
   end
 
   def show
+    respond_modal_with @activity
   end
 
   def new
     @activity = Activity.new
+    respond_modal_with @activity
   end
 
   def edit
+    respond_modal_with @activity
   end
 
   def create
@@ -22,11 +26,11 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
-        format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
-        format.json { render :show, status: :created, location: @activity }
+        flash[:notice] = 'A atividade foi criada com sucesso!'
+        format.js { render inline: "location.reload();" }
       else
-        format.html { render :new }
-        format.json { render json: @activity.errors, status: :unprocessable_entity }
+        flash[:danger] = 'Algo deu errado!'
+        format.js { render inline: "location.reload();" }
       end
     end
   end
@@ -34,11 +38,11 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
-        format.json { render :show, status: :ok, location: @activity }
+        flash[:notice] = 'A atividade foi atualizada com sucesso!'
+        format.js { render inline: "location.reload();" }
       else
-        format.html { render :edit }
-        format.json { render json: @activity.errors, status: :unprocessable_entity }
+        flash[:danger] = 'Algo deu errado!'
+        format.js { render inline: "location.reload();" }
       end
     end
   end
@@ -46,7 +50,7 @@ class ActivitiesController < ApplicationController
   def destroy
     @activity.destroy
     respond_to do |format|
-      format.html { redirect_to activities_url, notice: 'Activity was successfully destroyed.' }
+      format.html { redirect_to activities_url, notice: 'A atividade foi deletada com sucesso!' }
       format.json { head :no_content }
     end
   end

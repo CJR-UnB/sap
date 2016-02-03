@@ -6,6 +6,7 @@ class Member < ActiveRecord::Base
   belongs_to :sector
   belongs_to :job
   belongs_to :role
+  belongs_to :member_status
 
   has_many :knowledge_requests
   has_many :project_member_histories
@@ -16,6 +17,14 @@ class Member < ActiveRecord::Base
 
   def admin?
     self.role.description == "Administrador"
+  end
+
+  def mod?
+    self.role.description == "Moderador"
+  end
+
+  def user?
+    self.role.description == "Usuário"
   end
 
   def member_name

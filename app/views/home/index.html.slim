@@ -1,3 +1,258 @@
-.box
+.row
 
-  h2 Esta é a home!
+  .col-sm-4.col-xs-12
+
+    .notificacao
+
+      a href="/knowledge_requests"
+        
+        .notificacao-box.border-top-red
+
+          .row
+
+            .container-fluid
+
+              .col-sm-2 style="background-color: #DA4545; padding: 10px; color: #fff"
+                h4.text-center 23
+
+              .col-sm-10 style="padding: 10px"
+                h4.text-right Requisições de Conhecimento
+
+  .col-sm-4.col-xs-12
+
+    .notificacao
+ 
+      .notificacao-box.border-top-blue
+
+        .row
+
+          .container-fluid
+
+            .col-sm-2 style="background-color: #487DB2; padding: 10px; color: #fff"
+              h4.text-center 10
+
+            .col-sm-10 style="padding: 10px"
+              h4.text-right Novas Mensagens
+
+  .col-sm-4.col-xs-12
+  
+    .notificacao.secao-home
+
+      .notificacao-box.border-top-green
+
+        .row
+
+          .container-fluid
+
+            .col-sm-2 style="background-color: #80C780; padding: 10px; color: #fff"
+              h4.text-center
+                i.fa.fa-user
+
+            .col-sm-10 style="padding: 10px;"
+              h4.text-right Suas Informações
+
+.row
+  
+  .col-sm-4.col-xs-12
+
+    .notificacao
+
+      .notificacao-box
+
+        .row
+
+          .container-fluid
+
+            .col-sm-12 style="padding-top: 10px"  
+
+              table.table.borderless
+
+                tbody
+
+                  tr
+                    td 
+                      strong Membro 1
+                    td align="right" Conhecimento 1
+
+                  tr
+                    td 
+                      strong Membro 2
+                    td align="right" Conhecimento 2
+
+                  tr
+                    td 
+                      strong Membro 3
+                    td align="right" Conhecimento 3
+
+                  tr
+                    td 
+                      strong Membro 4
+                    td align="right" Conhecimento 4
+
+                  tr
+                    td 
+                      strong Membro 5
+                    td align="right" Conhecimento 5
+
+  .col-sm-4.col-xs-12
+
+    .notificacao
+
+      .notificacao-box
+
+        .row
+
+          .container-fluid
+
+            .col-sm-12 style="padding-top: 10px"  
+
+              table.table.borderless
+
+                tbody
+
+                  tr
+                    td
+                      strong Empresa
+                    td align="right" CJR
+
+                  tr
+                    td 
+                      strong Membros
+                    td align="right" = Member.all.count.to_s
+
+                  tr
+                    td 
+                      strong Núcleos
+                    td align="right" = Sector.all.count.to_s
+
+                  tr
+                    td 
+                      strong Áreas
+                    td align="right" = Area.all.count.to_s
+
+                  tr
+                    td
+                      strong Projetos Atuais
+                    td align="right" = recupera_num_projetos_atuais.to_s
+
+  .col-sm-4.col-xs-12
+
+    .notificacao
+
+      .notificacao-box
+
+        .row
+
+          .container-fluid
+
+            .col-sm-12 style="padding-top: 10px"
+
+              table.table.borderless
+
+                tbody
+
+                  tr
+                    td 
+                      strong Email
+                    td align="right"
+                      = current_member.email
+
+                  tr
+                    td
+                      strong Perfil
+                    td align="right"
+                      = current_member.try(:role).try(:description)
+
+                  tr
+                    td
+                      strong Núcleo
+                    td align="right"
+                      = current_member.try(:sector).try(:short_name)
+
+                  tr
+                    td
+                      strong Área
+                    td align="right"
+                      = current_member.try(:area).try(:name)
+
+                  tr
+                    td
+                      strong Cargo
+                    td align="right"
+                      = current_member.try(:job).try(:description)
+
+.row
+
+  .col-sm-4.col-xs-12
+
+    .notificacao.secao-home-top
+
+      .notificacao-box style="padding: 10px"
+
+        .row
+
+          .col-sm-2
+            h4.text-center
+              i.fa.fa-keyboard-o
+
+          .col-sm-10
+            h4.text-right Seus Projetos
+
+        hr.divider
+
+        table.table
+
+          thead
+
+            tr
+              th Descrição
+              th.text-right Início
+
+          tbody
+
+            tr
+              td Projeto 1
+              td align="right" Ontem
+
+            tr
+              td Projeto 2
+              td align="right" 20 de janeiro
+
+            tr
+              td Projeto 3
+              td align="right" 12 de janeiro
+
+            tr
+              td Projeto 4
+              td align="right" 03 de dezembro
+
+  .col-sm-4.col-xs-12
+
+    .notificacao.secao-home-top
+
+      .notificacao-box style="padding: 10px"
+
+        .row
+
+          .col-sm-2
+            h4.text-center
+              i.fa.fa-book
+
+          .col-sm-10
+              h4.text-right Seus Conhecimentos         
+
+
+  .col-sm-4.col-xs-12
+
+    .notificacao.secao-home-top
+
+      .notificacao-box style="padding: 10px"
+
+        .row
+
+          .col-sm-2
+            h4.text-center
+              i.fa.fa-tasks
+
+          .col-sm-10
+              h4.text-right Suas Atividades  

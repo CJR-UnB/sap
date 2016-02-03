@@ -1,5 +1,6 @@
 class MembersController < ApplicationController
 
+  respond_to :html, :json
   before_action :authenticate_member!
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource except: [:create]
@@ -8,8 +9,23 @@ class MembersController < ApplicationController
     @members = Member.all
   end
 
+  def show
+    respond_modal_with @member
+  end
+
   def new
-    @member = Member.new
+    unless current_member.user?
+      @member = Member.new
+      respond_modal_with @member
+    end
+  end
+
+  def edit
+    if @member == current_member or current_member.admin? or (@member.user? and current_member.mod?)
+      respond_modal_with @member
+    else
+      redirect_to members_path, alert: 'Você não possui autorização.'
+    end
   end
 
   def create
@@ -26,16 +42,35 @@ class MembersController < ApplicationController
     end
   end
 
-  def show
-  end
-
-  def edit
-  end
-
   def update
+
+    # Isso aqui permite que o usuário edite as informações sem precisar atualizar a senha
+    if params[:member][:password].blank? && params[:member][:password_confirmation].blank?
+        params[:member].delete(:password)
+        params[:member].delete(:password_confirmation)
+    end
+
+    respond_to do |format|
+      if @member.update_attributes(params[:member].permit(:name, :last_name, :member_status_id, :job_id, :sector_id, :area_id, :role_id, :email, :password, :password_confirmation))
+        if @member == current_member
+          format.html { redirect_to :back, notice: 'O seu perfil foi atualizado com sucesso.' }
+        else
+          format.html { redirect_to :back, notice: 'O perfil do membro foi atualizado com sucesso.' }
+        end
+        format.json { render :show, status: :ok, location: @member }
+      else
+        format.html { render :edit }
+        format.json { render json: @member.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
+    @member.delete
+    respond_to do |format|
+      format.html { redirect_to members_url, notice: 'O membro foi deletado com sucesso!' }
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -45,7 +80,7 @@ class MembersController < ApplicationController
     end
 
     def member_params
-      params.require(:member).permit(:name, :last_name, :job_id, :sector_id, :area_id, :role_id, :email, :password, :password_confirmation)
+      params.require(:member).permit(:name, :last_name, :member_status_id, :job_id, :sector_id, :area_id, :role_id, :email, :password, :password_confirmation)
     end
 
 end

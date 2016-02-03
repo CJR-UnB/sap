@@ -1,25 +1,41 @@
-h1 Listing activities
+.box
 
-table
-  thead
-    tr
-      th Description
-      th Credit numbers
-      th Activity type
-      th
-      th
-      th
+  h3 Atividades
 
-  tbody
-    - @activities.each do |activity|
+  hr.divider
+
+  table.table.table-responsive
+
+    thead
       tr
-        td = activity.description
-        td = activity.credit_numbers
-        td = activity.activity_type
-        td = link_to 'Show', activity
-        td = link_to 'Edit', edit_activity_path(activity)
-        td = link_to 'Destroy', activity, data: {:confirm => 'Are you sure?'}, :method => :delete
+        - unless current_member.user?
+          th Código
+        th Descrição
+        th Número de Créditos
+        th Tipo
+        - unless current_member.user?
+          th
+          th
 
-br
+    tbody
 
-= link_to 'New Activity', new_activity_path
+      - @activities.each do |activity|
+
+        tr
+          - unless current_member.user?
+            td = activity.id
+          td = link_to activity.description, activity, data: { modal: true }
+          td = activity.credit_numbers
+          td = activity.activity_type.description
+
+          td align="right"
+            = link_to edit_activity_path(activity), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
+
+          td align="right"
+            = link_to activity, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
+
+  br
+
+  = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal:true }

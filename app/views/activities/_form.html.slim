@@ -1,18 +1,18 @@
 = form_for @activity do |f|
-  - if @activity.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@activity.errors.count, "error")} prohibited this activity from being saved:"
-      ul
-        - @activity.errors.full_messages.each do |message|
-          li = message
+  
+  .modal-body
 
-  .field
-    = f.label :description
-    = f.text_field :description
-  .field
-    = f.label :credit_numbers
-    = f.number_field :credit_numbers
-  .field
-    = f.label :activity_type
-    = f.text_field :activity_type
-  .actions = f.submit
+    .form-group
+      = f.label :descrição
+      = f.text_field :description, class:'form-control', required: true
+
+    .form-group
+      = f.label :número_de_créditos
+      = f.number_field :credit_numbers, class:'form-control', required: true
+
+    .form-group
+      = f.label :tipo
+      = f.select :activity_type_id, ActivityType.all.map { |a| [a.description, a.id] }, {}, { class:'form-control' } 
+
+  .modal-footer
+    = f.submit 'Enviar', class:'btn btn-success'

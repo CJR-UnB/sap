@@ -7,9 +7,12 @@ class Ability
     member ||= Member.new
 
     if member.admin?
-        can :manage, :all
+      can :manage, :all
+    elsif member.mod?
+      can :manage, :all
     else
-        can :read, :all
+      can :read, :all
+      can [:update], Member
     end
     
   end

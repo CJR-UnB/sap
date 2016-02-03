@@ -1,18 +1,14 @@
 <div id="modal-holder"></div>
 
 <div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
 
-      <nav class="navbar navbar-default">
-        <span class="navbar-brand" title="Sistema de Alocação de Projetos">SAP</span>
-        <p class="navbar-text pull-right">Olá, <%= current_member.email %></p>
-      </nav>
+  <nav class="navbar navbar-default">
+    <span class="navbar-brand" title="Sistema de Alocação de Projetos">SAP</span>
+    <p class="navbar-text pull-right">Olá, <%= current_member.email %></p>
+  </nav>
 
-      <%= render 'layouts/flash' %>
+  <%= render 'layouts/flash' %>
 
-      <%= yield %>
-
-    </div>
-  </div>
+  <%= yield %>
+  
 </div>

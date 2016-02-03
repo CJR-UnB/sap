@@ -1,6 +1,6 @@
 <aside class="sidebar-left-collapse">
 
-  <a href="/" class="company-logo"><%= image_tag("cjr.png", class:'cjr-logo') %></a>
+  <a href="/home" class="company-logo"><%= image_tag("cjr.png", class:'cjr-logo', title:'Ir para a página inicial') %></a>
 
   <div class="sidebar-links">
 
@@ -11,8 +11,8 @@
       </a>
 
       <ul class="sub-links">
-        <li><a href="#">Ver Perfil</a></li>
-        <li><a href="#">Atualizar Dados</a></li>
+        <li><%= link_to 'Ver Perfil', current_member, data: { modal: true } %></li>
+        <li><%= link_to 'Atualizar Dados', edit_member_path(current_member), data: { modal: true } %></li>
         <li><%= link_to 'Todos os Membros', members_path %></li>
         <li><%= link_to 'Sair', logout_path %></li>
       </ul>

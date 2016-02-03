@@ -1,43 +1,46 @@
 = form_for @member do |f|
+  
+  .modal-body
 
-  - if @member.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@member.errors.count, "error")} prohibited this member from being saved:"
-      ul
-        - @member.errors.full_messages.each do |message|
-          li = message
+    .form-group
+      = f.label :nome
+      = f.text_field :name, class:'form-control'
 
-  .field
-    = f.label :name
-    = f.text_field :name
+    .form-group
+      = f.label :sobrenome
+      = f.text_field :last_name, class:'form-control'
 
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
+    .form-group
+      = f.label :status
+      = f.select :member_status_id, MemberStatus.all.map { |m| [m.description, m.id] }, {}, { class:'form-control' }
 
-  .field
-    = f.label :role
-    = f.select :role_id, Role.all.map { |r| [r.description, r.id] }
+    .form-group
+      = f.label :perfil
+      = f.select :role_id, Role.all.map { |r| [r.description, r.id] }, {}, { class:'form-control' }
 
-  .field
-    = f.label :sector
-    = f.select :sector_id, Sector.all.map { |s| [s.name, s.id] }
+    .form-group
+      = f.label :cargo
+      = f.select :job_id, Job.all.map { |j| [j.description, j.id] }, {}, { class:'form-control' }
 
-  .field
-    = f.label :area
-    = f.select :area_id, Area.all.map { |a| [a.name, a.id] }
+    .form-group
+      = f.label :núcleo
+      = f.select :sector_id, Sector.all.map { |s| [s.name, s.id] }, {}, { class:'form-control' }
 
-  .field
-    = f.label :email
-    = f.email_field :email
+    .form-group
+      = f.label :area
+      = f.select :area_id, Area.all.map { |a| [a.name, a.id] }, {}, { class:'form-control' }
 
-  .field
-    = f.label :password
-    = f.password_field :password
+    .form-group
+      = f.label :email
+      = f.email_field :email, class:'form-control'
 
-  .field
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
+    .form-group
+      = f.label :senha
+      = f.password_field :password, class:'form-control'
 
-  .actions
-    = f.submit
+    .form-group
+      = f.label :confirmação_de_senha
+      = f.password_field :password_confirmation, class:'form-control'
+
+  .modal-footer
+    = f.submit 'Enviar', class:'btn btn-success'

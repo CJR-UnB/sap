@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
 
   respond_to :html, :json
+  before_action :authenticate_member!
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   def index
