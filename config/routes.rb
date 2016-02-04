@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :roles
   # Define a raiz para a página de login e as rotas /login e /logout
   devise_scope :member do
     root to: "devise/sessions#new"
