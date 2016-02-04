@@ -1,25 +1,32 @@
-h1 Listing sectors
+= content_for :titulo, 'Núcleos'
 
-table
-  thead
-    tr
-      th Short name
-      th Name
-      th Description
-      th
-      th
-      th
+.box
 
-  tbody
-    - @sectors.each do |sector|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = sector.short_name
-        td = sector.name
-        td = sector.description
-        td = link_to 'Show', sector
-        td = link_to 'Edit', edit_sector_path(sector)
-        td = link_to 'Destroy', sector, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Sigla
+        th Nome
+        th
+        th
 
-br
+    tbody
 
-= link_to 'New Sector', new_sector_path
+      - @sectors.each do |sector|
+    
+        tr
+          td = sector.id
+          td = sector.short_name
+          td = link_to sector.name, sector, data: { modal: true }
+
+          td align="right"
+            = link_to edit_sector_path(sector), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
+
+          td align="right"
+            = link_to sector, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
+
+  = link_to 'Novo Núcleo', new_sector_path, class:'btn btn-success', data: { modal: true }

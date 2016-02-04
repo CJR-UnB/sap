@@ -1,23 +1,32 @@
-h1 Listing areas
+= content_for :titulo, 'Áreas'
 
-table
-  thead
-    tr
-      th Name
-      th Sector
-      th
-      th
-      th
+.box
 
-  tbody
-    - @areas.each do |area|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = area.name
-        td = area.sector
-        td = link_to 'Show', area
-        td = link_to 'Edit', edit_area_path(area)
-        td = link_to 'Destroy', area, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Nome
+        th Setor
+        th
+        th
 
-br
+    tbody
 
-= link_to 'New Area', new_area_path
+      - @areas.each do |area|
+
+        tr
+          td = area.id
+          td = link_to area.name, area, data: { modal: true }
+          td = link_to area.sector.short_name, area.sector, data: { modal: true }
+
+          td align="right"
+            = link_to edit_area_path(area), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
+
+          td align="right"
+            = link_to area, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
+
+  = link_to 'Nova Área', new_area_path, class:'btn btn-success', data: { modal: true }

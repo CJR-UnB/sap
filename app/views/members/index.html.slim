@@ -1,46 +1,38 @@
+- content_for :titulo, 'Membros'
+
 .box
-
-  h3 Membros
-
-  hr.divider
 
   table.table.table-responsive
 
     thead
       tr
-        - unless current_member.user?
-          th Código
+        th Código
         th Nome
         th Status
         th Email
         th Perfil
         th Núcleo
-        - unless current_member.user?
-          th
-          th
+        th
+        th
 
     tbody
 
       - @members.each do |member|
 
         tr
-          - unless current_member.user?
-            td = member.id
+          td = member.id
           td = link_to member.try(:member_name), member, data: { modal: true }
           td = member.try(:member_status).try(:description)
           td = member.email
           td = member.try(:role).try(:description)
           td = member.try(:sector).try(:name)
 
-          - unless current_member.user?
+          td align="right"
+            = link_to edit_member_path(member), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
 
-            td align="right"
-              = link_to edit_member_path(member), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
+          td align="right"
+            = link_to member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
 
-            td align="right"
-              = link_to member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
-
-  - unless current_member.user?
-    = link_to 'Novo Membro', new_member_path, data: { modal: true }, class:'btn btn-success'
+  = link_to 'Novo Membro', new_member_path, data: { modal: true }, class:'btn btn-success'

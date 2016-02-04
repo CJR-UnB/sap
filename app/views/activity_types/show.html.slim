@@ -1,9 +1,9 @@
-p#notice = notice
+- content_for :title, 'Exibindo Tipo de Atividade'
 
-p
-  strong Description:
-  = @activity_type.description
+.modal-body
+  p
+    strong Descrição: 
+    = @activity_type.description
 
-= link_to 'Edit', edit_activity_type_path(@activity_type)
-'|
-= link_to 'Back', activity_types_path
+.modal-footer
+  = link_to 'Fechar', activity_types_path, class:'btn btn-success'

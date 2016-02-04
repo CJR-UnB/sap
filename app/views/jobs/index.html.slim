@@ -1,38 +1,30 @@
+- content_for :titulo, 'Cargos'
+
 .box
-
-  h3 Cargos
-
-  hr.divider
 
   table.table.table-responsive.table-hover
 
     thead
       tr
-        - if current_member.try(:admin?)  
-          th Código
+        th Código
         th Descrição
-        - unless current_member.try(:user?)
-          th
-          th
+        th
+        th
 
     tbody
 
       - @jobs.each do |job|
       
         tr
-          - if current_member.try(:admin?)
-            td = job.id
-            
+          td = job.id
           td = link_to job.description, job, data: { modal: true }
 
-          - unless current_member.try(:user?)
-            
-            td align="right"
-              = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
+          td align="right"
+            = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
 
-            td align="right"
-              = link_to job, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+          td align="right"
+            = link_to job, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
 
   = link_to 'Novo Cargo', new_job_path, data: { modal: true }, class:'btn btn-success'

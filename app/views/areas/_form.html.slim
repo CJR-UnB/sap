@@ -1,15 +1,14 @@
 = form_for @area do |f|
-  - if @area.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@area.errors.count, "error")} prohibited this area from being saved:"
-      ul
-        - @area.errors.full_messages.each do |message|
-          li = message
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :sector
-    = f.text_field :sector
-  .actions = f.submit
+  .modal-body
+
+    .form-group
+      = f.label :nome
+      = f.text_field :name, class:'form-control', required: true
+
+    .form-group
+      = f.label :núcleo
+      = f.select :sector_id, Sector.all.map { |s| [s.name, s.id] }, {}, { class:'form-control' } 
+
+  .modal-footer
+    = f.submit 'Enviar', class:'btn btn-success'

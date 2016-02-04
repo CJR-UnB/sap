@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   resources :members
   resources :member_statuses
 
-  resources :roles
 
   resources :knowledge_requests
   resources :request_statuses

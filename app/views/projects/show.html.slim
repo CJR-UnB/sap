@@ -1,18 +1,16 @@
-p#notice = notice
+= content_for :title, 'Exibindo Projeto'
 
 p
-  strong Description:
+  strong Descrição: 
   = @project.description
 p
-  strong Price:
+  strong Preço: 
   = @project.price
 p
-  strong Link:
+  strong Link: 
   = @project.link
 p
-  strong Project status:
-  = @project.project_status
+  strong Status: 
+  = @project.project_status.description
 
-= link_to 'Edit', edit_project_path(@project)
-'|
-= link_to 'Back', projects_path
+= link_to 'Fechar', projects_path

@@ -3,29 +3,20 @@ class MembersController < ApplicationController
   respond_to :html, :json
   before_action :authenticate_member!
   before_action :set_member, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: [:create]
+  before_action :modal_responder, only: [:show, :edit]
 
   def index
     @members = Member.all
   end
 
   def show
-    respond_modal_with @member
   end
 
   def new
-    unless current_member.user?
-      @member = Member.new
-      respond_modal_with @member
-    end
+    respond_modal_with @member = Member.new
   end
 
   def edit
-    if @member == current_member or current_member.admin? or (@member.user? and current_member.mod?)
-      respond_modal_with @member
-    else
-      redirect_to members_path, alert: 'Você não possui autorização.'
-    end
   end
 
   def create
@@ -81,6 +72,10 @@ class MembersController < ApplicationController
 
     def member_params
       params.require(:member).permit(:name, :last_name, :member_status_id, :job_id, :sector_id, :area_id, :role_id, :email, :password, :password_confirmation)
+    end
+
+    def modal_responder
+      respond_modal_with set_member
     end
 
 end

@@ -1,15 +1,19 @@
-p#notice = notice
+= content_for :title, 'Exibindo Núcleo'
 
-p
-  strong Short name:
-  = @sector.short_name
-p
-  strong Name:
-  = @sector.name
-p
-  strong Description:
-  = @sector.description
+.modal-body
 
-= link_to 'Edit', edit_sector_path(@sector)
-'|
-= link_to 'Back', sectors_path
+  p
+    strong Sigla: 
+    = @sector.short_name
+
+  p
+    strong Nome: 
+    = @sector.name
+
+  p
+    strong Descrição: 
+    = @sector.description
+
+.modal-footer
+
+  = link_to 'Fechar', sectors_path, class:'btn btn-success'

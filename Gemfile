@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'devise', '~> 3.5', '>= 3.5.5'
-gem 'cancan', '~> 1.6', '>= 1.6.10'
 
 gem 'bootstrap-sass', '~> 3.3.6'
 
@@ -15,8 +14,6 @@ gem 'slim-rails', '~> 3.0', '>= 3.0.1'
 gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
 gem 'pg'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views

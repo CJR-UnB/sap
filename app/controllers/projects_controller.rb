@@ -1,34 +1,30 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
 
-  # GET /projects
-  # GET /projects.json
+  respond_to :html, :json
+  before_action :authenticate_member!
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :modal_responder, only: [:show, :edit]
+
   def index
     @projects = Project.all
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
   def show
   end
 
-  # GET /projects/new
   def new
-    @project = Project.new
+    respond_modal_with @project = Project.new
   end
 
-  # GET /projects/1/edit
   def edit
   end
 
-  # POST /projects
-  # POST /projects.json
   def create
     @project = Project.new(project_params)
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to projects_path, notice: 'O projeto foi criado com sucesso!' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -37,12 +33,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to projects_path, notice: 'O projeto foi atualizado com sucesso!' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -51,24 +45,26 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to projects_url, notice: 'O projeto foi deletado com sucesso!' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_project
       @project = Project.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:description, :price, :link, :project_status_id)
     end
+
+    def modal_responder
+      respond_modal_with set_project
+    end
+
 end

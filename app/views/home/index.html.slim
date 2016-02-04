@@ -1,3 +1,5 @@
+- content_for :titulo, 'Home'
+
 .row
 
   .col-sm-4.col-xs-12
@@ -29,10 +31,11 @@
           .container-fluid
 
             .col-sm-2 style="background-color: #487DB2; padding: 10px; color: #fff"
-              h4.text-center 10
+              h4.text-center
+                i.fa.fa-users
 
             .col-sm-10 style="padding: 10px"
-              h4.text-right Novas Mensagens
+              h4.text-right Informações da Empresa
 
   .col-sm-4.col-xs-12
   
@@ -133,7 +136,7 @@
                   tr
                     td
                       strong Projetos Atuais
-                    td align="right" = recupera_num_projetos_atuais.to_s
+                    td align="right" = recupera_num_projetos_atuais('Em desenvolvimento').to_s
 
   .col-sm-4.col-xs-12
 
@@ -161,7 +164,7 @@
                     td
                       strong Perfil
                     td align="right"
-                      = current_member.try(:role).try(:description)
+                      = ''
 
                   tr
                     td

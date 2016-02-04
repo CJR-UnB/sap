@@ -19,3 +19,16 @@
 .borderless td, .borderless th {
   border: none !important;
 }
+
+.popover {
+  border-radius: 0;
+}
+
+.popover-title {
+  background-color: white;
+  font: 13px 'Roboto';
+}
+
+.popover-content {
+  font: 12px 'Open Sans';
+}

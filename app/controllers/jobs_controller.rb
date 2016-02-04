@@ -3,22 +3,20 @@ class JobsController < ApplicationController
   respond_to :html, :json
   before_action :authenticate_member!
   before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :modal_responder, only: [:show, :edit]
 
   def index
     @jobs = Job.all
   end
 
   def show
-    respond_modal_with @job
   end
 
   def new
-    @job = Job.new
-    respond_modal_with @job
+    respond_modal_with @job = Job.new
   end
 
   def edit
-    respond_modal_with @job
   end
 
   def create
@@ -26,11 +24,11 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        flash[:notice] = 'O cargo foi criado com sucesso!'
-        format.js { render inline: "location.reload();" }
+        format.html { redirect_to jobs_path, notice: 'O cargo foi criado com sucesso!' }
+        format.json { render :show, status: :created, location: @job }
       else
-        flash[:danger] = 'Algo deu errado!'
-        format.js { render inline: "location.reload();" }
+        format.html { render :new }
+        format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,11 +36,11 @@ class JobsController < ApplicationController
   def update
     respond_to do |format|
       if @job.update(job_params)
-        flash[:notice] = 'O cargo foi atualizado com sucesso!'
-        format.js { render inline: "location.reload();" }
+        format.html { redirect_to jobs_path, notice: 'O cargo foi atualizado com sucesso!' }
+        format.json { render :show, status: :ok, location: @job }
       else
-        flash[:danger] = 'Algo deu errado!'
-        format.js { render inline: "location.reload();" }
+        format.html { render :edit }
+        format.json { render json: @job.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -64,5 +62,9 @@ class JobsController < ApplicationController
     def job_params
       params.require(:job).permit(:description)
     end
-    
+
+    def modal_responder
+      respond_modal_with set_job
+    end
+
 end

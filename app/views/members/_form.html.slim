@@ -13,11 +13,7 @@
     .form-group
       = f.label :status
       = f.select :member_status_id, MemberStatus.all.map { |m| [m.description, m.id] }, {}, { class:'form-control' }
-
-    .form-group
-      = f.label :perfil
-      = f.select :role_id, Role.all.map { |r| [r.description, r.id] }, {}, { class:'form-control' }
-
+      
     .form-group
       = f.label :cargo
       = f.select :job_id, Job.all.map { |j| [j.description, j.id] }, {}, { class:'form-control' }

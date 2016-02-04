@@ -10,28 +10,15 @@ class ApplicationController < ActionController::Base
     home_path
   end
 
-  def current_ability
-    @current_ability ||= Ability.new(current_member)
-  end
-
-  # Caso o usuário não esteja autorizado a acessar um certo recurso, então ele é redirecionado
-  # para a rota anterior ou para a home
-  rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = 'Você não possui autorização.'
-    redirect_to request.referer || home_path
-  end
-
   def respond_modal_with(*args, &blk)
     options = args.extract_options!
     options[:responder] = ModalResponder
     respond_with *args, options, &blk
   end
 
-  def recupera_num_projetos_atuais
+  def recupera_num_projetos_atuais(filtro)
 
     projetos = Project.all
-
-    filtro = 'Em desenvolvimento'
 
     atuais = 0
 

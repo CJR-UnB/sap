@@ -1,29 +1,24 @@
+- content_for :titulo, 'Atividades'
+
 .box
-
-  h3 Atividades
-
-  hr.divider
 
   table.table.table-responsive
 
     thead
-      tr
-        - unless current_member.user?
-          th Código
+    tr
+        th Código
         th Descrição
         th Número de Créditos
         th Tipo
-        - unless current_member.user?
-          th
-          th
+        th
+        th
 
     tbody
 
       - @activities.each do |activity|
 
         tr
-          - unless current_member.user?
-            td = activity.id
+          td = activity.id
           td = link_to activity.description, activity, data: { modal: true }
           td = activity.credit_numbers
           td = activity.activity_type.description
@@ -38,4 +33,4 @@
 
   br
 
-  = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal:true }
+  = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }

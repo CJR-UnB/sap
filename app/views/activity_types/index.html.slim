@@ -1,38 +1,30 @@
+- content_for :titulo, 'Tipos de Atividade'
+
 .box
-
-  h3 Tipos de Atividade
-
-  hr.divider
 
   table.table.table-responsive.table-hover
 
     thead
       tr
-        - unless current_member.try(:user?)
-          th Código
+        th Código
         th Descrição
-        - unless current_member.try(:user?)
-          th
-          th
+        th
+        th
 
     tbody
 
       - @activity_types.each do |activity_type|
 
         tr
-          - unless current_member.try(:user?)
-            td = activity_type.id
-
+          td = activity_type.id
           td = link_to activity_type.description, activity_type, data: { modal: true }
 
-          - unless current_member.try(:user?)
+          td align="right"
+            = link_to edit_activity_type_path(activity_type), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
 
-            td align="right"
-              = link_to edit_activity_type_path(activity_type), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
-            td align="right"
-              = link_to activity_type, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+          td align="right"
+            = link_to activity_type, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
 
   = link_to 'Novo Tipo de Atividade', new_activity_type_path, class:'btn btn-success', data: { modal: true }

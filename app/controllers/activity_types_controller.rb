@@ -3,7 +3,6 @@ class ActivityTypesController < ApplicationController
   respond_to :html, :json
   before_action :authenticate_member!
   before_action :set_activity_type, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: [:create]
 
   def index
     @activity_types = ActivityType.all
