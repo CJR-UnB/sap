@@ -1,12 +1,16 @@
-p#notice = notice
+= content_for :title, 'Exibindo Atividade'
 
-p
-  strong Member:
-  = @member_has_activity.member
-p
-  strong Activity:
-  = @member_has_activity.activity
+.modal-body
+  
+  - unless current_member.user?
+    p
+      strong Membro: 
+      = @member_has_activity.member.member_name
 
-= link_to 'Edit', edit_member_has_activity_path(@member_has_activity)
-'|
-= link_to 'Back', member_has_activities_path
+  p
+    strong Atividade: 
+    = @member_has_activity.activity.description
+
+.modal-footer
+  
+  = link_to 'Fechar', member_has_activities_path, class:'btn btn-success'

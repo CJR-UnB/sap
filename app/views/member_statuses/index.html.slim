@@ -1,21 +1,38 @@
-h1 Listing member_statuses
+= content_for :titulo, 'Status de Membro'
 
-table
-  thead
-    tr
-      th Description
-      th
-      th
-      th
+.box
 
-  tbody
-    - @member_statuses.each do |member_status|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = member_status.description
-        td = link_to 'Show', member_status
-        td = link_to 'Edit', edit_member_status_path(member_status)
-        td = link_to 'Destroy', member_status, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Descrição
+        - if can? :update, MemberStatus
+          th
+        - if can? :destroy, MemberStatus
+          th
 
-br
+    tbody
 
-= link_to 'New Member status', new_member_status_path
+      - @member_statuses.each do |member_status|
+
+        tr
+          td = member_status.id
+          td = link_to member_status.try(:description), member_status, data: { modal: true }
+
+          - if can? :update, MemberStatus
+
+            td align="right"
+
+              = link_to edit_member_status_path(member_status), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil 
+
+          - if can? :destroy, MemberStatus
+
+            td align="right"
+
+              = link_to member_status, data: {:confirm => 'Are you sure?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  = link_to 'Novo Status de Membro', new_member_status_path, data: { modal: true }, class:'btn btn-success'

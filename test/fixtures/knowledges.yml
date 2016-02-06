@@ -2,10 +2,10 @@
 
 one:
   description: MyString
-  technology_id: 
   knowledge_level_id: 
+  technology_id: 
 
 two:
   description: MyString
-  technology_id: 
   knowledge_level_id: 
+  technology_id: 

@@ -1,21 +1,39 @@
-h1 Listing roles
+= content_for :titulo, 'Perfis'
 
-table
-  thead
-    tr
-      th Description
-      th
-      th
-      th
+.box
 
-  tbody
-    - @roles.each do |role|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = role.description
-        td = link_to 'Show', role
-        td = link_to 'Edit', edit_role_path(role)
-        td = link_to 'Destroy', role, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Descrição
+        - if can? :update, Role
+          th
+        - if can? :destroy, Role
+          th
 
-br
+    tbody
 
-= link_to 'New Role', new_role_path
+      - @roles.each do |role|
+
+        tr
+          td = role.id
+          td = link_to role.description, role, data: { modal: true }
+          
+          - if can? :update, Role
+
+            td align="right"
+
+              = link_to edit_role_path(role), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, Role
+
+            td align="right"
+
+              = link_to role, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, Role
+    = link_to 'Novo Perfil', new_role_path, data: { modal: true }, class:'btn btn-success'

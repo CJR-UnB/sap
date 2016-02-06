@@ -1,12 +1,15 @@
-p#notice = notice
+= content_for :title, 'Exibindo Histórico de Requisição'
 
-p
-  strong Knowledge request:
-  = @request_history.knowledge_request
-p
-  strong Observation:
-  = @request_history.observation
+.modal-body
 
-= link_to 'Edit', edit_request_history_path(@request_history)
-'|
-= link_to 'Back', request_histories_path
+  p
+    strong Requisição de Conhecimento: 
+    = @request_history.knowledge_request.requisicao_completa
+
+  p
+    strong Observação: 
+    = @request_history.observation
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

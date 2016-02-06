@@ -1,1 +1,1 @@
-json.extract! @knowledge, :id, :description, :technology_id, :knowledge_level_id, :created_at, :updated_at
+json.extract! @knowledge, :id, :description, :knowledge_level_id, :technology_id, :created_at, :updated_at

@@ -164,7 +164,7 @@
                     td
                       strong Perfil
                     td align="right"
-                      = ''
+                      = current_member.try(:role).try(:description)
 
                   tr
                     td

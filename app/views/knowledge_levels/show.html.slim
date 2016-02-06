@@ -1,12 +1,14 @@
-p#notice = notice
+= content_for :title, 'Exibindo Nível de Conhecimento'
 
-p
-  strong Level:
-  = @knowledge_level.level
-p
-  strong Description:
-  = @knowledge_level.description
+.modal-body
 
-= link_to 'Edit', edit_knowledge_level_path(@knowledge_level)
-'|
-= link_to 'Back', knowledge_levels_path
+  p
+    strong Nível: 
+    = @knowledge_level.level
+  p
+    strong Descrição: 
+    = @knowledge_level.description
+
+.modal-footer
+
+  = link_to 'Fechar', knowledge_levels_path, class:'btn btn-success'

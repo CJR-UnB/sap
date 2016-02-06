@@ -1,9 +1,11 @@
-p#notice = notice
+= content_for :title, 'Exibindo Status de Requisição'
 
-p
-  strong Description:
-  = @request_status.description
+.modal-body
 
-= link_to 'Edit', edit_request_status_path(@request_status)
-'|
-= link_to 'Back', request_statuses_path
+  p
+    strong Descrição: 
+    = @request_status.description
+
+.modal-footer
+
+  = link_to 'Fechar', request_statuses_path, class:'btn btn-success'

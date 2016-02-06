@@ -8,8 +8,10 @@
       tr
         th Código
         th Descrição
-        th
-        th
+        - if can? :update, ActivityType
+          th
+        - if can? :destroy, ActivityType
+          th
 
     tbody
 
@@ -19,12 +21,15 @@
           td = activity_type.id
           td = link_to activity_type.description, activity_type, data: { modal: true }
 
-          td align="right"
-            = link_to edit_activity_type_path(activity_type), data: { modal: true }, title:'Editar' do
-              i.fa.fa-pencil
+          - if can? :update, ActivityType
+            td align="right"
+              = link_to edit_activity_type_path(activity_type), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
 
-          td align="right"
-            = link_to activity_type, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-              i.fa.fa-times
+          - if can? :destroy, ActivityType
+            td align="right"
+              = link_to activity_type, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
 
-  = link_to 'Novo Tipo de Atividade', new_activity_type_path, class:'btn btn-success', data: { modal: true }
+  - if can? :create, ActivityType
+    = link_to 'Novo Tipo de Atividade', new_activity_type_path, class:'btn btn-success', data: { modal: true }

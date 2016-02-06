@@ -1,15 +1,19 @@
-p#notice = notice
+= content_for :title, 'Exibindo Alocação'
 
-p
-  strong Member:
-  = @member_has_project.member
-p
-  strong Project:
-  = @member_has_project.project
-p
-  strong Project role:
-  = @member_has_project.project_role
+.modal-body
 
-= link_to 'Edit', edit_member_has_project_path(@member_has_project)
-'|
-= link_to 'Back', member_has_projects_path
+  p
+    strong Membro: 
+    = @member_has_project.member.try(:member_name)
+
+  p
+    strong Projeto: 
+    = @member_has_project.project.try(:description)
+
+  p
+    strong Função: 
+    = @member_has_project.project_role.try(:description)
+
+.modal-footer
+
+  = link_to 'Fechar', member_has_projects_path, class:'btn btn-success'

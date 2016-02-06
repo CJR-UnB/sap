@@ -1,9 +1,11 @@
-p#notice = notice
+= content_for :title, 'Exibindo Perfil'
 
-p
-  strong Description:
-  = @role.description
+.modal-body
 
-= link_to 'Edit', edit_role_path(@role)
-'|
-= link_to 'Back', roles_path
+  p
+    strong Descrição: 
+    = @role.description
+
+.modal-footer
+
+  = link_to 'Fechar', roles_path, class:'btn btn-success'

@@ -1,5 +1,5 @@
 class KnowledgesController < ApplicationController
-  
+
   respond_to :html, :json
   before_action :authenticate_member!
   before_action :set_knowledge, only: [:show, :edit, :update, :destroy]
@@ -14,7 +14,7 @@ class KnowledgesController < ApplicationController
   end
 
   def new
-    @knowledge = Knowledge.new
+    respond_modal_with @knowledge = Knowledge.new
   end
 
   def edit
@@ -61,7 +61,7 @@ class KnowledgesController < ApplicationController
     end
 
     def knowledge_params
-      params.require(:knowledge).permit(:description, :technology_id, :knowledge_level_id)
+      params.require(:knowledge).permit(:description, :knowledge_level_id, :technology_id)
     end
 
     def modal_responder

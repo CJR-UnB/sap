@@ -1,23 +1,36 @@
-h1 Listing project_histories
+= content_for :titulo, 'Históricos de Projetos'
 
-table
-  thead
-    tr
-      th Observation
-      th Project
-      th
-      th
-      th
+.box
 
-  tbody
-    - @project_histories.each do |project_history|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = project_history.observation
-        td = project_history.project
-        td = link_to 'Show', project_history
-        td = link_to 'Edit', edit_project_history_path(project_history)
-        td = link_to 'Destroy', project_history, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Observação
+        th Projeto
+        th
+        th
 
-br
+    tbody
 
-= link_to 'New Project history', new_project_history_path
+      - @project_histories.each do |project_history|
+
+        tr
+          td = project_history.id
+          td = link_to 'Ver Observação', project_history.observation, project_history, data: { modal: true }
+          td = project_history.project.try(:description)
+
+          td align="right"
+
+            = link_to edit_project_history_path(project_history), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
+
+          td align="right"
+
+            = link_to project_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
+
+  br
+
+  = link_to 'Novo Histórico de Projeto', new_project_history_path, data: { modal: true }, class:'btn btn-success'

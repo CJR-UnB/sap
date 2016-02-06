@@ -1,23 +1,46 @@
-h1 Listing member_has_knowledges
+- unless current_member.user?
+  = content_for :titulo, 'Conhecimentos dos Membros'
+- else
+  = content_for :titulo, 'Seus Conhecimentos'
 
-table
-  thead
-    tr
-      th Member
-      th Knowledge
-      th
-      th
-      th
+.box
 
-  tbody
-    - @member_has_knowledges.each do |member_has_knowledge|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = member_has_knowledge.member
-        td = member_has_knowledge.knowledge
-        td = link_to 'Show', member_has_knowledge
-        td = link_to 'Edit', edit_member_has_knowledge_path(member_has_knowledge)
-        td = link_to 'Destroy', member_has_knowledge, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        - if can? :create, MemberHasKnowledge
+          th Membro
+        th Conhecimento
+        - if can? :update, MemberHasKnowledge
+          th
+        - if can? :destroy, MemberHasKnowledge
+          th
 
-br
+    tbody
 
-= link_to 'New Member has knowledge', new_member_has_knowledge_path
+      - @member_has_knowledges.each do |member_has_knowledge|
+
+        tr
+          td = member_has_knowledge.id
+
+          - if can? :create, MemberHasKnowledge
+            td = link_to member_has_knowledge.member.try(:member_name), member_has_knowledge.member, data: { modal: true }
+
+          td = link_to member_has_knowledge.knowledge.try(:description), member_has_knowledge.knowledge, data: { modal: true }
+
+          - if can? :update, MemberHasKnowledge
+
+            td align="right"
+              = link_to edit_member_has_knowledge_path(member_has_knowledge), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencel
+
+          - if can? :destroy, MemberHasKnowledge
+          
+            td align="right"
+              = link_to member_has_knowledge, data: {:confirm => 'Are you sure?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, MemberHasKnowledge
+    = link_to 'Novo Conhecimento', new_member_has_knowledge_path, data: { modal: true }, class:'btn btn-success'

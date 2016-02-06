@@ -1,21 +1,39 @@
-h1 Listing request_statuses
+= content_for :titulo, 'Status de Requisição'
 
-table
-  thead
-    tr
-      th Description
-      th
-      th
-      th
+.box
 
-  tbody
-    - @request_statuses.each do |request_status|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = request_status.description
-        td = link_to 'Show', request_status
-        td = link_to 'Edit', edit_request_status_path(request_status)
-        td = link_to 'Destroy', request_status, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Descrição
+        - if can? :update, RequestStatus
+          th
+        - if can? :destroy, RequestStatus
+          th
 
-br
+    tbody
 
-= link_to 'New Request status', new_request_status_path
+      - @request_statuses.each do |request_status|
+
+        tr
+          td = request_status.id
+          td = link_to request_status.description, request_status, data: { modal: true }
+
+          - if can? :update, RequestStatus
+          
+            td align="right"
+
+              = link_to edit_request_status_path(request_status), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, RequestStatus
+
+            td align="right"
+
+              = link_to request_status, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, RequestStatus
+    = link_to 'Novo Status de Requisição', new_request_status_path, data: { modal: true }, class:'btn btn-success'

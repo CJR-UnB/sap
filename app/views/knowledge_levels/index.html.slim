@@ -1,23 +1,39 @@
-h1 Listing knowledge_levels
+= content_for :titulo, 'Níveis de Conhecimento'
 
-table
-  thead
-    tr
-      th Level
-      th Description
-      th
-      th
-      th
+.box
 
-  tbody
-    - @knowledge_levels.each do |knowledge_level|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = knowledge_level.level
-        td = knowledge_level.description
-        td = link_to 'Show', knowledge_level
-        td = link_to 'Edit', edit_knowledge_level_path(knowledge_level)
-        td = link_to 'Destroy', knowledge_level, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Nível
+        th Descrição
+        - if can? :update, KnowledgeLevel
+          th
+        - if can? :destroy, KnowledgeLevel
+          th
 
-br
+    tbody
 
-= link_to 'New Knowledge level', new_knowledge_level_path
+      - @knowledge_levels.each do |knowledge_level|
+
+        tr
+          td = knowledge_level.id
+          td = link_to knowledge_level.level, knowledge_level, data: { modal: true }
+          td = knowledge_level.description
+
+          - if can? :update, KnowledgeLevel
+            td align="right"
+              = link_to edit_knowledge_level_path(knowledge_level), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, KnowledgeLevel
+            td align="right"
+              = link_to knowledge_level, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  br
+
+  - if can? :create, KnowledgeLevel
+    = link_to 'Novo Nível de Conhecimento', new_knowledge_level_path, class:'btn btn-success', data: { modal: true }

@@ -1,25 +1,45 @@
-h1 Listing knowledge_requests
+= content_for :titulo, 'Requisições de Conhecimento'
 
-table
-  thead
-    tr
-      th Member
-      th Knowledge
-      th Request status
-      th
-      th
-      th
+.box
 
-  tbody
-    - @knowledge_requests.each do |knowledge_request|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = knowledge_request.member
-        td = knowledge_request.knowledge
-        td = knowledge_request.request_status
-        td = link_to 'Show', knowledge_request
-        td = link_to 'Edit', edit_knowledge_request_path(knowledge_request)
-        td = link_to 'Destroy', knowledge_request, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Status
+        th Membro
+        th Conhecimento
+        th Nível
+        - if can? :update, KnowledgeRequest
+          th
+        - if can? :destroy, KnowledgeRequest
+          th
 
-br
+    tbody
 
-= link_to 'New Knowledge request', new_knowledge_request_path
+      - @knowledge_requests.each do |knowledge_request|
+
+        tr
+          td = knowledge_request.id
+          td = knowledge_request.request_status.try(:description)
+          td = knowledge_request.member.try(:member_name)
+          td = knowledge_request.knowledge.try(:description)
+          td = knowledge_request.knowledge.try(:knowledge_level).try(:description)
+
+          - if can? :update, KnowledgeRequest
+
+            td align="right"
+              = link_to edit_knowledge_request_path(knowledge_request), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, KnowledgeRequest
+
+            td align="right"
+              = link_to knowledge_request, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Editar' do
+                i.fa.fa-times
+
+  br
+
+  - if can? :create, KnowledgeRequest
+    = link_to 'Nova Requisição de Conhecimento', new_knowledge_request_path, data: { modal: true }, class:'btn btn-success'

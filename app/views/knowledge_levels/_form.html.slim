@@ -1,15 +1,15 @@
 = form_for @knowledge_level do |f|
-  - if @knowledge_level.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@knowledge_level.errors.count, "error")} prohibited this knowledge_level from being saved:"
-      ul
-        - @knowledge_level.errors.full_messages.each do |message|
-          li = message
 
-  .field
-    = f.label :level
-    = f.text_field :level
-  .field
-    = f.label :description
-    = f.text_field :description
-  .actions = f.submit
+  .modal-body
+
+    .form-group
+      = f.label :nível
+      = f.text_field :level, required: true, class:'form-control'
+
+    .form-group
+      = f.label :descrição
+      = f.text_field :description, required: true, class:'form-control'
+
+  .modal-footer
+
+    = f.submit 'Enviar', class:'btn btn-success'

@@ -10,8 +10,10 @@
         th Descrição
         th Número de Créditos
         th Tipo
-        th
-        th
+        - if can? :update, Activity
+          th
+        - if can? :destroy, Activity
+          th
 
     tbody
 
@@ -23,14 +25,17 @@
           td = activity.credit_numbers
           td = activity.activity_type.description
 
-          td align="right"
-            = link_to edit_activity_path(activity), data: { modal: true }, title:'Editar' do
-              i.fa.fa-pencil
+          - if can? :update, Activity
+            td align="right"
+              = link_to edit_activity_path(activity), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
 
-          td align="right"
-            = link_to activity, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-              i.fa.fa-times
+          - if can? :destroy, Activity
+            td align="right"
+              = link_to activity, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
 
   br
 
-  = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }
+  - if can? :create, Activity
+    = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }

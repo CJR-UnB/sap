@@ -1,25 +1,42 @@
-h1 Listing knowledges
+= content_for :titulo, 'Conhecimentos'
 
-table
-  thead
-    tr
-      th Description
-      th Technology
-      th Knowledge level
-      th
-      th
-      th
+.box
 
-  tbody
-    - @knowledges.each do |knowledge|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = knowledge.description
-        td = knowledge.technology
-        td = knowledge.knowledge_level
-        td = link_to 'Show', knowledge
-        td = link_to 'Edit', edit_knowledge_path(knowledge)
-        td = link_to 'Destroy', knowledge, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Descrição
+        th Nível
+        th Tecnologia
+        - if can? :update, Knowledge
+          th
+        - if can? :destroy, Knowledge
+        th
 
-br
+    tbody
 
-= link_to 'New Knowledge', new_knowledge_path
+      - @knowledges.each do |knowledge|
+
+        tr
+          td = knowledge.id
+          td = knowledge.description
+          td = knowledge.try(:knowledge_level).try(:description)
+          td = knowledge.try(:technology).try(:name)
+
+          - if can? :update, Knowledge
+
+            td align="right"
+              = link_to edit_knowledge_path(knowledge), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, Knowledge
+          
+            td align="right"
+              = link_to knowledge, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+  br
+
+  - if can? :create, Knowledge
+    = link_to 'Novo Conhecimento', new_knowledge_path, data: { modal: true }, class:'btn btn-success'

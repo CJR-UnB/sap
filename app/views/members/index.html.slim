@@ -23,16 +23,18 @@
           td = member.id
           td = link_to member.try(:member_name), member, data: { modal: true }
           td = member.try(:member_status).try(:description)
-          td = member.email
+          td = member.try(:email)
           td = member.try(:role).try(:description)
           td = member.try(:sector).try(:name)
 
           - if can? :update, Member
+
             td align="right"
               = link_to edit_member_path(member), data: { modal: true }, title:'Editar' do
                 i.fa.fa-pencil
 
           - if can? :destroy, Member
+
             td align="right"
               = link_to member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times

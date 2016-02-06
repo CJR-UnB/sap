@@ -1,12 +1,11 @@
 = form_for @member_status do |f|
-  - if @member_status.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@member_status.errors.count, "error")} prohibited this member_status from being saved:"
-      ul
-        - @member_status.errors.full_messages.each do |message|
-          li = message
 
-  .field
-    = f.label :description
-    = f.text_field :description
-  .actions = f.submit
+  .modal-body
+
+    .form-group
+      = f.label :descrição
+      = f.text_field :description, class:'form-control', required: true
+
+  .modal-footer
+  
+    = f.submit 'Enviar', class:'btn btn-success'

@@ -1,9 +1,11 @@
-p#notice = notice
+= content_for :title, 'Exibindo Status de Membro'
 
-p
-  strong Description:
-  = @member_status.description
+.modal-body
 
-= link_to 'Edit', edit_member_status_path(@member_status)
-'|
-= link_to 'Back', member_statuses_path
+  p
+    strong Descrição: 
+    = @member_status.try(:description)
+
+.modal-footer
+
+  = link_to 'Fechar', member_statuses_path, class:'btn btn-success'

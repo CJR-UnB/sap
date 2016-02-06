@@ -1,15 +1,19 @@
-p#notice = notice
+= content_for :title, 'Exibindo Requisição de Conhecimento'
 
-p
-  strong Member:
-  = @knowledge_request.member
-p
-  strong Knowledge:
-  = @knowledge_request.knowledge
-p
-  strong Request status:
-  = @knowledge_request.request_status
+.modal-body
 
-= link_to 'Edit', edit_knowledge_request_path(@knowledge_request)
-'|
-= link_to 'Back', knowledge_requests_path
+  p
+    strong Membro: 
+    = @knowledge_request.member.try(:member_name)
+
+  p
+    strong Conhecimento: 
+    = @knowledge_request.knowledge.try(:description)
+
+  p
+    strong Status: 
+    = @knowledge_request.request_status.try(:description)
+
+.modal-footer
+
+  = link_to 'Fechar', knowledge_requests_path, class:'btn btn-success'

@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    resources :role_permissions
-    resources :member_permissions
-  end
-
-  resources :roles
+  resources :knowledges
   # Define a raiz para a página de login e as rotas /login e /logout
   devise_scope :member do
     root to: "devise/sessions#new"
@@ -15,9 +10,10 @@ Rails.application.routes.draw do
 
   devise_for :members
   
+  resources :roles
   resources :members
   resources :member_statuses
-
+  
   resources :knowledge_requests
   resources :request_statuses
   resources :request_histories
@@ -29,7 +25,6 @@ Rails.application.routes.draw do
   resources :project_member_histories
   resources :member_has_projects
   
-  resources :knowledges
   resources :technologies
   resources :knowledge_levels
   resources :member_has_knowledges

@@ -1,15 +1,19 @@
-p#notice = notice
+= content_for :title, 'Exibindo Conhecimento'
 
-p
-  strong Description:
-  = @knowledge.description
-p
-  strong Technology:
-  = @knowledge.technology
-p
-  strong Knowledge level:
-  = @knowledge.knowledge_level
+.modal-body
 
-= link_to 'Edit', edit_knowledge_path(@knowledge)
-'|
-= link_to 'Back', knowledges_path
+  p
+    strong Descrição: 
+    = @knowledge.description
+
+  p
+    strong Nível: 
+    = @knowledge.knowledge_level.try(:description)
+
+  p
+    strong Tecnologia: 
+    = @knowledge.technology.try(:name)
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

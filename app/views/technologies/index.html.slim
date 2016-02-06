@@ -1,23 +1,41 @@
-h1 Listing technologies
+= content_for :titulo, 'Tecnologias'
 
-table
-  thead
-    tr
-      th Name
-      th Description
-      th
-      th
-      th
+.box
 
-  tbody
-    - @technologies.each do |technology|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = technology.name
-        td = technology.description
-        td = link_to 'Show', technology
-        td = link_to 'Edit', edit_technology_path(technology)
-        td = link_to 'Destroy', technology, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Nome
+        th Descrição
+        - if can? :update, Technology
+          th
+        - if can? :destroy, Technology
+          th
 
-br
+    tbody
 
-= link_to 'New Technology', new_technology_path
+      - @technologies.each do |technology|
+
+        tr
+          td = technology.id
+          td = link_to technology.name, technology, data: { modal: true }
+          td = technology.description
+
+          - if can? :update, Technology
+          
+            td align="right"
+
+              = link_to edit_technology_path(technology), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, Technology
+
+            td align="right"
+
+              = link_to technology, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Editar' do
+                i.fa.fa-times
+
+  - if can? :create, Technology
+    = link_to 'Nova Tecnologia', new_technology_path, data: { modal: true }, class:'btn btn-success' 

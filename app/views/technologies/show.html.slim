@@ -1,12 +1,15 @@
-p#notice = notice
+= content_for :title, 'Exibindo Tecnologia'
 
-p
-  strong Name:
-  = @technology.name
-p
-  strong Description:
-  = @technology.description
+.modal-body
 
-= link_to 'Edit', edit_technology_path(@technology)
-'|
-= link_to 'Back', technologies_path
+  p
+    strong Nome: 
+    = @technology.name
+
+  p
+    strong Descrição: 
+    = @technology.description
+
+.modal-footer
+
+  = link_to 'Fechar', technologies_path, class:'btn btn-success'

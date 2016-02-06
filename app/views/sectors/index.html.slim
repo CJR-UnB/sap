@@ -9,7 +9,9 @@
         th Código
         th Sigla
         th Nome
-        th
+        - if can? :update, Sector
+          th
+        - if can? :destroy, Sector
         th
 
     tbody
@@ -21,12 +23,18 @@
           td = sector.short_name
           td = link_to sector.name, sector, data: { modal: true }
 
-          td align="right"
-            = link_to edit_sector_path(sector), data: { modal: true }, title:'Editar' do
-              i.fa.fa-pencil
+          - if can? :update, Sector
 
-          td align="right"
-            = link_to sector, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-              i.fa.fa-times
+            td align="right"
 
-  = link_to 'Novo Núcleo', new_sector_path, class:'btn btn-success', data: { modal: true }
+              = link_to edit_sector_path(sector), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, Sector
+
+            td align="right"
+              = link_to sector, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, Sector
+    = link_to 'Novo Núcleo', new_sector_path, data: { modal: true }, class:'btn btn-success'
