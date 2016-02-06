@@ -27,12 +27,15 @@
           td = member.try(:role).try(:description)
           td = member.try(:sector).try(:name)
 
-          td align="right"
-            = link_to edit_member_path(member), data: { modal: true }, title:'Editar' do
-              i.fa.fa-pencil
+          - if can? :update, Member
+            td align="right"
+              = link_to edit_member_path(member), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
 
-          td align="right"
-            = link_to member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-              i.fa.fa-times
+          - if can? :destroy, Member
+            td align="right"
+              = link_to member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
 
-  = link_to 'Novo Membro', new_member_path, data: { modal: true }, class:'btn btn-success'
+  - if can? :create, Member
+    = link_to 'Novo Membro', new_member_path, data: { modal: true }, class:'btn btn-success'

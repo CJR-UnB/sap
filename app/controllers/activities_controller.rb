@@ -3,22 +3,21 @@ class ActivitiesController < ApplicationController
   respond_to :html, :json
   before_action :authenticate_member!
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :modal_responder, only: [:show, :edit]
+  load_and_authorize_resource except: [:create]
 
   def index
     @activities = Activity.all
   end
 
   def show
-    respond_modal_with @activity
   end
 
   def new
-    @activity = Activity.new
-    respond_modal_with @activity
+    respond_modal_with @activity = Activity.new
   end
 
   def edit
-    respond_modal_with @activity
   end
 
   def create
@@ -26,11 +25,11 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
-        flash[:notice] = 'A atividade foi criada com sucesso!'
-        format.js { render inline: "location.reload();" }
+        format.html { redirect_to activities_path, notice: 'A atividade foi criada com sucesso!' }
+        format.json { render :index, status: :created, location: @activity }
       else
-        flash[:danger] = 'Algo deu errado!'
-        format.js { render inline: "location.reload();" }
+        format.html { render :new }
+        format.json { render json: @activity.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -38,11 +37,11 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        flash[:notice] = 'A atividade foi atualizada com sucesso!'
-        format.js { render inline: "location.reload();" }
+        format.html { redirect_to activities_path, notice: 'A atividade foi atualizada com sucesso!' }
+        format.json { render :show, status: :created, location: @activity }
       else
-        flash[:danger] = 'Algo deu errado!'
-        format.js { render inline: "location.reload();" }
+        format.html { render :edit }
+        format.json { render json: @activity.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,6 +62,10 @@ class ActivitiesController < ApplicationController
 
     def activity_params
       params.require(:activity).permit(:description, :credit_numbers, :activity_type_id)
+    end
+
+    def modal_responder
+      respond_modal_with set_activity
     end
 
 end

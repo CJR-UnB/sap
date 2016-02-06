@@ -3,22 +3,21 @@ class ActivityTypesController < ApplicationController
   respond_to :html, :json
   before_action :authenticate_member!
   before_action :set_activity_type, only: [:show, :edit, :update, :destroy]
+  before_action :modal_responder, only: [:show, :edit]
+  load_and_authorize_resource except: [:create]
 
   def index
     @activity_types = ActivityType.all
   end
 
   def show
-    respond_modal_with @activity_type
   end
 
   def new
-    @activity_type = ActivityType.new
-    respond_modal_with @activity_type
+    respond_modal_with @activity_type = ActivityType.new
   end
 
   def edit
-    respond_modal_with @activity_type
   end
 
   def create
@@ -63,6 +62,10 @@ class ActivityTypesController < ApplicationController
 
     def activity_type_params
       params.require(:activity_type).permit(:description)
+    end
+
+    def modal_responder
+      respond_modal_with set_activity_type
     end
 
 end

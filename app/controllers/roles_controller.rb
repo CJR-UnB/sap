@@ -1,34 +1,31 @@
 class RolesController < ApplicationController
+  
+  respond_to :html, :json
+  before_action :authenticate_member!
   before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_action :modal_responder, only: [:show, :edit]
+  load_and_authorize_resource except: [:create]
 
-  # GET /roles
-  # GET /roles.json
   def index
     @roles = Role.all
   end
 
-  # GET /roles/1
-  # GET /roles/1.json
   def show
   end
 
-  # GET /roles/new
   def new
-    @role = Role.new
+    respond_modal_with @role = Role.new
   end
 
-  # GET /roles/1/edit
   def edit
   end
 
-  # POST /roles
-  # POST /roles.json
   def create
     @role = Role.new(role_params)
 
     respond_to do |format|
       if @role.save
-        format.html { redirect_to @role, notice: 'Role was successfully created.' }
+        format.html { redirect_to roles_path, notice: 'O perfil foi criado com sucesso!' }
         format.json { render :show, status: :created, location: @role }
       else
         format.html { render :new }
@@ -37,12 +34,10 @@ class RolesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /roles/1
-  # PATCH/PUT /roles/1.json
   def update
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to @role, notice: 'Role was successfully updated.' }
+        format.html { redirect_to roles_path, notice: 'O perfil foi atualizado com sucesso!' }
         format.json { render :show, status: :ok, location: @role }
       else
         format.html { render :edit }
@@ -51,24 +46,26 @@ class RolesController < ApplicationController
     end
   end
 
-  # DELETE /roles/1
-  # DELETE /roles/1.json
   def destroy
     @role.destroy
     respond_to do |format|
-      format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
+      format.html { redirect_to roles_url, notice: 'O perfil foi deletado com sucesso!' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_role
       @role = Role.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
       params.require(:role).permit(:description)
     end
+
+    def modal_responder
+      respond_modal_with set_role
+    end
+
 end

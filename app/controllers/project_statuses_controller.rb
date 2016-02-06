@@ -1,34 +1,31 @@
 class ProjectStatusesController < ApplicationController
+  
+  respond_to :html, :json
+  before_action :authenticate_member!
   before_action :set_project_status, only: [:show, :edit, :update, :destroy]
+  before_action :modal_responder, only: [:show, :edit]
+  load_and_authorize_resource except: [:create]
 
-  # GET /project_statuses
-  # GET /project_statuses.json
   def index
     @project_statuses = ProjectStatus.all
   end
 
-  # GET /project_statuses/1
-  # GET /project_statuses/1.json
   def show
   end
 
-  # GET /project_statuses/new
   def new
-    @project_status = ProjectStatus.new
+    respond_modal_with @project_status = ProjectStatus.new
   end
 
-  # GET /project_statuses/1/edit
   def edit
   end
 
-  # POST /project_statuses
-  # POST /project_statuses.json
   def create
     @project_status = ProjectStatus.new(project_status_params)
 
     respond_to do |format|
       if @project_status.save
-        format.html { redirect_to @project_status, notice: 'Project status was successfully created.' }
+        format.html { redirect_to project_statuses_path, notice: 'O status de projeto foi criado com sucesso!' }
         format.json { render :show, status: :created, location: @project_status }
       else
         format.html { render :new }
@@ -37,12 +34,10 @@ class ProjectStatusesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /project_statuses/1
-  # PATCH/PUT /project_statuses/1.json
   def update
     respond_to do |format|
       if @project_status.update(project_status_params)
-        format.html { redirect_to @project_status, notice: 'Project status was successfully updated.' }
+        format.html { redirect_to project_statuses_path, notice: 'O status de projeto foi atualizado com sucesso!' }
         format.json { render :show, status: :ok, location: @project_status }
       else
         format.html { render :edit }
@@ -51,24 +46,26 @@ class ProjectStatusesController < ApplicationController
     end
   end
 
-  # DELETE /project_statuses/1
-  # DELETE /project_statuses/1.json
   def destroy
     @project_status.destroy
     respond_to do |format|
-      format.html { redirect_to project_statuses_url, notice: 'Project status was successfully destroyed.' }
+      format.html { redirect_to project_statuses_url, notice: 'O status de projeto foi deletado com sucesso!' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_project_status
       @project_status = ProjectStatus.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def project_status_params
       params.require(:project_status).permit(:description)
     end
+
+    def modal_responder
+      respond_modal_with set_project_status
+    end
+
 end

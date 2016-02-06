@@ -4,6 +4,7 @@ class AreasController < ApplicationController
   before_action :authenticate_member!
   before_action :set_area, only: [:show, :edit, :update, :destroy]
   before_action :modal_responder, only: [:show, :edit]
+  load_and_authorize_resource except: [:create]
 
   def index
     @areas = Area.all.includes(:sector)

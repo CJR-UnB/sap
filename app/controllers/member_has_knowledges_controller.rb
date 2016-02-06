@@ -1,34 +1,31 @@
 class MemberHasKnowledgesController < ApplicationController
+  
+  respond_to :html, :json
+  before_action :authenticate_member!
   before_action :set_member_has_knowledge, only: [:show, :edit, :update, :destroy]
+  before_action :modal_responder, only: [:show, :edit]
+  load_and_authorize_resource except: [:create]
 
-  # GET /member_has_knowledges
-  # GET /member_has_knowledges.json
   def index
     @member_has_knowledges = MemberHasKnowledge.all
   end
 
-  # GET /member_has_knowledges/1
-  # GET /member_has_knowledges/1.json
   def show
   end
 
-  # GET /member_has_knowledges/new
   def new
-    @member_has_knowledge = MemberHasKnowledge.new
+    respond_modal_with @member_has_knowledge = MemberHasKnowledge.new
   end
 
-  # GET /member_has_knowledges/1/edit
   def edit
   end
 
-  # POST /member_has_knowledges
-  # POST /member_has_knowledges.json
   def create
     @member_has_knowledge = MemberHasKnowledge.new(member_has_knowledge_params)
 
     respond_to do |format|
       if @member_has_knowledge.save
-        format.html { redirect_to @member_has_knowledge, notice: 'Member has knowledge was successfully created.' }
+        format.html { redirect_to member_has_knowledges_path, notice: 'O conhecimento do membro foi criado com sucesso!' }
         format.json { render :show, status: :created, location: @member_has_knowledge }
       else
         format.html { render :new }
@@ -37,12 +34,10 @@ class MemberHasKnowledgesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /member_has_knowledges/1
-  # PATCH/PUT /member_has_knowledges/1.json
   def update
     respond_to do |format|
       if @member_has_knowledge.update(member_has_knowledge_params)
-        format.html { redirect_to @member_has_knowledge, notice: 'Member has knowledge was successfully updated.' }
+        format.html { redirect_to member_has_knowledges_path, notice: 'O conhecimento do membro foi atualizado com sucesso!' }
         format.json { render :show, status: :ok, location: @member_has_knowledge }
       else
         format.html { render :edit }
@@ -51,24 +46,26 @@ class MemberHasKnowledgesController < ApplicationController
     end
   end
 
-  # DELETE /member_has_knowledges/1
-  # DELETE /member_has_knowledges/1.json
   def destroy
     @member_has_knowledge.destroy
     respond_to do |format|
-      format.html { redirect_to member_has_knowledges_url, notice: 'Member has knowledge was successfully destroyed.' }
+      format.html { redirect_to member_has_knowledges_url, notice: 'O conhecimento do membro foi deletado com sucesso!' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_member_has_knowledge
       @member_has_knowledge = MemberHasKnowledge.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def member_has_knowledge_params
       params.require(:member_has_knowledge).permit(:member_id, :knowledge_id)
     end
+
+    def modal_responder
+      respond_modal_with set_member_has_knowledge
+    end
+
 end

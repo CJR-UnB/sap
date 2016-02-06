@@ -89,3 +89,5 @@ a_areas = [{name: "Inovação", sector_id: ndp},
            {name: "N/A", sector_id: pres}]
 
 areas = Area.create(a_areas)
+
+Member.create(name: "Rafael", last_name: "Alves Fernandes", email: "rafaelalves@cjr.org.br", password: "rafael10", role_id: 1)

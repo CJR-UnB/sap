@@ -8,8 +8,10 @@
       tr
         th Código
         th Descrição
-        th
-        th
+        - if can? :edit, @job
+          th
+        - if can? :destroy, @job
+          th
 
     tbody
 
@@ -19,12 +21,15 @@
           td = job.id
           td = link_to job.description, job, data: { modal: true }
 
-          td align="right"
-            = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do
-              i.fa.fa-pencil
+          - if can? :edit, Job
+            td align="right"
+              = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
 
-          td align="right"
-            = link_to job, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-              i.fa.fa-times
+          - if can? :destroy, Job
+            td align="right"
+              = link_to job, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
 
-  = link_to 'Novo Cargo', new_job_path, data: { modal: true }, class:'btn btn-success'
+  - if can? :new, Job
+    = link_to 'Novo Cargo', new_job_path, data: { modal: true }, class:'btn btn-success'

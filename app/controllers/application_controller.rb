@@ -10,8 +10,9 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_member)
   end
 
-  rescue_from CanCan::AccessDenied do
-    redirect_to root_url, alert: 'Acesso negado.'
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = 'Você não possui autorização.'
+    redirect_to request.referrer || home_path
   end
 
   def after_sign_in_path_for(resource)

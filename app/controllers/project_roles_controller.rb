@@ -1,34 +1,31 @@
 class ProjectRolesController < ApplicationController
+  
+  respond_to :html, :json
+  before_action :authenticate_member!
   before_action :set_project_role, only: [:show, :edit, :update, :destroy]
+  before_action :modal_responder, only: [:show, :edit]
+  load_and_authorize_resource except: [:create]
 
-  # GET /project_roles
-  # GET /project_roles.json
   def index
     @project_roles = ProjectRole.all
   end
 
-  # GET /project_roles/1
-  # GET /project_roles/1.json
   def show
   end
 
-  # GET /project_roles/new
   def new
-    @project_role = ProjectRole.new
+    respond_modal_with @project_role = ProjectRole.new
   end
 
-  # GET /project_roles/1/edit
   def edit
   end
 
-  # POST /project_roles
-  # POST /project_roles.json
   def create
     @project_role = ProjectRole.new(project_role_params)
 
     respond_to do |format|
       if @project_role.save
-        format.html { redirect_to @project_role, notice: 'Project role was successfully created.' }
+        format.html { redirect_to project_roles_path, notice: 'A função de projeto foi criada com sucesso!' }
         format.json { render :show, status: :created, location: @project_role }
       else
         format.html { render :new }
@@ -37,12 +34,10 @@ class ProjectRolesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /project_roles/1
-  # PATCH/PUT /project_roles/1.json
   def update
     respond_to do |format|
       if @project_role.update(project_role_params)
-        format.html { redirect_to @project_role, notice: 'Project role was successfully updated.' }
+        format.html { redirect_to project_roles_path, notice: 'A função de projeto foi atualizada com sucesso!' }
         format.json { render :show, status: :ok, location: @project_role }
       else
         format.html { render :edit }
@@ -51,24 +46,26 @@ class ProjectRolesController < ApplicationController
     end
   end
 
-  # DELETE /project_roles/1
-  # DELETE /project_roles/1.json
   def destroy
     @project_role.destroy
     respond_to do |format|
-      format.html { redirect_to project_roles_url, notice: 'Project role was successfully destroyed.' }
+      format.html { redirect_to project_roles_url, notice: 'A função de projeto foi deletada com sucesso!' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_project_role
       @project_role = ProjectRole.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def project_role_params
       params.require(:project_role).permit(:description)
     end
+
+    def modal_responder
+      respond_modal_with set_project_role
+    end
+
 end

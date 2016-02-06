@@ -4,6 +4,7 @@ class MembersController < ApplicationController
   before_action :authenticate_member!
   before_action :set_member, only: [:show, :edit, :update, :destroy]
   before_action :modal_responder, only: [:show, :edit]
+  load_and_authorize_resource except: [:create]
 
   def index
     @members = Member.all

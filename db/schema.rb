@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204214248) do
+ActiveRecord::Schema.define(version: 20160204232801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,28 @@ ActiveRecord::Schema.define(version: 20160204214248) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "admin_member_permissions", force: :cascade do |t|
+    t.integer  "member_id"
+    t.string   "action"
+    t.string   "model"
+    t.boolean  "permitted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "admin_member_permissions", ["member_id"], name: "index_admin_member_permissions_on_member_id", using: :btree
+
+  create_table "admin_role_permissions", force: :cascade do |t|
+    t.integer  "role_id"
+    t.string   "action"
+    t.string   "model"
+    t.boolean  "permitted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "admin_role_permissions", ["role_id"], name: "index_admin_role_permissions_on_role_id", using: :btree
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -227,6 +249,8 @@ ActiveRecord::Schema.define(version: 20160204214248) do
   end
 
   add_foreign_key "activities", "activity_types"
+  add_foreign_key "admin_member_permissions", "members"
+  add_foreign_key "admin_role_permissions", "roles"
   add_foreign_key "areas", "sectors"
   add_foreign_key "knowledge_requests", "knowledges"
   add_foreign_key "knowledge_requests", "members"

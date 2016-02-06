@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    resources :role_permissions
+    resources :member_permissions
+  end
+
   resources :roles
   # Define a raiz para a página de login e as rotas /login e /logout
   devise_scope :member do
@@ -12,7 +17,6 @@ Rails.application.routes.draw do
   
   resources :members
   resources :member_statuses
-
 
   resources :knowledge_requests
   resources :request_statuses
