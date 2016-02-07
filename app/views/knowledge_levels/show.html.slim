@@ -5,10 +5,11 @@
   p
     strong Nível: 
     = @knowledge_level.level
+    
   p
     strong Descrição: 
     = @knowledge_level.description
 
 .modal-footer
 
-  = link_to 'Fechar', knowledge_levels_path, class:'btn btn-success'
+  = link_to 'Fechar', :back, class:'btn btn-success'

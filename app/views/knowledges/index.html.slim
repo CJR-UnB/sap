@@ -28,15 +28,16 @@
           - if can? :update, Knowledge
 
             td align="right"
+
               = link_to edit_knowledge_path(knowledge), data: { modal: true }, title:'Editar' do
                 i.fa.fa-pencil
 
           - if can? :destroy, Knowledge
           
             td align="right"
+
               = link_to knowledge, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times
-  br
 
   - if can? :create, Knowledge
     = link_to 'Novo Conhecimento', new_knowledge_path, data: { modal: true }, class:'btn btn-success'

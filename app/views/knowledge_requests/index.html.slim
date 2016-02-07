@@ -30,16 +30,16 @@
           - if can? :update, KnowledgeRequest
 
             td align="right"
+            
               = link_to edit_knowledge_request_path(knowledge_request), data: { modal: true }, title:'Editar' do
                 i.fa.fa-pencil
 
           - if can? :destroy, KnowledgeRequest
 
             td align="right"
+
               = link_to knowledge_request, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Editar' do
                 i.fa.fa-times
-
-  br
 
   - if can? :create, KnowledgeRequest
     = link_to 'Nova Requisição de Conhecimento', new_knowledge_request_path, data: { modal: true }, class:'btn btn-success'

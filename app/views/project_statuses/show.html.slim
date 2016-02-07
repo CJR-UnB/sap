@@ -1,9 +1,11 @@
-p#notice = notice
+= content_for :title, 'Exibindo Status de Projeto'
 
-p
-  strong Description:
-  = @project_status.description
+.modal-body
 
-= link_to 'Edit', edit_project_status_path(@project_status)
-'|
-= link_to 'Back', project_statuses_path
+  p
+    strong Descrição: 
+    = @project_status.description
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

@@ -24,16 +24,18 @@
           td = knowledge_level.description
 
           - if can? :update, KnowledgeLevel
+
             td align="right"
+
               = link_to edit_knowledge_level_path(knowledge_level), data: { modal: true }, title:'Editar' do
                 i.fa.fa-pencil
 
           - if can? :destroy, KnowledgeLevel
+
             td align="right"
+
               = link_to knowledge_level, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times
 
-  br
-
   - if can? :create, KnowledgeLevel
-    = link_to 'Novo Nível de Conhecimento', new_knowledge_level_path, class:'btn btn-success', data: { modal: true }
+    = link_to 'Novo Nível de Conhecimento', new_knowledge_level_path, data: { modal: true }, class:'btn btn-success'

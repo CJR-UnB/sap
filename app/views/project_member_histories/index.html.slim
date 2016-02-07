@@ -1,27 +1,52 @@
-h1 Listing project_member_histories
+- unless current_member.try(:user?)
+  = content_for :titulo, 'Históricos de Projetos dos Membros'
+- else
+  = content_for :titulo, 'Seus Históricos de Projetos'
 
-table
-  thead
-    tr
-      th Observation
-      th Member
-      th Project
-      th Project role
-      th
-      th
-      th
+.box
 
-  tbody
-    - @project_member_histories.each do |project_member_history|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = project_member_history.observation
-        td = project_member_history.member
-        td = project_member_history.project
-        td = project_member_history.project_role
-        td = link_to 'Show', project_member_history
-        td = link_to 'Edit', edit_project_member_history_path(project_member_history)
-        td = link_to 'Destroy', project_member_history, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        - if can? :create, ProjectMemberHistory
+          th Membro
+        th Projeto
+        th Função
+        th Observação
+        - if can? :update, ProjectMemberHistory
+          th
+        - if can? :destroy, ProjectMemberHistory
+          th
 
-br
+    tbody
 
-= link_to 'New Project member history', new_project_member_history_path
+      - @project_member_histories.each do |project_member_history|
+
+        tr
+          td = project_member_history.id
+
+          - if can? :create, ProjectMemberHistory
+            td = project_member_history.member.try(:member_name)
+
+          td = project_member_history.project.try(:description)
+          td = project_member_history.project_role.try(:description)
+          td = link_to 'Ver observação', project_member_history, data: { modal: true }
+
+          - if can? :update, ProjectMemberHistory
+
+            td align="right"
+            
+              = link_to edit_project_member_history_path(project_member_history), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, ProjectMemberHistory
+
+            td align="right"
+
+              = link_to project_member_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, ProjectMemberHistory
+    = link_to 'Novo Histórico de Projeto', new_project_member_history_path, data: { modal: true }, class:'btn btn-success'

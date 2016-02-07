@@ -1,0 +1,41 @@
+- unless current_member.try(:user?)
+  = content_for :titulo, 'Atividades dos Membros'
+- else
+  = content_for :titulo, 'Suas Atividades'
+
+.box
+
+  table.table.table-responsive.table-hover
+
+    thead
+      tr
+        th Código
+        - if can? :create, ActivitiesMember
+          th Membro
+        th Atividade
+        th
+        th
+
+    tbody
+
+      - @activities_members.each do |activities_member|
+
+        tr
+          td = activities_member.id
+
+          - if can? :create, ActivitiesMember
+            td = activities_member.member.member_name
+
+          td = link_to activities_member.activity.description, activities_member.activity, data: { modal: true }
+
+          td align="right"
+
+            = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
+              i.fa.fa-pencil
+
+          td align="right"
+
+            = link_to activities_member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+              i.fa.fa-times
+
+  = link_to 'Nova Atividade', new_activities_member_path, data: { modal: true }, class:'btn btn-success'

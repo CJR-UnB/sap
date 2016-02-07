@@ -10,8 +10,10 @@
         th Descrição
         th Preço
         th Status
-        th
-        th
+        - if can? :update, Project
+          th
+        - if can? :destroy, Project
+          th
 
     tbody
 
@@ -23,12 +25,19 @@
           td = project.price
           td = project.project_status.description
 
-          td align="right"
-            = link_to edit_project_path(project), data: { modal: true }, title:'Editar' do
-              i.fa.fa-pencil
+          - if can? :update, Project
 
-          td align="right"
-            = link_to project, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-              i.fa.fa-times
+            td align="right"
 
-  = link_to 'Novo Projeto', new_project_path, class:'btn btn-success', data: { modal: true }
+              = link_to edit_project_path(project), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, Project
+
+            td align="right"
+
+              = link_to project, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, Project
+    = link_to 'Novo Projeto', new_project_path, class:'btn btn-success', data: { modal: true }

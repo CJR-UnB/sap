@@ -1,18 +1,24 @@
-p#notice = notice
+= content_for :title, 'Exibindo Histórico de Projeto'
 
-p
-  strong Observation:
-  = @project_member_history.observation
-p
-  strong Member:
-  = @project_member_history.member
-p
-  strong Project:
-  = @project_member_history.project
-p
-  strong Project role:
-  = @project_member_history.project_role
+.modal-body
 
-= link_to 'Edit', edit_project_member_history_path(@project_member_history)
-'|
-= link_to 'Back', project_member_histories_path
+  - unless current_member.try(:user?)
+    p
+      strong Membro: 
+      = @project_member_history.member.try(:member_name)
+
+  p
+    strong Projeto: 
+    = @project_member_history.project.try(:description)
+
+  p
+    strong Função: 
+    = @project_member_history.project_role.try(:description)
+
+  p
+    strong Observação: 
+    = @project_member_history.observation
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

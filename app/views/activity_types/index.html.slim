@@ -22,12 +22,16 @@
           td = link_to activity_type.description, activity_type, data: { modal: true }
 
           - if can? :update, ActivityType
+
             td align="right"
+
               = link_to edit_activity_type_path(activity_type), data: { modal: true }, title:'Editar' do
                 i.fa.fa-pencil
 
           - if can? :destroy, ActivityType
+
             td align="right"
+            
               = link_to activity_type, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times
 

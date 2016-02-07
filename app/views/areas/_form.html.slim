@@ -11,4 +11,5 @@
       = f.select :sector_id, Sector.all.map { |s| [s.name, s.id] }, {}, { class:'form-control' } 
 
   .modal-footer
+  
     = f.submit 'Enviar', class:'btn btn-success'

@@ -5,7 +5,7 @@
   table.table.table-responsive
 
     thead
-    tr
+      tr
         th Código
         th Descrição
         th Número de Créditos
@@ -26,16 +26,16 @@
           td = activity.activity_type.description
 
           - if can? :update, Activity
+
             td align="right"
               = link_to edit_activity_path(activity), data: { modal: true }, title:'Editar' do
                 i.fa.fa-pencil
 
           - if can? :destroy, Activity
+
             td align="right"
               = link_to activity, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times
-
-  br
 
   - if can? :create, Activity
     = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }

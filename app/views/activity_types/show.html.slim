@@ -1,9 +1,11 @@
 - content_for :title, 'Exibindo Tipo de Atividade'
 
 .modal-body
+
   p
     strong Descrição: 
     = @activity_type.description
 
 .modal-footer
-  = link_to 'Fechar', activity_types_path, class:'btn btn-success'
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

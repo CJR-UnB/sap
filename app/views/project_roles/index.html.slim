@@ -1,21 +1,39 @@
-h1 Listing project_roles
+= content_for :titulo, 'Funções de Projeto'
 
-table
-  thead
-    tr
-      th Description
-      th
-      th
-      th
+.box
 
-  tbody
-    - @project_roles.each do |project_role|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = project_role.description
-        td = link_to 'Show', project_role
-        td = link_to 'Edit', edit_project_role_path(project_role)
-        td = link_to 'Destroy', project_role, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Descrição
+        - if can? :update, ProjectRole
+          th
+        - if can? :destroy, ProjectRole
+          th
 
-br
+    tbody
 
-= link_to 'New Project role', new_project_role_path
+      - @project_roles.each do |project_role|
+
+        tr
+          td = project_role.id
+          td = link_to project_role.description, project_role, data: { modal: true }
+
+          - if can? :update, ProjectRole
+
+            td align="right"
+            
+              = link_to edit_project_role_path(project_role), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, ProjectRole     
+          
+            td align="right"
+
+              = link_to project_role, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, ProjectRole
+    = link_to 'Nova Função de Projeto', new_project_role_path, data: { modal: true }, class:'btn btn-success'

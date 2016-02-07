@@ -35,4 +35,5 @@
               = link_to member_status, data: {:confirm => 'Are you sure?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times
 
-  = link_to 'Novo Status de Membro', new_member_status_path, data: { modal: true }, class:'btn btn-success'
+  - if can? :create, MemberStatus
+    = link_to 'Novo Status de Membro', new_member_status_path, data: { modal: true }, class:'btn btn-success'

@@ -1,0 +1,17 @@
+= content_for :title, 'Exibindo Atividade'
+
+.modal-body
+
+  - unless current_member.user?
+
+    p
+      strong Membro: 
+      = @activities_member.member.try(:member_name)
+
+  p
+    strong Atividade: 
+    = @activities_member.activity.try(:description)
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

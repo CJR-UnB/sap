@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204214248) do
+ActiveRecord::Schema.define(version: 20160206180824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20160204214248) do
   end
 
   add_index "activities", ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
+
+  create_table "activities_members", force: :cascade do |t|
+    t.integer  "member_id"
+    t.integer  "activity_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "activities_members", ["activity_id"], name: "index_activities_members_on_activity_id", using: :btree
+  add_index "activities_members", ["member_id"], name: "index_activities_members_on_member_id", using: :btree
 
   create_table "activity_types", force: :cascade do |t|
     t.string   "description"
@@ -76,6 +86,16 @@ ActiveRecord::Schema.define(version: 20160204214248) do
 
   add_index "knowledges", ["knowledge_level_id"], name: "index_knowledges_on_knowledge_level_id", using: :btree
   add_index "knowledges", ["technology_id"], name: "index_knowledges_on_technology_id", using: :btree
+
+  create_table "knowledges_members", force: :cascade do |t|
+    t.integer  "member_id"
+    t.integer  "knowledge_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "knowledges_members", ["knowledge_id"], name: "index_knowledges_members_on_knowledge_id", using: :btree
+  add_index "knowledges_members", ["member_id"], name: "index_knowledges_members_on_member_id", using: :btree
 
   create_table "member_has_activities", force: :cascade do |t|
     t.integer  "member_id"
@@ -190,6 +210,16 @@ ActiveRecord::Schema.define(version: 20160204214248) do
 
   add_index "projects", ["project_status_id"], name: "index_projects_on_project_status_id", using: :btree
 
+  create_table "projects_members", force: :cascade do |t|
+    t.integer  "member_id"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "projects_members", ["member_id"], name: "index_projects_members_on_member_id", using: :btree
+  add_index "projects_members", ["project_id"], name: "index_projects_members_on_project_id", using: :btree
+
   create_table "request_histories", force: :cascade do |t|
     t.integer  "knowledge_request_id"
     t.text     "observation"
@@ -227,12 +257,16 @@ ActiveRecord::Schema.define(version: 20160204214248) do
   end
 
   add_foreign_key "activities", "activity_types"
+  add_foreign_key "activities_members", "activities"
+  add_foreign_key "activities_members", "members"
   add_foreign_key "areas", "sectors"
   add_foreign_key "knowledge_requests", "knowledges"
   add_foreign_key "knowledge_requests", "members"
   add_foreign_key "knowledge_requests", "request_statuses"
   add_foreign_key "knowledges", "knowledge_levels"
   add_foreign_key "knowledges", "technologies"
+  add_foreign_key "knowledges_members", "knowledges"
+  add_foreign_key "knowledges_members", "members"
   add_foreign_key "member_has_activities", "activities"
   add_foreign_key "member_has_activities", "members"
   add_foreign_key "member_has_knowledges", "knowledges"
@@ -250,5 +284,7 @@ ActiveRecord::Schema.define(version: 20160204214248) do
   add_foreign_key "project_member_histories", "project_roles"
   add_foreign_key "project_member_histories", "projects"
   add_foreign_key "projects", "project_statuses"
+  add_foreign_key "projects_members", "members"
+  add_foreign_key "projects_members", "projects"
   add_foreign_key "request_histories", "knowledge_requests"
 end

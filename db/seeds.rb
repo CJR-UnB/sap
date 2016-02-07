@@ -33,6 +33,10 @@ a_perfis = [{description: "Administrador"},
 
 perfis = Role.create(a_perfis)
 
+admin = perfis[0].id
+mod = perfis[1].id
+user = perfis[2].id
+
 
 a_cargos = [{description: "Trainee"}, 
             {description: "Consultor"}, 
@@ -41,6 +45,12 @@ a_cargos = [{description: "Trainee"},
             {description: "Presidente"}]
 
 cargos = Job.create(a_cargos)
+
+trainee = cargos[0].id
+consultor = cargos[1].id
+gerente = cargos[2].id
+lider = cargos[3].id
+presidente = cargos[4].id
 
 
 a_niveis_de_conhecimento = [{level: "Baixo", description: "Baixo"}, 
@@ -90,4 +100,30 @@ a_areas = [{name: "Inovação", sector_id: ndp},
 
 areas = Area.create(a_areas)
 
-Member.create(name: "Rafael", last_name: "Alves Fernandes", email: "rafaelalves@cjr.org.br", password: "rafael10", role_id: 1)
+
+a_funcoes_de_projeto = [{description: "Gerente"},
+                        {description: "Desenvolvedor"}]
+
+funcoes_de_projeto = ProjectRole.create(a_funcoes_de_projeto)
+
+
+a_tecnologias = [{name: "HTML", description: "Linuagem de Marcação de Texto"},
+                 {name: "CSS", description: "Linguagem de Estilo em Cascata"},
+                 {name: "PHP", description: "Linguagem de Programação"},
+                 {name: "CodeIgniter", description: "Framework WEB"},
+                 {name: "Ruby", description: "Linguagem de Programação"},
+                 {name: "Rails", description: "Framework WEB"},
+                 {name: "Javascript", description: "Linguagem de Programação"},
+                 {name: "JQuery", description: "Biblioteca Javascript"},
+                 {name: "Slim", description: "Linguagem de Template"},
+                 {name: "Sass", description: "Extensão CSS"},
+                 {name: "AngularJS", description: "Framework WEB"},
+                 {name: "Git", description: "Sistema de Controle de Versão"}]
+
+tecnologias = Technology.create(a_tecnologias)
+
+
+a_membros = [{name: "Rafael", last_name: "Alves Fernandes", email: "rafaelalves@cjr.org.br", password: "fernandes123",
+              role_id: admin, sector_id: noe, job_id: consultor}]
+
+membros = Member.create(a_membros)

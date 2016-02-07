@@ -24,12 +24,14 @@
           - if can? :update, Job
 
             td align="right"
+
               = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do
                 i.fa.fa-pencil
 
           - if can? :destroy, Job
           
             td align="right"
+            
               = link_to job, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times
 

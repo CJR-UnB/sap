@@ -12,8 +12,10 @@
         th Email
         th Perfil
         th Núcleo
-        th
-        th
+        - if can? :update, Member
+          th
+        - if can? :update, Member
+          th
 
     tbody
 

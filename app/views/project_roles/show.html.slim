@@ -1,9 +1,11 @@
-p#notice = notice
+= content_for :title, 'Exibindo Função de Projeto'
 
-p
-  strong Description:
-  = @project_role.description
+.modal-body
 
-= link_to 'Edit', edit_project_role_path(@project_role)
-'|
-= link_to 'Back', project_roles_path
+  p
+    strong Descrição: 
+    = @project_role.description
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

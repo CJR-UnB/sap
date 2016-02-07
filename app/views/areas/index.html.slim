@@ -24,12 +24,16 @@
           td = link_to area.sector.short_name, area.sector, data: { modal: true }
 
           - if can? :update, Area
+
             td align="right"
+
               = link_to edit_area_path(area), data: { modal: true }, title:'Editar' do
                 i.fa.fa-pencil
 
           - if can? :destroy, Area
+
             td align="right"
+            
               = link_to area, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times
 

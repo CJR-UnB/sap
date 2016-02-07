@@ -4,19 +4,20 @@
 
     .form-group
       = f.label :descrição
-      = f.text_field :description, required: true, class:'form-control'
+      = f.text_field :description, class:'form-control', required: true
 
     .form-group
       = f.label :preço
-      = f.text_field :price, required: true, class:'form-control'
+      = f.text_field :price, class:'form-control', required: true
 
     .form-group
       = f.label :link
-      = f.text_field :link, required: true, class:'form-control'
+      = f.text_field :link, class:'form-control', required: true
 
     .form-group
       = f.label :project_status
       = f.select :project_status_id, ProjectStatus.all.map { |p| [p.description, p.id] }, {}, { class:'form-control' } 
 
   .modal-footer
+
     = f.submit 'Enviar', class:'btn btn-success'

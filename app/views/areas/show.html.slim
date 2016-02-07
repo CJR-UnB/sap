@@ -1,12 +1,15 @@
-p#notice = notice
+= content_for title: 'Exibindo Área'
 
-p
-  strong Name:
-  = @area.name
-p
-  strong Sector:
-  = @area.sector
+.modal-body
 
-= link_to 'Edit', edit_area_path(@area)
-'|
-= link_to 'Back', areas_path
+  p
+    strong Nome: 
+    = @area.name
+
+  p
+    strong Núcleo: 
+    = @area.sector.try(:name)
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

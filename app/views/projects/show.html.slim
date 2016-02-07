@@ -1,16 +1,23 @@
 = content_for :title, 'Exibindo Projeto'
 
-p
-  strong Descrição: 
-  = @project.description
-p
-  strong Preço: 
-  = @project.price
-p
-  strong Link: 
-  = @project.link
-p
-  strong Status: 
-  = @project.project_status.description
+.modal-body
 
-= link_to 'Fechar', projects_path
+  p
+    strong Descrição: 
+    = @project.description
+
+  p
+    strong Preço: 
+    = @project.price
+
+  p
+    strong Link: 
+    = @project.link
+
+  p
+    strong Status: 
+    = @project.project_status.try(:description)
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

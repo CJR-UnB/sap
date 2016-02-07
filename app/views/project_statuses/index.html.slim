@@ -1,21 +1,39 @@
-h1 Listing project_statuses
+= content_for :titulo, 'Status de Projeto'
 
-table
-  thead
-    tr
-      th Description
-      th
-      th
-      th
+.box
 
-  tbody
-    - @project_statuses.each do |project_status|
+  table.table.table-responsive.table-hover
+
+    thead
       tr
-        td = project_status.description
-        td = link_to 'Show', project_status
-        td = link_to 'Edit', edit_project_status_path(project_status)
-        td = link_to 'Destroy', project_status, data: {:confirm => 'Are you sure?'}, :method => :delete
+        th Código
+        th Descrição
+        - if can? :update, ProjectStatus
+          th
+        - if can? :destroy, ProjectStatus
+          th
 
-br
+    tbody
 
-= link_to 'New Project status', new_project_status_path
+      - @project_statuses.each do |project_status|
+
+        tr
+          td = project_status.id
+          td = link_to project_status.description, project_status, data: { modal: true }
+
+          - if can? :update, ProjectStatus
+
+            td align="right"
+
+              = link_to edit_project_status_path(project_status), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
+
+          - if can? :destroy, ProjectStatus
+
+            td align="right"
+
+              = link_to project_status, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, ProjectStatus
+    = link_to 'Novo Status de Projeto', new_project_status_path, data: { modal: true }, class:'btn btn-success'

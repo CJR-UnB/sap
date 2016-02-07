@@ -25,7 +25,7 @@ class TechnologiesController < ApplicationController
 
     respond_to do |format|
       if @technology.save
-        format.html { redirect_to @technology, notice: 'A tecnologia foi criada com sucesso!' }
+        format.html { redirect_to technologies_path, notice: 'A tecnologia foi criada com sucesso!' }
         format.json { render :show, status: :created, location: @technology }
       else
         format.html { render :new }
@@ -37,7 +37,7 @@ class TechnologiesController < ApplicationController
   def update
     respond_to do |format|
       if @technology.update(technology_params)
-        format.html { redirect_to @technology, notice: 'A tecnologia foi atualizada com sucesso!' }
+        format.html { redirect_to technologies_path, notice: 'A tecnologia foi atualizada com sucesso!' }
         format.json { render :show, status: :ok, location: @technology }
       else
         format.html { render :edit }
