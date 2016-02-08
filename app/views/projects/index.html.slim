@@ -1,240 +1,321 @@
 = content_for :titulo, 'Projetos'
 
+
 .projetos
   
-  .row
+  .tab-content
 
-    // NÃO INICIADOS
+    .tab-pane.fade#lista
 
-    .col-sm-3
+      .box
 
-      .projetos-titulo-box
+        table.table.table-responsive.table-hover
 
-        h5.text-center.text-warning Não iniciados
+          thead
 
-      - @projetos_nao_iniciados.each do |projeto|
+            tr
+              th Código
+              th Descrição
+              th Início
+              th Entrega
+              - if can? :update, Project
+                th
+              - if can? :destroy, Project
+                th
 
-        .projeto-box
+          tbody
 
-          h5.text-center
-            = projeto.description
+            - @projects.each do |project|
 
-          hr.divider
+              tr
+                td = project.id
+                td = link_to project.description, project, data: { modal: true }
+                td = project.start_date.strftime("%d de %B de %Y")
+                td = project.end_date.strftime("%d de %B de %Y")
 
-          strong Início:
-          .pull-right
-            = projeto.start_date.strftime("%d de %B de %Y")
-            
-          br
+                - if can? :update, Project
 
-          strong Entrega:
-          .pull-right
-            = projeto.end_date.strftime("%d de %B de %Y")
+                  td align="right"
 
-          br
-          br
+                    = link_to edit_project_path(project), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
 
-          - if projeto.members.empty?
+                - if can? :destroy, Project
 
-            p Não há membros alocados.
+                  td align="right"
 
-          - else
-
-            strong Membros alocados:
-            
-            br
-            br
-
-            - projeto.members.each do |membro|
-
-              strong.text-warning
-                = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
-              = membro.member_name
-
-              br
-
-            br
-
-          .btn-group.btn-group-sm.btn-group-justified
-            = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-warning'
-            = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-warning' do
-              i.fa.fa-pencil
-            = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-warning' do
-              i.fa.fa-times
+                    = link_to project, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                      i.fa.fa-times
 
 
-    // EM DESENVOLVIMENTO
 
-    .col-sm-3
+    .tab-pane.fade.in.active#painel
 
-      .projetos-titulo-box
+      .row
 
-        h5.text-center.text-primary Em desenvolvimento
+        // NÃO INICIADOS
 
-      - @projetos_em_desenvolvimento.each do |projeto|
+        .col-sm-3
 
-        .projeto-box
+          .projetos-titulo-box
 
-          h5.text-center
-            = projeto.description
+            h5.text-center.text-warning Não iniciados
 
-          hr.divider
+          - if @projetos_nao_iniciados.empty?
 
-          strong Início:
-          .pull-right
-            = projeto.start_date.strftime("%d de %B de %Y")
-            
-          br
+            .projeto-box
 
-          strong Entrega:
-          .pull-right
-            = projeto.end_date.strftime("%d de %B de %Y")
-
-          br
-          br
-
-          - if projeto.members.empty?
-
-            p Não há membros alocados.
+              h5.text-center Não há projetos não iniciados.
 
           - else
 
-            strong Membros alocados:
+            - @projetos_nao_iniciados.each do |projeto|
 
-            br
-            br
+              .projeto-box
 
-            - projeto.members.each do |membro|
+                h5.text-center
+                  = projeto.description
 
-              strong.text-primary
-                = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
-              = membro.member_name
+                hr.divider
 
-              br
+                strong Início:
+                .pull-right
+                  = projeto.start_date.strftime("%d de %B de %Y")
+                  
+                br
 
-            br
+                strong Entrega:
+                .pull-right
+                  = projeto.end_date.strftime("%d de %B de %Y")
 
-          .btn-group.btn-group-sm.btn-group-justified
-            = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-info'
-            = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-info' do
-              i.fa.fa-pencil
-            = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-info' do
-              i.fa.fa-times
- 
+                br
+                br
 
-    // ATRASADOS  
+                - if projeto.members.empty?
 
-    .col-sm-3
+                  p Não há membros alocados.
 
-      .projetos-titulo-box
+                - else
 
-        h5.text-center.text-danger Atrasados
+                  strong Membros alocados:
+                  
+                  br
+                  br
 
-      - @projetos_atrasados.each do |projeto|
+                  - projeto.members.each do |membro|
 
-        .projeto-box
+                    strong.text-warning
+                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
+                    = membro.member_name
 
-          h5.text-center
-            = projeto.description
+                    br
 
-          hr.divider
+                  br
 
-          strong Início:
-          .pull-right
-            = projeto.start_date.strftime("%d de %B de %Y")
-            
-          br
-
-          strong Entrega:
-          .pull-right
-            = projeto.end_date.strftime("%d de %B de %Y")
-
-          br
-          br
-
-          - if projeto.members.empty?
-
-            p Não há membros alocados.
-
-          - else
-
-            strong Membros alocados:
-          
-            br
-            br
-
-            - projeto.members.each do |membro|
-
-              strong.text-danger
-                = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
-              = membro.member_name
-
-              br
-
-            br
-
-          .btn-group.btn-group-sm.btn-group-justified
-            = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-danger'
-            = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-danger' do
-              i.fa.fa-pencil
-            = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-danger' do
-              i.fa.fa-times
+                .btn-group.btn-group-sm.btn-group-justified
+                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-warning'
+                  = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-warning' do
+                    i.fa.fa-pencil
+                  = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-warning' do
+                    i.fa.fa-times
 
 
-    // CONCLUÍDOS
+        // EM DESENVOLVIMENTO
 
-    .col-sm-3
-    
-      .projetos-titulo-box
+        .col-sm-3
 
-        h5.text-center.text-success Concluídos
+          .projetos-titulo-box
 
-      - @projetos_concluidos.each do |projeto|
+            h5.text-center.text-primary Em desenvolvimento
 
-        .projeto-box
+          - if @projetos_em_desenvolvimento.empty?
 
-          h5.text-center
-            = projeto.description
+            .projeto-box
 
-          hr.divider
-
-          strong Início:
-          .pull-right
-            = projeto.start_date.strftime("%d de %B de %Y")
-            
-          br
-
-          strong Entrega:
-          .pull-right
-            = projeto.end_date.strftime("%d de %B de %Y")
-
-          br
-          br
-
-          - if projeto.members.empty?
-
-            p Não há membros alocados.
+              h5.text-center Não há projetos em desenvolvimento.
 
           - else
 
-            strong Membros alocados:
-          
-            br
-            br
+            - @projetos_em_desenvolvimento.each do |projeto|
 
-            - projeto.members.each do |membro|
+              .projeto-box
 
-              strong.text-success
-                = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
-              = membro.member_name
+                h5.text-center
+                  = projeto.description
 
-              br
+                hr.divider
 
-            br
+                strong Início:
+                .pull-right
+                  = projeto.start_date.strftime("%d de %B de %Y")
+                  
+                br
 
-          .btn-group.btn-group-sm.btn-group-justified
-            = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-success'
-            = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-success' do
-              i.fa.fa-pencil
-            = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-success' do
-              i.fa.fa-times
+                strong Entrega:
+                .pull-right
+                  = projeto.end_date.strftime("%d de %B de %Y")
+
+                br
+                br
+
+                - if projeto.members.empty?
+
+                  p Não há membros alocados.
+
+                - else
+
+                  strong Membros alocados:
+
+                  br
+                  br
+
+                  - projeto.members.each do |membro|
+
+                    strong.text-primary
+                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
+                    = membro.member_name
+
+                    br
+
+                  br
+
+                .btn-group.btn-group-sm.btn-group-justified
+                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-info'
+                  = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-info' do
+                    i.fa.fa-pencil
+                  = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-info' do
+                    i.fa.fa-times
+       
+
+        // ATRASADOS  
+
+        .col-sm-3
+
+          .projetos-titulo-box
+
+            h5.text-center.text-danger Atrasados
+
+          - if @projetos_atrasados.empty?
+
+            .projeto-box
+
+              h5.text-center Não há projetos atrasados.
+
+          - else
+
+            - @projetos_atrasados.each do |projeto|
+
+              .projeto-box
+
+                h5.text-center
+                  = projeto.description
+
+                hr.divider
+
+                strong Início:
+                .pull-right
+                  = projeto.start_date.strftime("%d de %B de %Y")
+                  
+                br
+
+                strong Entrega:
+                .pull-right
+                  = projeto.end_date.strftime("%d de %B de %Y")
+
+                br
+                br
+
+                - if projeto.members.empty?
+
+                  p Não há membros alocados.
+
+                - else
+
+                  strong Membros alocados:
+                
+                  br
+                  br
+
+                  - projeto.members.each do |membro|
+
+                    strong.text-danger
+                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
+                    = membro.member_name
+
+                    br
+
+                  br
+
+                .btn-group.btn-group-sm.btn-group-justified
+                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-danger'
+                  = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-danger' do
+                    i.fa.fa-pencil
+                  = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-danger' do
+                    i.fa.fa-times
+
+
+        // CONCLUÍDOS
+
+        .col-sm-3
+        
+          .projetos-titulo-box
+
+            h5.text-center.text-success Concluídos
+
+          - if @projetos_concluidos.empty?
+
+            .projeto-box
+
+              h5.text-center Não há projetos concluídos.
+
+          - else
+
+            - @projetos_concluidos.each do |projeto|
+
+              .projeto-box
+
+                h5.text-center
+                  = projeto.description
+
+                hr.divider
+
+                strong Início:
+                .pull-right
+                  = projeto.start_date.strftime("%d de %B de %Y")
+                  
+                br
+
+                strong Entrega:
+                .pull-right
+                  = projeto.end_date.strftime("%d de %B de %Y")
+
+                br
+                br
+
+                - if projeto.members.empty?
+
+                  p Não há membros alocados.
+
+                - else
+
+                  strong Membros alocados:
+                
+                  br
+                  br
+
+                  - projeto.members.each do |membro|
+
+                    strong.text-success
+                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
+                    = membro.member_name
+
+                    br
+
+                  br
+
+                .btn-group.btn-group-sm.btn-group-justified
+                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-success'
+                  = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-success' do
+                    i.fa.fa-pencil
+                  = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-success' do
+                    i.fa.fa-times

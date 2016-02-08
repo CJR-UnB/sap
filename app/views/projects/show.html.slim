@@ -16,11 +16,13 @@
 
   p
     strong Link no Git: 
-    = @project.git
+    span.font-code
+      = link_to @project.git, @project.git, target: :_blank
 
   p
     strong Link no Heroku: 
-    = @project.heroku
+    span.font-code
+      = link_to @project.heroku, @project.heroku, target: :_blank
 
   p
     strong Data de início: 

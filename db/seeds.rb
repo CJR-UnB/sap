@@ -5,11 +5,14 @@
 # Para modificar altere as listas que começam com 'a'
 # Use 'rake db:seed' para preencher o banco de dados
 
+# STATUS DE MEMBRO
+
 a_status_de_membro = [{description: "Ativo"}, 
                       {description: "Inativo"}]
 
 status_de_membro = MemberStatus.create(a_status_de_membro)
 
+# STATUS DE PROJETO
 
 a_status_de_projeto = [{description: "Não iniciado"}, 
                        {description: "Em desenvolvimento"}, 
@@ -18,6 +21,7 @@ a_status_de_projeto = [{description: "Não iniciado"},
 
 status_de_projeto = ProjectStatus.create(a_status_de_projeto)
 
+# STATUS DE REQUISIÇÃO DE CONHECIMENTO
 
 a_status_de_requisicao = [{description: "Em análise"}, 
                           {description: "Deferido"}, 
@@ -25,6 +29,7 @@ a_status_de_requisicao = [{description: "Em análise"},
 
 status_de_requisicao = RequestStatus.create(a_status_de_requisicao)
 
+# PERFIS DE MEMBRO
 
 a_perfis = [{description: "Administrador"},
             {description: "Moderador"},
@@ -36,6 +41,7 @@ admin = perfis[0].id
 mod = perfis[1].id
 user = perfis[2].id
 
+# CARGOS DE MEMBRO
 
 a_cargos = [{description: "Trainee"}, 
             {description: "Consultor"}, 
@@ -51,6 +57,7 @@ gerente = cargos[2].id
 lider = cargos[3].id
 presidente = cargos[4].id
 
+# NÍVEIS DE CONHECIMENTO
 
 a_niveis_de_conhecimento = [{level: "Baixo", description: "Baixo"}, 
                             {level: "Médio", description: "Médio"}, 
@@ -58,6 +65,7 @@ a_niveis_de_conhecimento = [{level: "Baixo", description: "Baixo"},
 
 niveis_de_conhecimento = KnowledgeLevel.create(a_niveis_de_conhecimento)
 
+# NÚCLEOS
 
 a_nucleos = [{short_name: "NDP", name: "Núcleo de Desenvolvimento e Pesquisa", description: "N/A"},
              {short_name: "NUT", name: "Núcleo de Talentos", description: "N/A"},
@@ -73,6 +81,7 @@ nam = nucleos[2].id
 noe = nucleos[3].id
 pres = nucleos[4].id
 
+# ÁREAS
 
 a_areas = [{name: "Inovação", sector_id: ndp},
            {name: "Suporte", sector_id: ndp},
@@ -99,12 +108,14 @@ a_areas = [{name: "Inovação", sector_id: ndp},
 
 areas = Area.create(a_areas)
 
+# FUNÇÕES DE PROJETO
 
 a_funcoes_de_projeto = [{description: "Gerente"},
                         {description: "Desenvolvedor"}]
 
 funcoes_de_projeto = ProjectRole.create(a_funcoes_de_projeto)
 
+# TECNOLOGIAS
 
 a_tecnologias = [{name: "HTML", description: "Linuagem de Marcação de Texto"},
                  {name: "CSS", description: "Linguagem de Estilo em Cascata"},
@@ -121,6 +132,19 @@ a_tecnologias = [{name: "HTML", description: "Linuagem de Marcação de Texto"},
 
 tecnologias = Technology.create(a_tecnologias)
 
+# TIPOS DE ATIVIDADE
+
+a_tipos_de_atividade = [{description: "Empresa Júnior"}, 
+                        {description: "Matéria da UnB"},
+                        {description: "Cursos"},
+                        {description: "Trabalho"},
+                        {description: "Estágio Remunerado"},
+                        {description: "Estágio Obrigatório"},
+                        {description: "Lazer"}]
+
+tipos_de_atividade = ActivityType.create(a_tipos_de_atividade)
+
+# MEMBROS
 
 a_membros = [{name: "Rafael", last_name: "Alves Fernandes", email: "rafaelalves@cjr.org.br", password: "fernandes123",
               role_id: admin, sector_id: noe, job_id: consultor}]
