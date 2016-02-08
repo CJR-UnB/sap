@@ -25,7 +25,7 @@ class ProjectMemberHistoriesController < ApplicationController
 
     respond_to do |format|
       if @project_member_history.save
-        format.html { redirect_to project_member_histories_path, notice: 'O histórico de projeto do membro foi criado com sucesso!' }
+        format.html { redirect_to :back, notice: 'O histórico de projeto do membro foi criado com sucesso!' }
         format.json { render :show, status: :created, location: @project_member_history }
       else
         format.html { render :new }
@@ -37,7 +37,7 @@ class ProjectMemberHistoriesController < ApplicationController
   def update
     respond_to do |format|
       if @project_member_history.update(project_member_history_params)
-        format.html { redirect_to project_member_histories_path, notice: 'O histórico de projeto do membro foi atualizado com sucesso!' }
+        format.html { redirect_to :back, notice: 'O histórico de projeto do membro foi atualizado com sucesso!' }
         format.json { render :show, status: :ok, location: @project_member_history }
       else
         format.html { render :edit }
@@ -61,7 +61,7 @@ class ProjectMemberHistoriesController < ApplicationController
     end
 
     def project_member_history_params
-      params.require(:project_member_history).permit(:observation, :member_id, :project_id, :project_role_id)
+      params.require(:project_member_history).permit(:observation, :members_project_id)
     end
 
     def modal_responder

@@ -1,31 +1,34 @@
 class KnowledgesMembersController < ApplicationController
-
-  respond_to :html, :json
-  before_action :authenticate_member!
   before_action :set_knowledges_member, only: [:show, :edit, :update, :destroy]
-  before_action :modal_responder, only: [:show, :edit]
-  load_and_authorize_resource except: [:create]
 
+  # GET /knowledges_members
+  # GET /knowledges_members.json
   def index
     @knowledges_members = KnowledgesMember.all
   end
 
+  # GET /knowledges_members/1
+  # GET /knowledges_members/1.json
   def show
   end
 
+  # GET /knowledges_members/new
   def new
-    respond_modal_with @knowledges_member = KnowledgesMember.new
+    @knowledges_member = KnowledgesMember.new
   end
 
+  # GET /knowledges_members/1/edit
   def edit
   end
 
+  # POST /knowledges_members
+  # POST /knowledges_members.json
   def create
     @knowledges_member = KnowledgesMember.new(knowledges_member_params)
 
     respond_to do |format|
       if @knowledges_member.save
-        format.html { redirect_to knowledges_members_path, notice: 'O conhecimento foi criado com sucesso!' }
+        format.html { redirect_to @knowledges_member, notice: 'Knowledges member was successfully created.' }
         format.json { render :show, status: :created, location: @knowledges_member }
       else
         format.html { render :new }
@@ -34,10 +37,12 @@ class KnowledgesMembersController < ApplicationController
     end
   end
 
+  # PATCH/PUT /knowledges_members/1
+  # PATCH/PUT /knowledges_members/1.json
   def update
     respond_to do |format|
       if @knowledges_member.update(knowledges_member_params)
-        format.html { redirect_to knowledges_members_path, notice: 'O conhecimento foi atualizado com sucesso!' }
+        format.html { redirect_to @knowledges_member, notice: 'Knowledges member was successfully updated.' }
         format.json { render :show, status: :ok, location: @knowledges_member }
       else
         format.html { render :edit }
@@ -46,26 +51,24 @@ class KnowledgesMembersController < ApplicationController
     end
   end
 
+  # DELETE /knowledges_members/1
+  # DELETE /knowledges_members/1.json
   def destroy
     @knowledges_member.destroy
     respond_to do |format|
-      format.html { redirect_to knowledges_members_url, notice: 'O conhecimento foi deletado com sucesso!' }
+      format.html { redirect_to knowledges_members_url, notice: 'Knowledges member was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-
+    # Use callbacks to share common setup or constraints between actions.
     def set_knowledges_member
       @knowledges_member = KnowledgesMember.find(params[:id])
     end
 
+    # Never trust parameters from the scary internet, only allow the white list through.
     def knowledges_member_params
       params.require(:knowledges_member).permit(:member_id, :knowledge_id)
     end
-
-    def modal_responder
-      respond_modal_with set_knowledges_member
-    end
-
 end

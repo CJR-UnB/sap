@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160206180824) do
+ActiveRecord::Schema.define(version: 20160207232217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,38 +97,6 @@ ActiveRecord::Schema.define(version: 20160206180824) do
   add_index "knowledges_members", ["knowledge_id"], name: "index_knowledges_members_on_knowledge_id", using: :btree
   add_index "knowledges_members", ["member_id"], name: "index_knowledges_members_on_member_id", using: :btree
 
-  create_table "member_has_activities", force: :cascade do |t|
-    t.integer  "member_id"
-    t.integer  "activity_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "member_has_activities", ["activity_id"], name: "index_member_has_activities_on_activity_id", using: :btree
-  add_index "member_has_activities", ["member_id"], name: "index_member_has_activities_on_member_id", using: :btree
-
-  create_table "member_has_knowledges", force: :cascade do |t|
-    t.integer  "member_id"
-    t.integer  "knowledge_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "member_has_knowledges", ["knowledge_id"], name: "index_member_has_knowledges_on_knowledge_id", using: :btree
-  add_index "member_has_knowledges", ["member_id"], name: "index_member_has_knowledges_on_member_id", using: :btree
-
-  create_table "member_has_projects", force: :cascade do |t|
-    t.integer  "member_id"
-    t.integer  "project_id"
-    t.integer  "project_role_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "member_has_projects", ["member_id"], name: "index_member_has_projects_on_member_id", using: :btree
-  add_index "member_has_projects", ["project_id"], name: "index_member_has_projects_on_project_id", using: :btree
-  add_index "member_has_projects", ["project_role_id"], name: "index_member_has_projects_on_project_role_id", using: :btree
-
   create_table "member_statuses", force: :cascade do |t|
     t.string   "description"
     t.datetime "created_at",  null: false
@@ -165,6 +133,18 @@ ActiveRecord::Schema.define(version: 20160206180824) do
   add_index "members", ["role_id"], name: "index_members_on_role_id", using: :btree
   add_index "members", ["sector_id"], name: "index_members_on_sector_id", using: :btree
 
+  create_table "members_projects", force: :cascade do |t|
+    t.integer  "member_id"
+    t.integer  "project_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "project_role_id"
+  end
+
+  add_index "members_projects", ["member_id"], name: "index_members_projects_on_member_id", using: :btree
+  add_index "members_projects", ["project_id"], name: "index_members_projects_on_project_id", using: :btree
+  add_index "members_projects", ["project_role_id"], name: "index_members_projects_on_project_role_id", using: :btree
+
   create_table "project_histories", force: :cascade do |t|
     t.text     "observation"
     t.integer  "project_id"
@@ -176,16 +156,12 @@ ActiveRecord::Schema.define(version: 20160206180824) do
 
   create_table "project_member_histories", force: :cascade do |t|
     t.text     "observation"
-    t.integer  "member_id"
-    t.integer  "project_id"
-    t.integer  "project_role_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "members_project_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
-  add_index "project_member_histories", ["member_id"], name: "index_project_member_histories_on_member_id", using: :btree
-  add_index "project_member_histories", ["project_id"], name: "index_project_member_histories_on_project_id", using: :btree
-  add_index "project_member_histories", ["project_role_id"], name: "index_project_member_histories_on_project_role_id", using: :btree
+  add_index "project_member_histories", ["members_project_id"], name: "index_project_member_histories_on_members_project_id", using: :btree
 
   create_table "project_roles", force: :cascade do |t|
     t.string   "description"
@@ -202,23 +178,16 @@ ActiveRecord::Schema.define(version: 20160206180824) do
   create_table "projects", force: :cascade do |t|
     t.string   "description"
     t.float    "price"
-    t.string   "link"
     t.integer  "project_status_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "git"
+    t.string   "heroku"
   end
 
   add_index "projects", ["project_status_id"], name: "index_projects_on_project_status_id", using: :btree
-
-  create_table "projects_members", force: :cascade do |t|
-    t.integer  "member_id"
-    t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "projects_members", ["member_id"], name: "index_projects_members_on_member_id", using: :btree
-  add_index "projects_members", ["project_id"], name: "index_projects_members_on_project_id", using: :btree
 
   create_table "request_histories", force: :cascade do |t|
     t.integer  "knowledge_request_id"
@@ -267,24 +236,16 @@ ActiveRecord::Schema.define(version: 20160206180824) do
   add_foreign_key "knowledges", "technologies"
   add_foreign_key "knowledges_members", "knowledges"
   add_foreign_key "knowledges_members", "members"
-  add_foreign_key "member_has_activities", "activities"
-  add_foreign_key "member_has_activities", "members"
-  add_foreign_key "member_has_knowledges", "knowledges"
-  add_foreign_key "member_has_knowledges", "members"
-  add_foreign_key "member_has_projects", "members"
-  add_foreign_key "member_has_projects", "project_roles"
-  add_foreign_key "member_has_projects", "projects"
   add_foreign_key "members", "areas"
   add_foreign_key "members", "jobs"
   add_foreign_key "members", "member_statuses"
   add_foreign_key "members", "roles"
   add_foreign_key "members", "sectors"
+  add_foreign_key "members_projects", "members"
+  add_foreign_key "members_projects", "project_roles"
+  add_foreign_key "members_projects", "projects"
   add_foreign_key "project_histories", "projects"
-  add_foreign_key "project_member_histories", "members"
-  add_foreign_key "project_member_histories", "project_roles"
-  add_foreign_key "project_member_histories", "projects"
+  add_foreign_key "project_member_histories", "members_projects"
   add_foreign_key "projects", "project_statuses"
-  add_foreign_key "projects_members", "members"
-  add_foreign_key "projects_members", "projects"
   add_foreign_key "request_histories", "knowledge_requests"
 end

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  
   # Define a raiz para a página de login e as rotas /login e /logout
   devise_scope :member do
     root to: "devise/sessions#new"
@@ -23,9 +24,9 @@ Rails.application.routes.draw do
   resources :projects
   resources :project_roles
   resources :project_statuses
-  resources :projects_members
   resources :project_histories
   resources :project_member_histories
+  resources :members_projects
   
   resources :technologies
   
@@ -38,5 +39,6 @@ Rails.application.routes.draw do
   resources :sectors
   
   get '/home' => 'home#index'
+  get '/projects_overview' => 'projects_overview#index'
 
 end

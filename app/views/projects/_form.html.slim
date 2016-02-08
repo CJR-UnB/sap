@@ -11,8 +11,20 @@
       = f.text_field :price, class:'form-control', required: true
 
     .form-group
-      = f.label :link
-      = f.text_field :link, class:'form-control', required: true
+      = f.label :link_no_git
+      = f.text_field :git, class:'form-control', required: true
+
+    .form-group
+      = f.label :link_no_heroku
+      = f.text_field :heroku, class:'form-control', required: true
+
+    .form-group
+      = f.label :data_de_início
+      = f.date_field :start_date, class:'form-control'
+
+    .form-group
+      = f.label :data_de_entrega
+      = f.date_field :end_date, class:'form-control'
 
     .form-group
       = f.label :project_status

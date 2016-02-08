@@ -14,8 +14,7 @@ status_de_membro = MemberStatus.create(a_status_de_membro)
 a_status_de_projeto = [{description: "Não iniciado"}, 
                        {description: "Em desenvolvimento"}, 
                        {description: "Atrasado"}, 
-                       {description: "Concluído"}, 
-                       {description: "Cancelado"}]
+                       {description: "Concluído"}]
 
 status_de_projeto = ProjectStatus.create(a_status_de_projeto)
 

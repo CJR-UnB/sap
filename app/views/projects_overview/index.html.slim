@@ -1,0 +1,30 @@
+= content_for :titulo, 'Membros x Projetos'
+
+.box
+
+  table.table.table-responsive.table-hover
+
+    thead
+
+      tr
+
+        th Membro/Projeto
+        th Nº
+
+        - @projetos.each do |projeto|
+
+          th = projeto.description
+
+    tbody
+
+      - @membros.each do |membro|
+
+        tr
+
+          td = membro.try(:member_name)
+          td = @membros_alocados.where(member_id: membro.id).count.to_s
+
+          - @projetos.each do |projeto|
+
+            td
+              = @membros_alocados.where(project_id: projeto.id, member_id: membro.id).first.try(:project_role).try(:description)

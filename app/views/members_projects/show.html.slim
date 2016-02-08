@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Member:
+  = @members_project.member
+p
+  strong Project:
+  = @members_project.project
+
+= link_to 'Edit', edit_members_project_path(@members_project)
+'|
+= link_to 'Back', members_projects_path

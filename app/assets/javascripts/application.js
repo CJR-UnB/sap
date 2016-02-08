@@ -18,5 +18,3 @@
 //= require turbolinks
 //= require_tree .
 
-$('#popoverData').popover();
-$('#popoverOption').popover({ trigger: "hover" });

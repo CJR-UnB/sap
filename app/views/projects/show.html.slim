@@ -1,6 +1,10 @@
 = content_for :title, 'Exibindo Projeto'
 
 .modal-body
+  
+  h4.text-center Informações Básicas
+  
+  hr.divider
 
   p
     strong Descrição: 
@@ -11,13 +15,51 @@
     = @project.price
 
   p
-    strong Link: 
-    = @project.link
+    strong Link no Git: 
+    = @project.git
+
+  p
+    strong Link no Heroku: 
+    = @project.heroku
+
+  p
+    strong Data de início: 
+    = @project.start_date.strftime("%d de %B de %Y")
+
+  p
+    strong Data de entrega: 
+    = @project.end_date.strftime("%d de %B de %Y")
 
   p
     strong Status: 
     = @project.project_status.try(:description)
 
-.modal-footer
+  br
 
+  h4.text-center Membros Alocados
+
+  hr.divider
+
+  - if MembersProject.where(project_id: @project.id).empty?
+
+    p Não há membros alocados no projeto.
+
+  - else
+
+    - MembersProject.where(project_id: @project.id).each do |alocacao|
+
+      strong
+        = '[' + alocacao.project_role.description + '] '
+      = alocacao.member.member_name
+
+      .btn-group.btn-group-xs.pull-right
+
+        = link_to 'Editar', edit_members_project_path(alocacao), data: { modal: true }, class:'btn btn-primary'
+        = link_to 'Desalocar', alocacao, data: { confirm: 'Você tem certeza?' }, method: :delete, class:'btn btn-primary'
+
+      br
+      br
+
+.modal-footer
+  
   = link_to 'Fechar', :back, class:'btn btn-success'

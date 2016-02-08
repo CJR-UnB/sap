@@ -7,16 +7,8 @@
       = f.text_area :observation, class:'form-control', required: true
 
     .form-group
-      = f.label :membro
-      = f.select :member_id, Member.all.map { |m| [m.member_name, m.id] }, {}, { class:'form-control' }
-
-    .form-group
-      = f.label :projeto
-      = f.select :project_id, Project.all.map { |p| [p.description, p.id] }, {}, { class:'form-control' } 
-
-    .form-group
-      = f.label :função
-      = f.select :project_role_id, ProjectRole.all.map { |p| [p.description, p.id] }, {}, { class:'form-control' } 
+      = f.label :alocação
+      = f.select :members_project_id, MembersProject.all.map { |m| [m.alocacao_completa, m.id] }, {}, { class:'form-control' }
 
   .modal-footer
 

@@ -1,0 +1,19 @@
+= form_for @members_project do |f|
+
+  .modal-body
+
+    .form-group
+      = f.label :membro
+      = f.select :member_id, Member.all.map { |m| [m.member_name, m.id] }, {}, { class:'form-control' }
+
+    .form-group
+      = f.label :projeto
+      = f.select :project_id, Project.all.map { |p| [p.description, p.id] }, {}, { class:'form-control' }
+    
+    .form-group
+      = f.label :função
+      = f.select :project_role_id, ProjectRole.all.map { |p| [p.description, p.id] }, {}, { class:'form-control' }
+
+  .modal-footer
+
+    = f.submit 'Enviar', class:'btn btn-success'

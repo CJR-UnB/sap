@@ -5,15 +5,15 @@
   - unless current_member.try(:user?)
     p
       strong Membro: 
-      = @project_member_history.member.try(:member_name)
+      = @project_member_history.members_project.try(:member).try(:member_name)
 
   p
     strong Projeto: 
-    = @project_member_history.project.try(:description)
+    = @project_member_history.members_project.try(:project).try(:description)
 
   p
     strong Função: 
-    = @project_member_history.project_role.try(:description)
+    = @project_member_history.members_project.try(:project_role).try(:description)
 
   p
     strong Observação: 

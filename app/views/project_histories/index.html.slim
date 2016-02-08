@@ -9,8 +9,10 @@
         th Código
         th Observação
         th Projeto
-        th
-        th
+        - if can? :update, ProjectHistory
+          th
+        - if can? :destroy, ProjectHistory
+          th
 
     tbody
 
@@ -18,19 +20,22 @@
 
         tr
           td = project_history.id
-          td = link_to 'Ver Observação', project_history.observation, project_history, data: { modal: true }
+          td = link_to 'Ver Observação', project_history, data: { modal: true }
           td = project_history.project.try(:description)
 
-          td align="right"
+          - if can? :update, ProjectHistory
 
-            = link_to edit_project_history_path(project_history), data: { modal: true }, title:'Editar' do
-              i.fa.fa-pencil
+            td align="right"
 
-          td align="right"
+              = link_to edit_project_history_path(project_history), data: { modal: true }, title:'Editar' do
+                i.fa.fa-pencil
 
-            = link_to project_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-              i.fa.fa-times
+          - if can? :destroy, ProjectHistory
 
-  br
+            td align="right"
 
-  = link_to 'Novo Histórico de Projeto', new_project_history_path, data: { modal: true }, class:'btn btn-success'
+              = link_to project_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                i.fa.fa-times
+
+  - if can? :create, ProjectHistory
+    = link_to 'Novo Histórico de Projeto', new_project_history_path, data: { modal: true }, class:'btn btn-success'

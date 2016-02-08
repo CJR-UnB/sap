@@ -11,7 +11,7 @@ class Member < ActiveRecord::Base
   has_many :knowledge_requests
   has_many :project_member_histories
 
-  has_and_belongs_to_many :activites
+  has_and_belongs_to_many :activities
   has_and_belongs_to_many :knowledges
   has_and_belongs_to_many :projects
 

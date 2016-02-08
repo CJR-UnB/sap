@@ -1,41 +1,23 @@
-- unless current_member.try(:user?)
-  = content_for :titulo, 'Atividades dos Membros'
-- else
-  = content_for :titulo, 'Suas Atividades'
+h1 Listing activities_members
 
-.box
+table
+  thead
+    tr
+      th Member
+      th Activity
+      th
+      th
+      th
 
-  table.table.table-responsive.table-hover
-
-    thead
+  tbody
+    - @activities_members.each do |activities_member|
       tr
-        th Código
-        - if can? :create, ActivitiesMember
-          th Membro
-        th Atividade
-        th
-        th
+        td = activities_member.member
+        td = activities_member.activity
+        td = link_to 'Show', activities_member
+        td = link_to 'Edit', edit_activities_member_path(activities_member)
+        td = link_to 'Destroy', activities_member, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-    tbody
+br
 
-      - @activities_members.each do |activities_member|
-
-        tr
-          td = activities_member.id
-
-          - if can? :create, ActivitiesMember
-            td = activities_member.member.member_name
-
-          td = link_to activities_member.activity.description, activities_member.activity, data: { modal: true }
-
-          td align="right"
-
-            = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
-              i.fa.fa-pencil
-
-          td align="right"
-
-            = link_to activities_member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-              i.fa.fa-times
-
-  = link_to 'Nova Atividade', new_activities_member_path, data: { modal: true }, class:'btn btn-success'
+= link_to 'New Activities member', new_activities_member_path
