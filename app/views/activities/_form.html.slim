@@ -12,7 +12,7 @@
 
     .form-group
       = f.label :tipo
-      = f.select :activity_type_id, ActivityType.all.map { |a| [a.description, a.id] }, {}, { class:'form-control' } 
+      = f.select :activity_type_id, ActivityType.all.map { |a| [a.description, a.id] }, { include_blank:'Escolha um tipo' }, { class:'form-control', required: true } 
 
   .modal-footer
   

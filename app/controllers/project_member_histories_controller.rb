@@ -61,7 +61,7 @@ class ProjectMemberHistoriesController < ApplicationController
     end
 
     def project_member_history_params
-      params.require(:project_member_history).permit(:observation, :members_project_id)
+      params.require(:project_member_history).permit(:observation, :member_id, :project_id, :project_role_id)
     end
 
     def modal_responder

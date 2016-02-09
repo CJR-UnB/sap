@@ -71,7 +71,8 @@ a_nucleos = [{short_name: "NDP", name: "Núcleo de Desenvolvimento e Pesquisa", 
              {short_name: "NUT", name: "Núcleo de Talentos", description: "N/A"},
              {short_name: "NAM", name: "Núcleo de Atendimento e Marketing", description: "N/A"},
              {short_name: "NOE", name: "Núcleo de Organização Empresarial", description: "N/A"},
-             {short_name: "PRES", name: "Presidência", description: "N/A"}]
+             {short_name: "PRES", name: "Presidência", description: "N/A"},
+             {short_name: "N/A", name: "N/A", description: "N/A"}]
 
 nucleos = Sector.create(a_nucleos)
 
@@ -80,6 +81,7 @@ nut = nucleos[1].id
 nam = nucleos[2].id
 noe = nucleos[3].id
 pres = nucleos[4].id
+na = nucleos[5].id
 
 # ÁREAS
 
@@ -100,11 +102,13 @@ a_areas = [{name: "Inovação", sector_id: ndp},
            {name: "Administrativo", sector_id: noe},
            {name: "Gestão Organizacional", sector_id: noe},
 
-           {name: "N/A", sector_id: ndp},
-           {name: "N/A", sector_id: nut},
-           {name: "N/A", sector_id: nam},
-           {name: "N/A", sector_id: noe},
-           {name: "N/A", sector_id: pres}]
+           {name: "N/A NDP", sector_id: ndp},
+           {name: "N/A NUT", sector_id: nut},
+           {name: "N/A NAM", sector_id: nam},
+           {name: "N/A NOE", sector_id: noe},
+           {name: "N/A PRES", sector_id: pres},
+
+           {name: "N/A", sector_id: na}]
 
 areas = Area.create(a_areas)
 
@@ -140,9 +144,33 @@ a_tipos_de_atividade = [{description: "Empresa Júnior"},
                         {description: "Trabalho"},
                         {description: "Estágio Remunerado"},
                         {description: "Estágio Obrigatório"},
-                        {description: "Lazer"}]
+                        {description: "Lazer"},
+                        {description: "Bolsas"}]
 
 tipos_de_atividade = ActivityType.create(a_tipos_de_atividade)
+
+empresa_junior = tipos_de_atividade[0].id
+materia_unb = tipos_de_atividade[1].id
+cursos = tipos_de_atividade[2].id
+trabalho = tipos_de_atividade[3].id
+estagio_remunerado = tipos_de_atividade[4].id
+estagio_obrigatorio = tipos_de_atividade[5].id
+lazer = tipos_de_atividade[6].id
+bolsas = tipos_de_atividade[7].id
+
+# ATIVIDADES
+
+a_atividades = [{description: "Empresa Júnior de Computação", activity_type_id: empresa_junior, credit_numbers: 16},
+                {description: "Estágio 20h", activity_type_id: estagio_remunerado, credit_numbers: 22},
+                {description: "Estágio 30h", activity_type_id: estagio_remunerado, credit_numbers: 33},
+                {description: "Trabalho 20h", activity_type_id: trabalho, credit_numbers: 22},
+                {description: "Trabalho 30h", activity_type_id: trabalho, credit_numbers: 33},
+                {description: "Trabalho 40h", activity_type_id: trabalho, credit_numbers: 44},
+                {description: "Monitoria", activity_type_id: materia_unb, credit_numbers: 2},
+                {description: "Programa de Bolsa de Iniciação Científica", activity_type_id: bolsas, credit_numbers: 2},
+                {description: "Programa de Bolsa de Iniciação à Docência", activity_type_id: bolsas, credit_numbers: 2}]
+
+atividades = Activity.create(a_atividades)
 
 # MEMBROS
 

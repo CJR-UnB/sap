@@ -4,7 +4,7 @@
 
     .form-group
       = f.label :requisição_de_conhecimento
-      = f.select :knowledge_request_id, KnowledgeRequest.all.map { |k| [k.requisicao_completa , k.id] }, {}, { class:'form-control' }
+      = f.select :knowledge_request_id, KnowledgeRequest.all.map { |k| [k.requisicao_completa , k.id] }, { include_blank:'Escolha uma requisição de conhecimento' }, { class:'form-control', required: true }
 
     .form-group
       = f.label :observação

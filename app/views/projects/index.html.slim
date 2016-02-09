@@ -1,6 +1,5 @@
 = content_for :titulo, 'Projetos'
 
-
 .projetos
   
   .tab-content
@@ -16,6 +15,7 @@
             tr
               th Código
               th Descrição
+              th Status
               th Início
               th Entrega
               - if can? :update, Project
@@ -30,8 +30,9 @@
               tr
                 td = project.id
                 td = link_to project.description, project, data: { modal: true }
-                td = project.start_date.strftime("%d de %B de %Y")
-                td = project.end_date.strftime("%d de %B de %Y")
+                td = project.project_status.try(:description)
+                td = project.start_date
+                td = project.end_date
 
                 - if can? :update, Project
 
@@ -80,13 +81,13 @@
 
                 strong Início:
                 .pull-right
-                  = projeto.start_date.strftime("%d de %B de %Y")
+                  = projeto.start_date
                   
                 br
 
                 strong Entrega:
                 .pull-right
-                  = projeto.end_date.strftime("%d de %B de %Y")
+                  = projeto.end_date
 
                 br
                 br
@@ -147,13 +148,13 @@
 
                 strong Início:
                 .pull-right
-                  = projeto.start_date.strftime("%d de %B de %Y")
+                  = projeto.start_date
                   
                 br
 
                 strong Entrega:
                 .pull-right
-                  = projeto.end_date.strftime("%d de %B de %Y")
+                  = projeto.end_date
 
                 br
                 br
@@ -214,13 +215,13 @@
 
                 strong Início:
                 .pull-right
-                  = projeto.start_date.strftime("%d de %B de %Y")
+                  = projeto.start_date
                   
                 br
 
                 strong Entrega:
                 .pull-right
-                  = projeto.end_date.strftime("%d de %B de %Y")
+                  = projeto.end_date
 
                 br
                 br
@@ -281,13 +282,13 @@
 
                 strong Início:
                 .pull-right
-                  = projeto.start_date.strftime("%d de %B de %Y")
+                  = projeto.start_date
                   
                 br
 
                 strong Entrega:
                 .pull-right
-                  = projeto.end_date.strftime("%d de %B de %Y")
+                  = projeto.end_date
 
                 br
                 br

@@ -4,35 +4,35 @@
 
     .form-group
       = f.label :nome
-      = f.text_field :name, class:'form-control'
+      = f.text_field :name, class:'form-control', required: true
 
     .form-group
       = f.label :sobrenome
-      = f.text_field :last_name, class:'form-control'
+      = f.text_field :last_name, class:'form-control', required: true
 
     .form-group
       = f.label :status
-      = f.select :member_status_id, MemberStatus.all.map { |m| [m.description, m.id] }, {}, { class:'form-control' }
+      = f.select :member_status_id, MemberStatus.all.map { |m| [m.description, m.id] }, { include_blank:'Escolha um status' }, { class:'form-control', required: true }
     
     .form-group
       = f.label :perfil
-      = f.select :role_id, Role.all.map { |r| [r.description, r.id] }, {}, { class:'form-control' }
+      = f.select :role_id, Role.all.map { |r| [r.description, r.id] }, { include_blank:'Escolha um perfil' }, { class:'form-control', required: true }
 
     .form-group
       = f.label :cargo
-      = f.select :job_id, Job.all.map { |j| [j.description, j.id] }, {}, { class:'form-control' }
+      = f.select :job_id, Job.all.map { |j| [j.description, j.id] }, { include_blank:'Escolha um cargo' }, { class:'form-control', required: true }
 
     .form-group
       = f.label :núcleo
-      = f.select :sector_id, Sector.all.map { |s| [s.name, s.id] }, {}, { class:'form-control' }
+      = f.select :sector_id, Sector.all.map { |s| [s.name, s.id] }, { include_blank:'Escolha um núcleo' }, { class:'form-control', required: true }
 
     .form-group
       = f.label :area
-      = f.select :area_id, Area.all.map { |a| [a.name, a.id] }, {}, { class:'form-control' }
+      = f.select :area_id, Area.all.map { |a| [a.name, a.id] }, { include_blank:'Escolha uma área' }, { class:'form-control', required: true }
 
     .form-group
       = f.label :email
-      = f.email_field :email, class:'form-control'
+      = f.email_field :email, class:'form-control', required: true
 
     .form-group
       = f.label :senha
@@ -43,4 +43,5 @@
       = f.password_field :password_confirmation, class:'form-control'
 
   .modal-footer
+  
     = f.submit 'Enviar', class:'btn btn-success'

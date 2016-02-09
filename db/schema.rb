@@ -156,12 +156,16 @@ ActiveRecord::Schema.define(version: 20160207232217) do
 
   create_table "project_member_histories", force: :cascade do |t|
     t.text     "observation"
-    t.integer  "members_project_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer  "member_id"
+    t.integer  "project_id"
+    t.integer  "project_role_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index "project_member_histories", ["members_project_id"], name: "index_project_member_histories_on_members_project_id", using: :btree
+  add_index "project_member_histories", ["member_id"], name: "index_project_member_histories_on_member_id", using: :btree
+  add_index "project_member_histories", ["project_id"], name: "index_project_member_histories_on_project_id", using: :btree
+  add_index "project_member_histories", ["project_role_id"], name: "index_project_member_histories_on_project_role_id", using: :btree
 
   create_table "project_roles", force: :cascade do |t|
     t.string   "description"
@@ -181,8 +185,8 @@ ActiveRecord::Schema.define(version: 20160207232217) do
     t.integer  "project_status_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.date     "start_date"
-    t.date     "end_date"
+    t.string   "start_date"
+    t.string   "end_date"
     t.string   "git"
     t.string   "heroku"
   end
@@ -245,7 +249,9 @@ ActiveRecord::Schema.define(version: 20160207232217) do
   add_foreign_key "members_projects", "project_roles"
   add_foreign_key "members_projects", "projects"
   add_foreign_key "project_histories", "projects"
-  add_foreign_key "project_member_histories", "members_projects"
+  add_foreign_key "project_member_histories", "members"
+  add_foreign_key "project_member_histories", "project_roles"
+  add_foreign_key "project_member_histories", "projects"
   add_foreign_key "projects", "project_statuses"
   add_foreign_key "request_histories", "knowledge_requests"
 end

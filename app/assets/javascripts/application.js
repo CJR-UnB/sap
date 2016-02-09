@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require collapsible
 //= require modal
+//= require moment
+//= require bootstrap-datetimepicker
+//= require locale
 //= require turbolinks
 //= require_tree .
-

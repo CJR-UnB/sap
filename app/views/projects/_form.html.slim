@@ -20,16 +20,32 @@
 
     .form-group
       = f.label :data_de_início
-      = f.date_field :start_date, class:'form-control'
+      .input-group.date#datetimepicker
+        = f.text_field :start_date, class:'form-control', required: true
+        span.input-group-addon
+          span.glyphicon.glyphicon-calendar
 
     .form-group
       = f.label :data_de_entrega
-      = f.date_field :end_date, class:'form-control'
-
+      .input-group.date#datetimepicker2
+        = f.text_field :end_date, class:'form-control', required: true
+        span.input-group-addon
+          span.glyphicon.glyphicon-calendar
+      
     .form-group
       = f.label :project_status
-      = f.select :project_status_id, ProjectStatus.all.map { |p| [p.description, p.id] }, {}, { class:'form-control' } 
+      = f.select :project_status_id, ProjectStatus.all.map { |p| [p.description, p.id] }, { include_blank:'Escolha um status' }, { class:'form-control', required: true } 
 
   .modal-footer
 
     = f.submit 'Enviar', class:'btn btn-success'
+
+javascript:
+  $(document).ready(function() {
+    $('#datetimepicker').datetimepicker({
+      locale: 'pt-br'
+    });
+    $('#datetimepicker2').datetimepicker({
+      locale: 'pt-br'
+    });
+  });

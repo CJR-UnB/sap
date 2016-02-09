@@ -8,7 +8,7 @@
 
     .form-group
       = f.label :núcleo
-      = f.select :sector_id, Sector.all.map { |s| [s.name, s.id] }, {}, { class:'form-control' } 
+      = f.select :sector_id, Sector.all.map { |s| [s.name, s.id] }, { include_blank:'Escolha um núcleo' }, { class:'form-control', required: true } 
 
   .modal-footer
   

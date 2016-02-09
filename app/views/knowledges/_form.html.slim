@@ -8,11 +8,11 @@
 
     .form-group
       = f.label :nível
-      = f.select :knowledge_level_id, KnowledgeLevel.all.map { |k| [k.description, k.id] }, {}, { class:'form-control' } 
+      = f.select :knowledge_level_id, KnowledgeLevel.all.map { |k| [k.description, k.id] }, { include_blank:'Escolha um nível' }, { class:'form-control', required: true } 
 
     .form-group
       = f.label :tecnologia
-      = f.select :technology_id, Technology.all.map { |t| [t.name, t.id] }, {}, { class:'form-control' }
+      = f.select :technology_id, Technology.all.map { |t| [t.name, t.id] }, { include_blank:'Escolha uma tecnologia' }, { class:'form-control', required: true }
 
   .modal-footer
 
