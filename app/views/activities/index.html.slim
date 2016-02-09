@@ -14,6 +14,7 @@
           th
         - if can? :destroy, Activity
           th
+        th
 
     tbody
 
@@ -36,6 +37,8 @@
             td align="right"
               = link_to activity, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
                 i.fa.fa-times
+
+          td = link_to 'Associar', associar_atividade_path(activity), method: :associar
 
   - if can? :create, Activity
     = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }

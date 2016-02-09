@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  
   # Define a raiz para a página de login e as rotas /login e /logout
   devise_scope :member do
     root to: "devise/sessions#new"
@@ -40,5 +39,6 @@ Rails.application.routes.draw do
   
   get '/home' => 'home#index'
   get '/projects_overview' => 'projects_overview#index'
+  post '/activities/associar/:id' => 'activities#associar', as: :associar_atividade
 
 end

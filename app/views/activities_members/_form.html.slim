@@ -1,15 +1,17 @@
 = form_for @activities_member do |f|
-  - if @activities_member.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@activities_member.errors.count, "error")} prohibited this activities_member from being saved:"
-      ul
-        - @activities_member.errors.full_messages.each do |message|
-          li = message
 
-  .field
-    = f.label :member
-    = f.text_field :member
-  .field
-    = f.label :activity
-    = f.text_field :activity
-  .actions = f.submit
+  .modal-body
+
+    - unless current_member.try(:user?)
+    
+      .form-group
+        = f.label :membro
+        = f.select :member_id, Member.all.map { |m| [m.member_name, m.id] }, { include_blank:'Escolha um membro' }, { class:'form-control', required: true }
+
+    .form-group
+      = f.label :atividade
+      = f.select :activity_id, Activity.all.map { |a| [a.description, a.id] }, { include_blank:'Escolha uma atividade' }, { class:'form-control', required: true }
+
+  .modal-footer
+
+    = f.submit 'Enviar', class:'btn btn-success'

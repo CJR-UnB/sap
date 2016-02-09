@@ -20,6 +20,17 @@ class ActivitiesController < ApplicationController
   def edit
   end
 
+  def associar
+    @associacao = ActivitiesMember.new(activity_id: @activity.id, member_id: current_member.id)
+
+    respond_to do |format|
+      if @associacao.save
+        format.html { redirect_to :back, notice: 'A associação foi criada com sucesso!' }
+      end
+    end
+
+  end
+
   def create
     @activity = Activity.new(activity_params)
 
