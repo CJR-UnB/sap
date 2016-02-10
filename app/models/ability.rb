@@ -14,6 +14,7 @@ class Ability
       can [:associar], Activity
       can :manage, [ActivitiesMember, ProjectHistory, ProjectMemberHistory, MembersProject]
       cannot :crud, Project
+      can [:requisitar], Knowledge
       can :create, KnowledgeRequest
       can [:create, :edit, :update], Member
 

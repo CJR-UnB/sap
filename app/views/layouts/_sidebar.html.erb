@@ -4,22 +4,37 @@
 
   <div class="sidebar-links">
 
-    <div class="link-blue selected">
+    <% if esta_em_membros? %>
+
+      <div class="link-blue selected">
+
+    <% else %>
+
+      <div class="link-blue">
+
+    <% end %>
 
       <a href="#">
         <i class="fa fa-user"></i>Membros
       </a>
 
       <ul class="sub-links">
-        <li><%= link_to 'Ver Perfil', current_member, data: { modal: true } %></li>
-        <li><%= link_to 'Atualizar Dados', edit_member_path(current_member), data: { modal: true } %></li>
         <li><%= link_to 'Todos os Membros', members_path %></li>
-        <li><%= link_to 'Sair', logout_path %></li>
+        <li><%= link_to 'Visualizar Perfil', current_member, data: { modal: true } %></li>
+        <li><%= link_to 'Atualizar Perfil', edit_member_path(current_member), data: { modal: true } %></li>
       </ul>
 
     </div>
 
-    <div class="link-red">
+    <% if esta_em_conhecimentos? %>
+
+      <div class="link-red selected">
+
+    <% else %>
+
+      <div class="link-red">
+
+    <% end %>
 
       <a href="#">
         <i class="fa fa-book"></i>Conhecimentos
@@ -27,14 +42,21 @@
 
       <ul class="sub-links">
         <li><%= link_to 'Todos os Conhecimentos', knowledges_path %></li>
-        <li><%= link_to 'Níveis de Conhecimento', knowledge_levels_path %></li>
-        <li><%= link_to 'Tecnologias', technologies_path %></li>
+        <li><%= link_to 'Requisições', knowledge_requests_path %></li>
         <li><%= link_to 'Histórico de Requisições', request_histories_path %></li>
       </ul>
 
     </div>
 
-    <div class="link-yellow">
+    <% if esta_em_projetos? %>
+
+      <div class="link-yellow selected">
+
+    <% else %>
+
+      <div class="link-yellow">
+
+    <% end %>
 
       <a href="#">
         <i class="fa fa-keyboard-o"></i>Projetos
@@ -45,23 +67,10 @@
           <li><%= link_to 'Todos os Projetos', projects_path %></li>
         <% end %>
         <li><%= link_to 'Visão Geral', projects_overview_path %></li>
-        <li><%= link_to 'Status de Projeto', project_statuses_path %></li>
-        <li><%= link_to 'Histórico de Projetos', project_histories_path %></li>
-      </ul>
-
-    </div>
-
-
-    <div class="link-green">
-
-      <a href="#">
-        <i class="fa fa-navicon"></i>Outros
-      </a>
-
-      <ul class="sub-links">
-        <li><%= link_to 'Cargos', jobs_path %></li>
-        <li><%= link_to 'Núcleos', sectors_path %></li>
-        <li><%= link_to 'Áreas', areas_path %></li>
+        <% if can? :read, ProjectHistory %>
+          <li><%= link_to 'Histórico de Projetos', project_histories_path %></li>
+        <% end %>
+        <li><%= link_to 'Histórico para Membros', project_member_histories_path %></li>
       </ul>
 
     </div>

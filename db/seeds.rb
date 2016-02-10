@@ -239,7 +239,7 @@ conhecimentos = Knowledge.create(a_conhecimentos)
 
 # MEMBROS
 
-a_membros = [{name: "Afonso", last_name: "Dias", email: "afonsodias@cjr.org.br", password: "dias123", 
+a_membros = [{name: "Afonso", last_name: "Dias", email: "afonsodias@cjr.org.br", password: "adias123", 
              sector_id: nut, job_id: lider, area_id: na, member_status_id: ativo, role_id: mod},
 
             {name: "Anne", last_name: "Carolina", email: "annecarolina@cjr.org.br", password: "carolina123",
@@ -263,7 +263,7 @@ a_membros = [{name: "Afonso", last_name: "Dias", email: "afonsodias@cjr.org.br",
             {name: "Eduardo", last_name: "Araújo Cunha", email: "eduardoaraujo@cjr.org.br", password: "araujo123",
              sector_id: nut, job_id: consultor, area_id: na, member_status_id: ativo, role_id: user},
 
-            {name: "Evandro", last_name: "Roberto Mota", email: "evandroroberto@cjr.org.br", password: "mota123",
+            {name: "Evandro", last_name: "Roberto Mota", email: "evandroroberto@cjr.org.br", password: "emota123",
              sector_id: nut, job_id: consultor, area_id: na, member_status_id: inativo, role_id: user},
 
             {name: "Gabriel", last_name: "Almeida Campos", email: "gabrielalmeida@cjr.org.br", password: "almeida123",
@@ -308,7 +308,7 @@ a_membros = [{name: "Afonso", last_name: "Dias", email: "afonsodias@cjr.org.br",
             {name: "Rafael", last_name: "Alves Fernandes", email: "rafaelalves@cjr.org.br", password: "fernandes123",
              sector_id: noe, job_id: consultor, area_id: na, member_status_id: ativo, role_id: admin},
 
-            {name: "Rafael", last_name: "Dias Silveira", email: "rafaeldias@cjr.org.br", password: "dias123",
+            {name: "Rafael", last_name: "Dias Silveira", email: "rafaeldias@cjr.org.br", password: "rdias123",
              sector_id: nam, job_id: lider, area_id: na, member_status_id: ativo, role_id: mod},
 
             {name: "Renan", last_name: "Lobato Rheinboldt", email: "renanlobato@cjr.org.br", password: "lobato123",

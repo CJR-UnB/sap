@@ -6,90 +6,112 @@
 
     <span class="navbar-brand" title="Sistema de Alocação de Projetos"><%= yield :titulo %></span>
 
-    <% if current_page?(projects_path) and current_member.try(:admin?) %>
+      <ul class="nav navbar-nav pull-right">
+        <li><%= link_to 'Sair', logout_path %></li>
+      </ul>
 
-      <form class="navbar-form navbar-right" style="margin-right: -3px; margin-top: 10px">
+      <% if current_page?(projects_path) %>
 
-        <div class="btn-group btn-group-sm">
-        
-          <%= link_to 'Novo Projeto', new_project_path, data: { modal: true }, class:'btn btn-default' %>
-          <%= link_to 'Alocar Membros', new_members_project_path, data: { modal: true }, class:'btn btn-default' %>
+        <ul class="nav navbar-nav pull-right">
 
-            <div class="btn-group btn-group-sm btn-group-merge">
+          <% if current_member.try(:admin?) %>
+            <li><%= link_to 'Novo Projeto', new_project_path, data: { modal: true } %></li>
+          <% end %>
 
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Novo Histórico <span class="caret"></span></button>
-              <ul class="dropdown-menu">
+          <% unless current_member.try(:user?) %>
+
+            <li><%= link_to 'Alocar Membros', new_members_project_path, data: { modal: true } %></li>
+
+            <!-- Dropdown de Históricos -->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Cria Históricos de Projetos">Histórico</i>&nbsp;<span class="caret"></span></a>
+              <ul class="dropdown-menu dropdown-menu-right">
                 <li><%= link_to 'De Projeto', new_project_history_path, data: { modal: true } %></li>
                 <li><%= link_to 'De Membro', new_project_member_history_path, data: { modal: true } %></li>
               </ul>
+            </li>
 
-            </div>
+          <% end %>
 
-        </div>
+        </ul>
 
-      </form>
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; padding-right: 10px">
+          <li class="active" style="border-radius: 0"><a href="#painel" data-toggle="tab">Painel</a></li>
+          <li><a href="#lista" data-toggle="tab">Lista</a></li>
+        </ul>
 
-    <% elsif current_page?(projects_path) and !current_member.try(:user?) %>
+      <% elsif current_page?(knowledges_members_path) and !current_member.try(:user?) %>
 
-      <form class="navbar-form navbar-right" style="margin-right: -3px; margin-top: 10px">
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
+          <li style="border-radius: 0"><a href="#conhecimentos_gerais" data-toggle="tab">Geral</a></li>
+          <li class="active"><a href="#conhecimentos_individuais" data-toggle="tab">Individual</a></li>
+        </ul>
 
-        <div class="btn-group btn-group-sm btn-group-merge">
+      <% elsif current_page?(activities_members_path) and !current_member.try(:user?) %>
 
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Novo Histórico <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><%= link_to 'De Projeto', new_project_history_path, data: { modal: true } %></li>
-            <li><%= link_to 'De Membro', new_project_member_history_path, data: { modal: true } %></li>
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
+          <li style="border-radius: 0"><a href="#atividades_gerais" data-toggle="tab">Geral</a></li>
+          <li class="active"><a href="#atividades_individuais" data-toggle="tab">Individual</a></li>
+        </ul>
+
+      <% elsif current_page?(request_histories_path) and !current_member.try(:user?) %>
+
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
+          <li style="border-radius: 0"><a href="#historicos_gerais" data-toggle="tab">Geral</a></li>
+          <li class="active"><a href="#historicos_individuais" data-toggle="tab">Individual</a></li>
+        </ul>
+
+      <% elsif current_page?(members_projects_path) and !current_member.try(:user?) %>
+
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
+          <li style="border-radius: 0"><a href="#alocacoes_gerais" data-toggle="tab">Geral</a></li>
+          <li class="active"><a href="#alocacoes_individuais" data-toggle="tab">Individual</a></li>
+        </ul>
+
+      <% elsif current_page?(members_path) %>
+
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
+          <li style="border-radius: 0"><a href="#membros_painel" data-toggle="tab">Painel</a></li>
+          <li class="active"><a href="#membros_lista" data-toggle="tab">Lista</a></li>
+        </ul>
+
+      <% end %>
+
+      <ul class="nav navbar-nav pull-right">
+
+        <!-- Dropdown de Membros -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Membros"><i class="fa fa-user"></i>&nbsp;<span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><%= link_to 'Cargos', jobs_path %></li>
+            <li><%= link_to 'Núcleos', sectors_path %></li>
+            <li><%= link_to 'Áreas', areas_path %></li>
+            <li><%= link_to 'Status de Membro', member_statuses_path %></li>
+            <li><%= link_to 'Perfis', roles_path %></li>
           </ul>
+        </li>
 
-        </div>
-
-      </form>
-
-      <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; padding-right: 10px">
-        <li class="active" style="border-radius: 0"><a href="#painel" data-toggle="tab">Painel</a></li>
-        <li><a href="#lista" data-toggle="tab">Lista</a></li>
+        <!-- Dropdown de Conhecimentos -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Conhecimentos"><i class="fa fa-book"></i>&nbsp;<span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><%= link_to 'Níveis de Conhecimento', knowledge_levels_path %></li>
+            <li><%= link_to 'Status de Requisição', request_statuses_path %></li>
+            <li><%= link_to 'Tecnologias', technologies_path %></li>
+            <li><%= link_to 'Atividades', activities_path %></li>
+            <li><%= link_to 'Tipos de Atividade', activity_types_path %></li>
+          </ul>
+        </li>
+        
+        <!-- Dropdown de Projetos -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Projetos"><i class="fa fa-keyboard-o"></i>&nbsp;<span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><%= link_to 'Funções de Projeto', project_roles_path %></li>
+            <li><%= link_to 'Status de Projeto', project_statuses_path %></li>
+          </ul>
+        </li>
       </ul>
-
-    <% elsif current_page?(knowledges_members_path) and !current_member.try(:user?) %>
-
-      <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-right: 10px">
-        <li style="border-radius: 0"><a href="#conhecimentos_gerais" data-toggle="tab">Geral</a></li>
-        <li class="active"><a href="#conhecimentos_individuais" data-toggle="tab">Individual</a></li>
-      </ul>
-
-    <% elsif current_page?(activities_members_path) and !current_member.try(:user?) %>
-
-      <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-right: 10px">
-        <li style="border-radius: 0"><a href="#atividades_gerais" data-toggle="tab">Geral</a></li>
-        <li class="active"><a href="#atividades_individuais" data-toggle="tab">Individual</a></li>
-      </ul>
-
-    <% elsif current_page?(request_histories_path) and !current_member.try(:user?) %>
-
-      <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-right: 10px">
-        <li style="border-radius: 0"><a href="#historicos_gerais" data-toggle="tab">Geral</a></li>
-        <li class="active"><a href="#historicos_individuais" data-toggle="tab">Individual</a></li>
-      </ul>
-
-    <% elsif current_page?(members_projects_path) and !current_member.try(:user?) %>
-
-      <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-right: 10px">
-        <li style="border-radius: 0"><a href="#alocacoes_gerais" data-toggle="tab">Geral</a></li>
-        <li class="active"><a href="#alocacoes_individuais" data-toggle="tab">Individual</a></li>
-      </ul>
-
-    <% elsif current_page?(members_path) %>
-
-      <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-right: 10px">
-        <li style="border-radius: 0"><a href="#membros_painel" data-toggle="tab">Painel</a></li>
-        <li class="active"><a href="#membros_lista" data-toggle="tab">Lista</a></li>
-      </ul>
-
-    <% else %>
-
-      <p class="navbar-text pull-right">Olá, <%= current_member.email %></p>
-
-    <% end %>
 
   </nav>
 

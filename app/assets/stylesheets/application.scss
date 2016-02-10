@@ -40,16 +40,12 @@ a, a:hover {
   text-decoration: none;
 }
 
-.box, .navbar {
+.box {
   background-color: white;
   border: 1px solid #DCDCDC;
   border-radius: 0;
-}
-
-.box {
   padding: 25px;
 }
-
 
 #flash {
   border-radius: 0;
@@ -63,4 +59,8 @@ body.devise {
 body.devise > .box {
   display: block;
   margin: 0 auto;
+}
+
+.btn-font {
+  font-size: 12px;
 }

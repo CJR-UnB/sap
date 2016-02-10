@@ -114,11 +114,18 @@
                   br
 
                 .btn-group.btn-group-sm.btn-group-justified
+
                   = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-warning'
-                  = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-warning' do
-                    i.fa.fa-pencil
-                  = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-warning' do
-                    i.fa.fa-times
+
+                  - if can? :edit, Project
+
+                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-warning' do
+                      i.fa.fa-pencil
+
+                  - if can? :delete, Project
+
+                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-warning' do
+                      i.fa.fa-times
 
 
         // EM DESENVOLVIMENTO
@@ -181,11 +188,18 @@
                   br
 
                 .btn-group.btn-group-sm.btn-group-justified
+
                   = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-info'
-                  = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-info' do
-                    i.fa.fa-pencil
-                  = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-info' do
-                    i.fa.fa-times
+
+                  - if can? :edit, Project
+
+                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-info' do
+                      i.fa.fa-pencil
+
+                  - if can? :destroy, Project
+
+                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-info' do
+                      i.fa.fa-times
        
 
         // ATRASADOS  
@@ -248,11 +262,18 @@
                   br
 
                 .btn-group.btn-group-sm.btn-group-justified
+
                   = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-danger'
-                  = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-danger' do
-                    i.fa.fa-pencil
-                  = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-danger' do
-                    i.fa.fa-times
+
+                  - if can? :edit, Project
+
+                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-danger' do
+                      i.fa.fa-pencil
+
+                  - if can? :destroy, Project
+
+                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-danger' do
+                      i.fa.fa-times
 
 
         // CONCLUÍDOS
@@ -315,8 +336,15 @@
                   br
 
                 .btn-group.btn-group-sm.btn-group-justified
+
                   = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-success'
-                  = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-success' do
-                    i.fa.fa-pencil
-                  = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-success' do
-                    i.fa.fa-times
+
+                  - if can? :edit, Project
+
+                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-success' do
+                      i.fa.fa-pencil
+
+                  - if can? :destroy, Project
+                    
+                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-success' do
+                      i.fa.fa-times

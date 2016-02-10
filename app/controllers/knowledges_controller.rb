@@ -36,17 +36,31 @@ class KnowledgesController < ApplicationController
 
   def requisitar
 
-    em_analise = RequestStatus.where(description: 'Em análise').first.id
-    @requisicao = KnowledgeRequest.new(knowledge_id: @knowledge.id, member_id: current_member.id, request_status_id: em_analise)
+    if recupera_admins('Administrador').include?(current_member)
 
-    respond_to do |format|
-      if @requisicao.save
+      @conhecimento = KnowledgesMember.new(member_id: current_member.id, knowledge_id: @knowledge.id)
 
-        @historico = RequestHistory.new(knowledge_request_id: @requisicao.id, observation:'Conhecimento requisitado.')
-        @historico.save
-
-        format.html { redirect_to :back, notice: 'O conhecimento foi requisitado ao administrador.' }
+      respond_to do |format|
+        if @conhecimento.save
+          format.html { redirect_to :back, notice:'O conhecimento foi associado ao seu perfil!' }
+        end
       end
+
+    else
+
+      em_analise = RequestStatus.where(description: 'Em análise').first.id
+      @requisicao = KnowledgeRequest.new(knowledge_id: @knowledge.id, member_id: current_member.id, request_status_id: em_analise)
+
+      respond_to do |format|
+        if @requisicao.save
+
+          @historico = RequestHistory.new(knowledge_request_id: @requisicao.id, observation:'Conhecimento requisitado.')
+          @historico.save
+
+          format.html { redirect_to :back, notice: 'O conhecimento foi requisitado ao administrador.' }
+        end
+      end
+
     end
 
   end

@@ -44,23 +44,23 @@
 
               - if current_member.try(:admin?) and !knowledge_request.analisado?
 
-                = link_to 'Aprovar', aprovar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :aprovar_conhecimento, title:'Aprovar requisição', class:'btn btn-default'
+                = link_to 'Aprovar', aprovar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :aprovar_conhecimento, title:'Aprovar requisição', class:'btn btn-primary'
 
-                = link_to 'Recusar', recusar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :recusar_conhecimento, title:'Recusar requisição', class:'btn btn-default'
+                = link_to 'Recusar', recusar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :recusar_conhecimento, title:'Recusar requisição', class:'btn btn-primary'
 
               - elsif knowledge_request.analisado? and current_member.try(:admin?)
 
-                = link_to analisar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :analisar_conhecimento, title:'Deixa a requisição em análise', class:'btn btn-default' do
+                = link_to analisar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :analisar_conhecimento, title:'Deixa a requisição em análise', class:'btn btn-primary' do
                   i.fa.fa-question-circle
 
               - if can? :update, KnowledgeRequest
 
-                = link_to edit_knowledge_request_path(knowledge_request), data: { modal: true }, title:'Editar', class:'btn btn-default' do
+                = link_to edit_knowledge_request_path(knowledge_request), data: { modal: true }, title:'Editar', class:'btn btn-primary' do
                   i.fa.fa-pencil
 
               - if can? :destroy, KnowledgeRequest
 
-                = link_to knowledge_request, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir', class:'btn btn-default' do
+                = link_to knowledge_request, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir', class:'btn btn-primary' do
                   i.fa.fa-times
 
   .btn-group

@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   
   get '/home' => 'home#index'
   get '/projects_overview' => 'projects_overview#index'
+  get '/welcome' => 'welcome#index'
 
   post '/activities/associar/:id' => 'activities#associar', as: :associar_atividade
   post '/knowledges/requisitar/:id' => 'knowledges#requisitar', as: :requisitar_conhecimento
