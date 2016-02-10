@@ -1,23 +1,93 @@
-h1 Listing members_projects
+- unless current_member.try(:user?)
+  = content_for :titulo, 'Membros Alocados/Seus Projetos'
+- else
+  = content_for :titulo, 'Seus Projetos'
 
-table
-  thead
-    tr
-      th Member
-      th Project
-      th
-      th
-      th
+.tab-content
 
-  tbody
-    - @members_projects.each do |members_project|
-      tr
-        td = members_project.member
-        td = members_project.project
-        td = link_to 'Show', members_project
-        td = link_to 'Edit', edit_members_project_path(members_project)
-        td = link_to 'Destroy', members_project, data: {:confirm => 'Are you sure?'}, :method => :delete
+  .tab-pane.fade#alocacoes_gerais
 
-br
+    .box
 
-= link_to 'New Members project', new_members_project_path
+      table.table.table-responsive.table-hover
+
+        thead
+          tr
+            th Código
+            th Membro
+            th Projeto
+            th Função
+            - if can? :update, MembersProject
+              th
+            - if can? :destroy, MembersProject
+              th
+
+        tbody
+
+          - @members_projects.each do |members_project|
+
+            tr
+              td = members_project.id
+              td = link_to members_project.member.try(:member_name), members_project.member, data: { modal: true }
+              td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
+              td = members_project.project_role.try(:description)
+
+              - if can? :update, MembersProject
+
+                td align="right"
+                  
+                  = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
+
+              - if can? :destroy, MembersProject
+
+                td align="right"
+
+                  = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
+                    i.fa.fa-times
+
+      - if can? :create, MembersProject
+        = link_to 'Nova Alocação', new_members_project_path, data: { modal: true }, class:'btn btn-success'        
+
+
+  .tab-pane.active.fade.in#alocacoes_individuais
+
+    .box
+
+      table.table.table-responsive.table-hover
+
+        thead
+          tr
+            th Código
+            th Projeto
+            th Função
+            - if can? :update, MembersProject
+              th
+            - if can? :destroy, MembersProject
+              th
+
+        tbody
+
+          - @members_projects.where(member_id: current_member.id).each do |members_project|
+
+            tr
+              td = members_project.id
+              td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
+              td = members_project.project_role.try(:description)
+
+              - if can? :update, MembersProject
+
+                td align="right"
+                  
+                  = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
+
+              - if can? :destroy, MembersProject
+
+                td align="right"
+
+                  = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
+                    i.fa.fa-times
+
+      - if can? :create, MembersProject
+        = link_to 'Nova Alocação', new_members_project_path, data: { modal: true }, class:'btn btn-success'        

@@ -1,5 +1,7 @@
 class ProjectMemberHistory < ActiveRecord::Base
 
-  belongs_to :members_project
+  belongs_to :member
+  belongs_to :project
+  belongs_to :project_role
 
 end

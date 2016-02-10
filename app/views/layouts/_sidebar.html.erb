@@ -41,7 +41,10 @@
       </a>
 
       <ul class="sub-links">
-        <li><%= link_to 'Todos os Projetos', projects_path %></li>
+        <% if can? :read, Project %>
+          <li><%= link_to 'Todos os Projetos', projects_path %></li>
+        <% end %>
+        <li><%= link_to 'Visão Geral', projects_overview_path %></li>
         <li><%= link_to 'Status de Projeto', project_statuses_path %></li>
         <li><%= link_to 'Histórico de Projetos', project_histories_path %></li>
       </ul>

@@ -1,15 +1,15 @@
 = form_for @knowledges_member do |f|
-  - if @knowledges_member.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@knowledges_member.errors.count, "error")} prohibited this knowledges_member from being saved:"
-      ul
-        - @knowledges_member.errors.full_messages.each do |message|
-          li = message
 
-  .field
-    = f.label :member
-    = f.text_field :member
-  .field
-    = f.label :knowledge
-    = f.text_field :knowledge
-  .actions = f.submit
+  .modal-body
+
+    .form-group
+      = f.label :membro
+      = f.select :member_id, Member.all.map { |m| [m.member_name, m.id] }, { include_blank:'Escolha um membro' }, { class:'form-control', required: true }
+
+    .form-group
+      = f.label :conhecimento
+      = f.select :knowledge_id, Knowledge.all.map { |k| [k.conhecimento_completo, k.id] }, { include_blank:'Escolha um conhecimento' }, { class:'form-control', required: true }
+
+  .modal-footer
+
+    = f.submit 'Enviar', class:'btn btn-success'

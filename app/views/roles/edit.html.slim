@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Perfil'
+- if can? :edit, Role
 
-== render 'form'
+  = content_for :title, 'Atualizar Perfil'
+
+  == render 'form'
+
+- else
+
+  - to_back

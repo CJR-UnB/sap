@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Projeto'
+- if can? :edit, Project
 
-== render 'form'
+  = content_for :title, 'Atualizar Projeto'
+
+  == render 'form'
+
+- else
+
+  - to_back

@@ -10,9 +10,6 @@
         th Descrição
         th Nível
         th Tecnologia
-        - if can? :update, Knowledge
-          th
-        - if can? :destroy, Knowledge
         th
 
     tbody
@@ -25,19 +22,24 @@
           td = knowledge.try(:knowledge_level).try(:description)
           td = knowledge.try(:technology).try(:name)
 
-          - if can? :update, Knowledge
+          td align="right"
 
-            td align="right"
+            .btn-group.btn-group-xs
 
-              = link_to edit_knowledge_path(knowledge), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
+              = link_to 'Requisitar', requisitar_conhecimento_path(knowledge), data: { confirm:'Você tem certeza?' }, method: :requisitar, class:'btn btn-default'
+              
+              - if can? :update, Knowledge
+                = link_to edit_knowledge_path(knowledge), data: { modal: true }, title:'Editar', class:'btn btn-default' do
+                  i.fa.fa-pencil
 
-          - if can? :destroy, Knowledge
-          
-            td align="right"
+              - if can? :destroy, Knowledge
+                = link_to knowledge, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir', class:'btn btn-default' do
+                  i.fa.fa-times   
 
-              = link_to knowledge, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+  .btn-group
 
-  - if can? :create, Knowledge
-    = link_to 'Novo Conhecimento', new_knowledge_path, data: { modal: true }, class:'btn btn-success'
+    - if can? :create, Knowledge
+      = link_to 'Novo Conhecimento', new_knowledge_path, data: { modal: true }, class:'btn btn-success'
+
+    - if can? :create, KnowledgeRequest
+      = link_to 'Nova Requisição', new_knowledge_request_path, data: { modal: true }, class:'btn btn-success'

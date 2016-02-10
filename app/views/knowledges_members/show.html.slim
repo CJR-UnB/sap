@@ -1,12 +1,16 @@
-p#notice = notice
+= content_for :title, 'Exibindo Conhecimento'
 
-p
-  strong Member:
-  = @knowledges_member.member
-p
-  strong Knowledge:
-  = @knowledges_member.knowledge
+.modal-body
 
-= link_to 'Edit', edit_knowledges_member_path(@knowledges_member)
-'|
-= link_to 'Back', knowledges_members_path
+  - if can? :create, KnowledgesMember
+    p
+      strong Membro: 
+      = @knowledges_member.member.try(:member_name)
+
+  p
+    strong Conhecimento: 
+    = @knowledges_member.knowledge.try(:description)
+
+.modal-footer
+
+  = link_to 'Fechar', :back, class:'btn btn-success'

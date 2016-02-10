@@ -4,41 +4,39 @@
 
   .col-sm-4.col-xs-12
 
-    .notificacao
+    .notificacao.secao-home
 
-      a href="/knowledge_requests"
-        
-        .notificacao-box.border-top-red
-
-          .row
-
-            .container-fluid
-
-              .col-sm-2 style="background-color: #DA4545; padding: 10px; color: #fff"
-                h4.text-center 23
-
-              .col-sm-10 style="padding: 10px"
-                h4.text-right Requisições de Conhecimento
-
-  .col-sm-4.col-xs-12
-
-    .notificacao
- 
       .notificacao-box.border-top-blue
 
         .row
 
           .container-fluid
 
-            .col-sm-2 style="background-color: #487DB2; padding: 10px; color: #fff"
+            .col-sm-2 style="background-color: #007db2; padding: 10px; color: #fff"
               h4.text-center
-                i.fa.fa-users
+                i.fa.fa-book
 
             .col-sm-10 style="padding: 10px"
-              h4.text-right Informações da Empresa
+              h4.text-right Seus Conhecimentos
+
+
+      a href="/knowledges_members"
+
+        .notificacao-link.border-left-blue
+
+          .row
+
+            .col-sm-10
+
+              p Ver Detalhes
+
+            .col-sm-2
+
+              i.fa.fa-arrow-right.pull-right
+
 
   .col-sm-4.col-xs-12
-  
+
     .notificacao.secao-home
 
       .notificacao-box.border-top-green
@@ -47,12 +45,127 @@
 
           .container-fluid
 
-            .col-sm-2 style="background-color: #80C780; padding: 10px; color: #fff"
+            .col-sm-2 style="background-color: #00C588; padding: 10px; color: #fff"
+              h4.text-center
+                i.fa.fa-keyboard-o
+
+            .col-sm-10 style="padding: 10px"
+              h4.text-right Seus Projetos
+
+
+      a href="/members_projects"
+
+        .notificacao-link.border-left-green
+
+          .row
+
+            .col-sm-10
+
+              p Ver Detalhes
+
+            .col-sm-2
+
+              i.fa.fa-arrow-right.pull-right
+
+
+  .col-sm-4.col-xs-12
+
+    .notificacao.secao-home
+
+      .notificacao-box.border-top-ocean
+
+        .row
+
+          .container-fluid
+
+            .col-sm-2 style="background-color: #00ADD2; padding: 10px; color: #fff"
+              h4.text-center
+                i.fa.fa-tasks
+
+            .col-sm-10 style="padding: 10px"
+              h4.text-right Suas Atividades
+
+      a href="/activities_members"
+
+        .notificacao-link.border-left-ocean
+
+          .row
+
+            .col-sm-10
+
+              p Ver Detalhes
+
+            .col-sm-2
+
+              i.fa.fa-arrow-right.pull-right
+
+.row
+
+  .col-sm-4.col-xs-12
+
+    .notificacao.secao-home-top
+
+      a href="/knowledge_requests"
+        
+        .notificacao-box.border-top-blue2
+
+          .row
+
+            .container-fluid
+
+              .col-sm-2 style="background-color: #008fcc; padding: 10px; color: #fff"
+                - if current_member.try(:admin?)
+                  h4.text-center = @num_requisicoes.to_s
+                - else
+                  h4.text-center
+                    i.fa.fa-user-plus
+
+              .col-sm-10 style="padding: 10px"
+                h4.text-right
+                  - if current_member.try(:admin?)
+                    - if @num_requisicoes > 1 
+                      span Requisições de Conhecimento
+                    - else
+                      span Requisição de Conhecimento
+                  - else
+                    span Suas Requisições
+
+
+  .col-sm-4.col-xs-12
+
+    .notificacao.secao-home-top
+ 
+      .notificacao-box.border-top-green2
+
+        .row
+
+          .container-fluid
+
+            .col-sm-2 style="background-color: #00df9a; padding: 10px; color: #fff"
+              h4.text-center
+                i.fa.fa-users
+
+            .col-sm-10 style="padding: 10px"
+              h4.text-right Informações da Empresa
+
+
+  .col-sm-4.col-xs-12
+  
+    .notificacao.secao-home-top
+
+      .notificacao-box.border-top-ocean2
+
+        .row
+
+          .container-fluid
+
+            .col-sm-2 style="background-color: #00c2ec; padding: 10px; color: #fff"
               h4.text-center
                 i.fa.fa-user
 
             .col-sm-10 style="padding: 10px;"
               h4.text-right Suas Informações
+
 
 .row
   
@@ -72,30 +185,31 @@
 
                 tbody
 
-                  tr
-                    td 
-                      strong Membro 1
-                    td align="right" Conhecimento 1
+                  - if @num_requisicoes == 0
 
-                  tr
-                    td 
-                      strong Membro 2
-                    td align="right" Conhecimento 2
+                    span style="font: 14px 'Roboto'" Não há novas requisições.
 
-                  tr
-                    td 
-                      strong Membro 3
-                    td align="right" Conhecimento 3
+                  - else
 
-                  tr
-                    td 
-                      strong Membro 4
-                    td align="right" Conhecimento 4
+                    - @requisicoes.limit(5).each do |requisicao|
 
-                  tr
-                    td 
-                      strong Membro 5
-                    td align="right" Conhecimento 5
+                      tr
+                        - if current_member.try(:admin?)
+                          td
+                            strong = requisicao.member.try(:member_name)
+                          td align="right"
+                            = requisicao.knowledge.try(:description)
+                        - else
+                          td = requisicao.knowledge.try(:description)
+                          td align="right"
+                            - case requisicao.request_status.try(:description)
+                              - when 'Em análise'
+                                strong.text-primary Em análise
+                              - when 'Deferido'
+                                strong.text-success Deferido
+                              - when 'Indeferido'
+                                strong.text-warning Indeferido
+
 
   .col-sm-4.col-xs-12
 
@@ -137,6 +251,7 @@
                     td
                       strong Projetos Atuais
                     td align="right" = recupera_num_projetos_atuais('Em desenvolvimento').to_s
+
 
   .col-sm-4.col-xs-12
 
@@ -183,79 +298,3 @@
                       strong Cargo
                     td align="right"
                       = current_member.try(:job).try(:description)
-
-.row
-
-  .col-sm-4.col-xs-12
-
-    .notificacao.secao-home-top
-
-      .notificacao-box style="padding: 10px"
-
-        .row
-
-          .col-sm-2
-            h4.text-center
-              i.fa.fa-keyboard-o
-
-          .col-sm-10
-            h4.text-right Seus Projetos
-
-        hr.divider
-
-        table.table
-
-          thead
-
-            tr
-              th Descrição
-              th.text-right Início
-
-          tbody
-
-            tr
-              td Projeto 1
-              td align="right" Ontem
-
-            tr
-              td Projeto 2
-              td align="right" 20 de janeiro
-
-            tr
-              td Projeto 3
-              td align="right" 12 de janeiro
-
-            tr
-              td Projeto 4
-              td align="right" 03 de dezembro
-
-  .col-sm-4.col-xs-12
-
-    .notificacao.secao-home-top
-
-      .notificacao-box style="padding: 10px"
-
-        .row
-
-          .col-sm-2
-            h4.text-center
-              i.fa.fa-book
-
-          .col-sm-10
-              h4.text-right Seus Conhecimentos         
-
-
-  .col-sm-4.col-xs-12
-
-    .notificacao.secao-home-top
-
-      .notificacao-box style="padding: 10px"
-
-        .row
-
-          .col-sm-2
-            h4.text-center
-              i.fa.fa-tasks
-
-          .col-sm-10
-              h4.text-right Suas Atividades  

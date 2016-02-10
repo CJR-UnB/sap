@@ -25,8 +25,14 @@ class MembersProjectsController < ApplicationController
 
     respond_to do |format|
       if @members_project.save
-        format.html { redirect_to :back, notice: 'O membro foi alocado com sucesso!' }
-        format.json { render :show, status: :created, location: @members_project }
+
+        @historico = ProjectMemberHistory.new(member_id: @members_project.member.id, project_id: @members_project.project.id, project_role_id: @members_project.project_role.id, observation:'Membro alocado em ' + Time.now.to_s)
+
+        if @historico.save
+          format.html { redirect_to :back, notice: 'O membro foi alocado com sucesso!' }
+          format.json { render :show, status: :created, location: @members_project }
+        end
+
       else
         format.html { render :new }
         format.json { render json: @members_project.errors, status: :unprocessable_entity }
@@ -47,10 +53,16 @@ class MembersProjectsController < ApplicationController
   end
 
   def destroy
-    @members_project.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'O membro foi desalocado com sucesso!' }
-      format.json { head :no_content }
+
+      @historico = ProjectMemberHistory.new(member_id: @members_project.member.id, project_id: @members_project.project.id, project_role_id: @members_project.project_role.id, observation:'Membro desalocado em ' + Time.now.to_s)
+
+      if @members_project.destroy
+        @historico.save
+        format.html { redirect_to :back, notice: 'O membro foi desalocado com sucesso!' }
+        format.json { head :no_content }
+      end
+
     end
   end
 

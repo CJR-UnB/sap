@@ -1,23 +1,101 @@
-h1 Listing knowledges_members
+- unless current_member.try(:user?)
+  = content_for :titulo, 'Conhecimentos Gerais/Individuais'
+- else
+  = content_for :titulo, 'Seus Conhecimentos'
 
-table
-  thead
-    tr
-      th Member
-      th Knowledge
-      th
-      th
-      th
+.tab-content
 
-  tbody
-    - @knowledges_members.each do |knowledges_member|
-      tr
-        td = knowledges_member.member
-        td = knowledges_member.knowledge
-        td = link_to 'Show', knowledges_member
-        td = link_to 'Edit', edit_knowledges_member_path(knowledges_member)
-        td = link_to 'Destroy', knowledges_member, data: {:confirm => 'Are you sure?'}, :method => :delete
+  .tab-pane.fade#conhecimentos_gerais
 
-br
+    .box
 
-= link_to 'New Knowledges member', new_knowledges_member_path
+      table.table.table-responsive.table-hover
+
+        thead
+          tr
+            th Código
+            - if can? :create, KnowledgesMember
+              th Membro
+            th Conhecimento
+            th Nível
+            th Tecnologia
+            th
+            th
+
+        tbody
+
+          - @knowledges_members.each do |knowledges_member|
+
+            tr
+              td = knowledges_member.id
+
+              - if can? :create, KnowledgesMember
+                td = link_to knowledges_member.member.try(:member_name), knowledges_member.member, data: { modal: true }
+
+              td = knowledges_member.knowledge.try(:description)
+              td = knowledges_member.knowledge.knowledge_level.try(:description)
+              td = knowledges_member.knowledge.technology.try(:name)
+
+              - if can? :update, KnowledgesMember
+
+                td align="right"
+
+                  = link_to edit_knowledges_member_path(knowledges_member), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
+
+              - if can? :destroy, KnowledgesMember
+
+                td align="right"
+
+                  = link_to knowledges_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                    i.fa.fa-times
+
+      - if can? :create, KnowledgesMember
+        = link_to 'Novo Conhecimento', new_knowledges_member_path, data: { modal: true }, class:'btn btn-success'
+
+
+  .tab-pane.active.fade.in#conhecimentos_individuais
+
+    .box
+
+      table.table.table-responsive.table-hover
+
+        thead
+          tr
+            th Código
+            th Conhecimento
+            th Nível
+            th Tecnologia
+            - if can? :update, KnowledgesMember
+              th
+            - if can? :destroy, KnowledgesMember
+              th
+
+        tbody
+
+          - @knowledges_members.where(member_id: current_member.id).each do |knowledges_member|
+
+            tr
+              td = knowledges_member.id
+              td = knowledges_member.knowledge.try(:description)
+              td = knowledges_member.knowledge.knowledge_level.try(:description)
+              td = knowledges_member.knowledge.technology.try(:name)
+
+              - if can? :update, KnowledgesMember
+
+                td align="right"
+
+                  = link_to edit_knowledges_member_path(knowledges_member), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
+
+              - if can? :destroy, KnowledgesMember
+
+                td align="right"
+
+                  = link_to knowledges_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                    i.fa.fa-times
+
+      - if can? :create, KnowledgesMember
+        = link_to 'Novo Conhecimento', new_knowledges_member_path, data: { modal: true }, class:'btn btn-success'
+      - elsif current_member.try(:user?)
+        = link_to 'Novo Conhecimento', knowledges_path, class:'btn btn-success'

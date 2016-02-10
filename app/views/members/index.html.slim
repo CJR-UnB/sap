@@ -1,45 +1,112 @@
 - content_for :titulo, 'Membros'
 
-.box
+.tab-content
 
-  table.table.table-responsive
+  .tab-pane.fade#membros_painel
 
-    thead
-      tr
-        th Código
-        th Nome
-        th Status
-        th Email
-        th Perfil
-        th Núcleo
-        - if can? :update, Member
-          th
-        - if can? :update, Member
-          th
+    .row
 
-    tbody
+      - @sectors.all.each do |nucleo|
 
-      - @members.each do |member|
+        .col-sm-2
 
-        tr
-          td = member.id
-          td = link_to member.try(:member_name), member, data: { modal: true }
-          td = member.try(:member_status).try(:description)
-          td = member.try(:email)
-          td = member.try(:role).try(:description)
-          td = member.try(:sector).try(:name)
+          .membros-titulo-box
 
-          - if can? :update, Member
+            h5.text-center
+              strong = nucleo.short_name
 
-            td align="right"
-              = link_to edit_member_path(member), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
+          - nucleo.members.each do |member|
 
-          - if can? :destroy, Member
+            .membros-box
 
-            td align="right"
-              = link_to member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+              = gravatar_for(member, size = 80)
 
-  - if can? :create, Member
-    = link_to 'Novo Membro', new_member_path, data: { modal: true }, class:'btn btn-success'
+              br
+
+              - case member.member_status.try(:description)
+
+                - when 'Ativo'
+                  h6.text-center.text-primary = member.try(:member_name)
+                - when 'Inativo'
+                  h6.text-center.text-warning = member.try(:member_name)
+
+              hr.divider
+
+              .btn-group.btn-group-xs.btn-group-justified
+
+                = link_to member_path(member), data: { modal: true }, title:'Detalhes', class:'btn btn-primary' do
+                  i.fa.fa-plus
+
+                - if member == current_member or current_member.try(:admin?) or (member.try(:user?) and current_member.try(:mod?))
+
+                  = link_to edit_member_path(member), data: { modal: true }, title:'Editar', class:'btn btn-primary' do
+                    i.fa.fa-pencil
+
+                - if current_member.try(:admin?) or (current_member.try(:mod?) and member.try(:user?))
+
+                  = link_to member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir', class:'btn btn-primary' do
+                    i.fa.fa-times
+
+
+  .tab-pane.active.fade.in#membros_lista
+
+    .box
+
+      - if @members.empty?
+        p Sem resultados
+
+      - else
+
+        - usuarios = 0
+
+        - @members.each do |member|
+          - if member.try(:user?)
+            - usuarios = usuarios + 1
+
+      table.table.table-responsive
+
+        thead
+          tr
+            th Código
+            th Nome
+            th Status
+            th Email
+            th Perfil
+            th Núcleo
+            th
+            - if current_member.try(:admin?) or (current_member.try(:mod?) and usuarios >= 1)
+              th
+
+        tbody
+
+          - @members.each do |member|
+
+            tr
+              td = member.id
+              td = link_to member.try(:member_name), member, data: { modal: true }
+              td
+
+                - case member.try(:member_status).try(:description)
+                  - when 'Ativo'
+                    strong.text-primary Ativo
+                  - when 'Inativo'
+                    strong.text-warning Inativo
+
+              td = member.try(:email)
+              td = member.try(:role).try(:description)
+              td = member.try(:sector).try(:name)
+
+              - if member == current_member or current_member.try(:admin?) or (member.try(:user?) and current_member.try(:mod?))
+
+                td align="right"
+                  = link_to edit_member_path(member), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
+
+              - if current_member.try(:admin?) or (current_member.try(:mod?) and member.try(:user?))
+
+                td align="right"
+                  = link_to member, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                    i.fa.fa-times
+
+      - if can? :create, Member
+        = link_to 'Novo Membro', new_member_path, data: { modal: true }, class:'btn btn-success'

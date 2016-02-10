@@ -39,6 +39,12 @@ Rails.application.routes.draw do
   
   get '/home' => 'home#index'
   get '/projects_overview' => 'projects_overview#index'
+
   post '/activities/associar/:id' => 'activities#associar', as: :associar_atividade
+  post '/knowledges/requisitar/:id' => 'knowledges#requisitar', as: :requisitar_conhecimento
+
+  post '/knowledge_requests/aprovar_conhecimento/:id' => 'knowledge_requests#aprovar_conhecimento', as: :aprovar_conhecimento
+  post '/knowledge_requests/recusar_conhecimento/:id' => 'knowledge_requests#recusar_conhecimento', as: :recusar_conhecimento
+  post '/knowledge_requests/analisar_conhecimento/:id' => 'knowledge_requests#analisar_conhecimento', as: :analisar_conhecimento
 
 end

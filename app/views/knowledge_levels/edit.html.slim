@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Nível de Conhecimento'
+- if can? :edit, KnowledgeLevel
 
-== render 'form'
+  = content_for :title, 'Atualizar Nível de Conhecimento'
+
+  == render 'form'
+
+- else
+
+  - to_back

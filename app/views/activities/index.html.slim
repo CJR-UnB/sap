@@ -10,10 +10,6 @@
         th Descrição
         th Número de Créditos
         th Tipo
-        - if can? :update, Activity
-          th
-        - if can? :destroy, Activity
-          th
         th
 
     tbody
@@ -26,19 +22,21 @@
           td = activity.credit_numbers
           td = activity.activity_type.description
 
-          - if can? :update, Activity
+          td align="right"
 
-            td align="right"
-              = link_to edit_activity_path(activity), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
+            .btn-group.btn-group-xs
 
-          - if can? :destroy, Activity
+              - if can? :update, Activity
 
-            td align="right"
-              = link_to activity, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+                = link_to edit_activity_path(activity), data: { modal: true }, title:'Editar', class:'btn btn-default' do
+                  i.fa.fa-pencil
 
-          td = link_to 'Associar', associar_atividade_path(activity), method: :associar
+              - if can? :destroy, Activity
+
+                = link_to activity, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir', class:'btn btn-default' do
+                  i.fa.fa-times
+
+              = link_to 'Associar', associar_atividade_path(activity), data: { confirm:'Você tem certeza?'}, method: :associar, title:'Associa esta atividade diretamente ao seu perfil', class:'btn btn-default'
 
   - if can? :create, Activity
     = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }

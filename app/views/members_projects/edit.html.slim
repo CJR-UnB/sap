@@ -1,3 +1,9 @@
-= content_for :title, 'Editar Alocação'
+- if can? :edit, MembersProject
 
-== render 'form'
+  = content_for :title, 'Editar Alocação'
+
+  == render 'form'
+
+- else
+  
+  - to_back

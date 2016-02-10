@@ -8,13 +8,12 @@
       tr
         th Código
         th Status
-        th Membro
+        - if can? :create, KnowledgeRequest
+          th Membro
         th Conhecimento
         th Nível
-        - if can? :update, KnowledgeRequest
-          th
-        - if can? :destroy, KnowledgeRequest
-          th
+        th Tecnologia
+        th
 
     tbody
 
@@ -22,24 +21,55 @@
 
         tr
           td = knowledge_request.id
-          td = knowledge_request.request_status.try(:description)
-          td = knowledge_request.member.try(:member_name)
+
+          td
+            - case knowledge_request.request_status.try(:description)
+              - when 'Em análise'
+                strong.text-primary Em análise
+              - when 'Deferido'
+                strong.text-success Deferido
+              - when 'Indeferido'
+                strong.text-warning Indeferido
+          
+          - if can? :create, KnowledgeRequest
+            td = knowledge_request.member.try(:member_name)
+
           td = knowledge_request.knowledge.try(:description)
           td = knowledge_request.knowledge.try(:knowledge_level).try(:description)
+          td = knowledge_request.knowledge.try(:technology).try(:name)
 
-          - if can? :update, KnowledgeRequest
+          td align="right"
 
-            td align="right"
-            
-              = link_to edit_knowledge_request_path(knowledge_request), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
+            .btn-group.btn-group-xs
 
-          - if can? :destroy, KnowledgeRequest
+              - if current_member.try(:admin?) and !knowledge_request.analisado?
 
-            td align="right"
+                = link_to 'Aprovar', aprovar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :aprovar_conhecimento, title:'Aprovar requisição', class:'btn btn-default'
 
-              = link_to knowledge_request, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Editar' do
-                i.fa.fa-times
+                = link_to 'Recusar', recusar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :recusar_conhecimento, title:'Recusar requisição', class:'btn btn-default'
 
-  - if can? :create, KnowledgeRequest
-    = link_to 'Nova Requisição de Conhecimento', new_knowledge_request_path, data: { modal: true }, class:'btn btn-success'
+              - elsif knowledge_request.analisado? and current_member.try(:admin?)
+
+                = link_to analisar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :analisar_conhecimento, title:'Deixa a requisição em análise', class:'btn btn-default' do
+                  i.fa.fa-question-circle
+
+              - if can? :update, KnowledgeRequest
+
+                = link_to edit_knowledge_request_path(knowledge_request), data: { modal: true }, title:'Editar', class:'btn btn-default' do
+                  i.fa.fa-pencil
+
+              - if can? :destroy, KnowledgeRequest
+
+                = link_to knowledge_request, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir', class:'btn btn-default' do
+                  i.fa.fa-times
+
+  .btn-group
+
+    - if can? :create, KnowledgeRequest
+      = link_to 'Nova Requisição de Conhecimento', new_knowledge_request_path, data: { modal: true }, class:'btn btn-success'
+    
+    - elsif current_member.try(:user?)
+      = link_to 'Nova Requisição de Conhecimento', knowledges_path, class:'btn btn-success'
+
+    - if can? :create, RequestHistory
+      = link_to 'Novo Histórico', new_request_history_path, data: { modal: true }, class:'btn btn-success'

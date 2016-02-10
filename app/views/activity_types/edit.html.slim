@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Tipo de Atividade'
+- if can? :edit, ActivityType
 
-== render 'form'
+  = content_for :title, 'Atualizar Tipo de Atividade'
+
+  == render 'form'
+
+- else
+
+  - to_back

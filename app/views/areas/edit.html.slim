@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Área'
+- if can? :edit, Area
 
-== render 'form'
+  = content_for :title, 'Atualizar Área'
+
+  == render 'form'
+
+- else
+
+  - to_back

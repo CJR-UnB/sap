@@ -49,7 +49,7 @@ class ActivitiesMembersController < ApplicationController
   def destroy
     @activities_member.destroy
     respond_to do |format|
-      format.html { redirect_to activities_members_url, notice: 'A atividade foi desassociada com sucesso!' }
+      format.html { redirect_to :back, notice: 'A atividade foi desassociada com sucesso!' }
       format.json { head :no_content }
     end
   end

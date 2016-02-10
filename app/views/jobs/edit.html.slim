@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Cargo'
+- if can? :edit, Job
 
-== render 'form'
+  = content_for :title, 'Atualizar Cargo'
+
+  == render 'form'
+
+- else
+
+  - to_back

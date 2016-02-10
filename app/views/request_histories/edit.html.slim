@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Histórico de Requisição'
+- if can? :edit, RequestHistory
 
-== render 'form'
+  = content_for :title, 'Atualizar Histórico de Requisição'
+
+  == render 'form'
+
+- else
+
+  - to_back

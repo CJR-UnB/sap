@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Associação'
+- if can? :edit, ActivitiesMember
 
-== render 'form'
+  = content_for :title, 'Atualizar Associação'
+
+  == render 'form'
+
+- else
+
+  - to_back

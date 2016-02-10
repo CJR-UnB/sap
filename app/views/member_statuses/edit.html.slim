@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Status de Membro'
+- if can? :edit, MemberStatus
 
-== render 'form'
+  = content_for :title, 'Atualizar Status de Membro'
+
+  == render 'form'
+
+- else
+
+  - to_back

@@ -7,7 +7,11 @@ class KnowledgeRequestsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    @knowledge_requests = KnowledgeRequest.all
+    if current_member.try(:user?)
+      @knowledge_requests = KnowledgeRequest.where(member_id: current_member.id).order(:id)
+    else
+      @knowledge_requests = KnowledgeRequest.all.order(:id)
+    end
   end
 
   def show
@@ -25,7 +29,7 @@ class KnowledgeRequestsController < ApplicationController
 
     respond_to do |format|
       if @knowledge_request.save
-        format.html { redirect_to knowledge_requests_path, notice: 'A requisição de conhecimento foi criada com sucesso!' }
+        format.html { redirect_to :back, notice: 'A requisição de conhecimento foi criada com sucesso!' }
         format.json { render :show, status: :created, location: @knowledge_request }
       else
         format.html { render :new }
@@ -34,10 +38,77 @@ class KnowledgeRequestsController < ApplicationController
     end
   end
 
+  def aprovar_conhecimento
+
+    aprovado = RequestStatus.where(description: 'Deferido').first.id
+
+    respond_to do |format|
+
+      @conhecimento = KnowledgesMember.new(member_id: @knowledge_request.member.id, knowledge_id: @knowledge_request.knowledge.id)
+
+      if @conhecimento.save 
+
+        @knowledge_request.update(request_status_id: aprovado)
+
+        @historico = RequestHistory.new(knowledge_request_id: @knowledge_request.id, observation:'A requisição foi deferida.')
+
+        if @historico.save
+          format.html { redirect_to :back, notice: 'A requisição foi aprovada!' }
+        end
+
+      end
+
+    end
+  end
+
+  def recusar_conhecimento
+
+    recusado = RequestStatus.where(description: 'Indeferido').first.id
+
+    respond_to do |format|
+
+      if @knowledge_request.update(request_status_id: recusado)
+
+        @historico = RequestHistory.new(knowledge_request_id: @knowledge_request.id, observation:'A requisição foi indeferida.')
+
+        if @historico.save
+          format.html { redirect_to :back, notice: 'A requisição foi recusada!' }
+        end
+
+      end
+
+    end
+  end  
+
+  def analisar_conhecimento
+
+    em_analise = RequestStatus.where(description: 'Em análise').first.id
+    membro = @knowledge_request.member.id
+    conhecimento = @knowledge_request.knowledge.id
+
+    respond_to do |format|
+
+      if @knowledge_request.update(request_status_id: em_analise)
+
+        @conhecimento_associado = KnowledgesMember.where(member_id: membro, knowledge_id: conhecimento).first
+        @conhecimento_associado.destroy
+
+        @historico = RequestHistory.new(knowledge_request_id: @knowledge_request.id, observation:'Requisição em análise.')
+
+        if @historico.save
+          format.html { redirect_to :back, notice: 'A requisição está em análise!' }
+        end
+
+      end
+
+    end
+
+  end
+
   def update
     respond_to do |format|
       if @knowledge_request.update(knowledge_request_params)
-        format.html { redirect_to knowledge_request_path, notice: 'A requisição de conhecimento foi atualizada com sucesso!' }
+        format.html { redirect_to :back, notice: 'A requisição de conhecimento foi atualizada com sucesso!' }
         format.json { render :show, status: :ok, location: @knowledge_request }
       else
         format.html { render :edit }
@@ -49,7 +120,7 @@ class KnowledgeRequestsController < ApplicationController
   def destroy
     @knowledge_request.destroy
     respond_to do |format|
-      format.html { redirect_to knowledge_requests_url, notice: 'A requisição de conhecimento foi deletada com sucesso!' }
+      format.html { redirect_to :back, notice: 'A requisição de conhecimento foi deletada com sucesso!' }
       format.json { head :no_content }
     end
   end

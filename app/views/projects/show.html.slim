@@ -56,8 +56,11 @@
 
       .btn-group.btn-group-xs.pull-right
 
-        = link_to 'Editar', edit_members_project_path(alocacao), data: { modal: true }, class:'btn btn-primary'
-        = link_to 'Desalocar', alocacao, data: { confirm: 'Você tem certeza?' }, method: :delete, class:'btn btn-primary'
+        - if can? :edit, MembersProject
+          = link_to 'Editar', edit_members_project_path(alocacao), data: { modal: true }, class:'btn btn-primary'
+          
+        - if can? :destroy, MembersProject
+          = link_to 'Desalocar', alocacao, data: { confirm: 'Você tem certeza?' }, method: :delete, class:'btn btn-primary'
 
       br
       br

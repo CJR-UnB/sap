@@ -34,6 +34,23 @@ class KnowledgesController < ApplicationController
     end
   end
 
+  def requisitar
+
+    em_analise = RequestStatus.where(description: 'Em análise').first.id
+    @requisicao = KnowledgeRequest.new(knowledge_id: @knowledge.id, member_id: current_member.id, request_status_id: em_analise)
+
+    respond_to do |format|
+      if @requisicao.save
+
+        @historico = RequestHistory.new(knowledge_request_id: @requisicao.id, observation:'Conhecimento requisitado.')
+        @historico.save
+
+        format.html { redirect_to :back, notice: 'O conhecimento foi requisitado ao administrador.' }
+      end
+    end
+
+  end
+
   def update
     respond_to do |format|
       if @knowledge.update(knowledge_params)

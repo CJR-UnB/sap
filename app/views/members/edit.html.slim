@@ -1,3 +1,12 @@
-= content_for :title, 'Atualizar Membro'
+- if @member == current_member or current_member.admin? or (@member.user? and current_member.mod?)
+  
+  - if @member == current_member
+    = content_for :title, 'Atualizar Dados'
+  - else
+    = content_for :title, 'Atualizar Membro'
 
-= render 'form'
+  = render 'form'
+
+- else
+
+  - to_back

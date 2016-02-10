@@ -1,10 +1,8 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :recupera_num_projetos_atuais
-
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  helper_method :recupera_num_projetos_atuais, :recupera_historicos_individuais, :to_back
 
   def current_ability
     @current_ability ||= Ability.new(current_member)
@@ -13,6 +11,11 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = 'Você não possui autorização.'
     redirect_to request.referrer || home_path
+  end
+
+  def to_back
+    flash[:error] = 'Você não possui autorização.'
+    redirect_to home_path
   end
 
   def after_sign_in_path_for(resource)
@@ -38,6 +41,21 @@ class ApplicationController < ActionController::Base
     end
 
     atuais
+
+  end
+
+
+  def recupera_historicos_individuais
+
+    historicos_individuais = []
+
+    RequestHistory.all.each do |r|
+      if r.knowledge_request.member_id == current_member.id
+        historicos_individuais << r
+      end
+    end
+
+    historicos_individuais
 
   end
 

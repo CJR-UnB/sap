@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Requisição de Conhecimento'
+- if can? :edit, KnowledgeRequest
 
-== render 'form'
+  = content_for :title, 'Atualizar Requisição de Conhecimento'
+
+  == render 'form'
+
+- else
+
+  - to_back

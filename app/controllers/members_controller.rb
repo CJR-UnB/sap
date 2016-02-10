@@ -7,7 +7,8 @@ class MembersController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    @members = Member.all
+    @members = Member.all.order(:id).includes(:role, :member_status, :area, :sector)
+    @sectors = Sector.all
   end
 
   def show
@@ -18,10 +19,15 @@ class MembersController < ApplicationController
   end
 
   def edit
+
   end
 
   def create
     @member = Member.new(member_params)
+
+    if @member.role_id.nil?
+      @member.role_id = Role.where(description:'Usuário').first.id
+    end
 
     respond_to do |format|
       if @member.save

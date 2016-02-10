@@ -28,11 +28,12 @@
           td = project_member_history.id
 
           - if can? :create, ProjectMemberHistory
-            td = project_member_history.members_project.try(:member).try(:member_name)
+            td = project_member_history.member.try(:member_name)
 
-          td = project_member_history.members_project.try(:project).try(:description)
-          td = project_member_history.members_project.try(:project_role).try(:description)
-          td = link_to 'Ver observação', project_member_history, data: { modal: true }
+          td = project_member_history.project.try(:description)
+          td = project_member_history.project_role.try(:description)
+
+          td = project_member_history.observation
 
           - if can? :update, ProjectMemberHistory
 

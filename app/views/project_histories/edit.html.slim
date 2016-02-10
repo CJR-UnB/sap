@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Histórico de Projeto'
+- if can? :edit, ProjectHistory
 
-== render 'form'
+  = content_for :title, 'Atualizar Histórico de Projeto'
+
+  == render 'form'
+
+- else
+
+  - to_back

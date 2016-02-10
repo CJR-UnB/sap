@@ -1,8 +1,9 @@
-h1 Editing knowledges_member
+- if can? :edit, KnowledgesMember
 
-== render 'form'
+  = content_for :title, 'Atualizar Conhecimento'
 
-= link_to 'Show', @knowledges_member
-'|
-= link_to 'Back', knowledges_members_path
+  == render 'form'
 
+- else
+
+  - to_back

@@ -1,3 +1,9 @@
-= content_for :title, 'Atualizar Núcleo'
+- if can? :edit, Sector
 
-== render 'form'
+  = content_for :title, 'Atualizar Núcleo'
+
+  == render 'form'
+
+- else
+
+  - to_back
