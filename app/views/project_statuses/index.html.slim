@@ -2,38 +2,45 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @project_statuses.empty?
 
-    thead
-      tr
-        th Código
-        th Descrição
-        - if can? :update, ProjectStatus
-          th
-        - if can? :destroy, ProjectStatus
-          th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
 
-      - @project_statuses.each do |project_status|
+    table.table.table-responsive.table-hover
 
+      thead
         tr
-          td = project_status.id
-          td = link_to project_status.description, project_status, data: { modal: true }
-
+          th Código
+          th Descrição
           - if can? :update, ProjectStatus
-
-            td align="right"
-
-              = link_to edit_project_status_path(project_status), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, ProjectStatus
+            th
 
-            td align="right"
+      tbody
 
-              = link_to project_status, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+        - @project_statuses.each do |project_status|
+
+          tr
+            td = project_status.id
+            td = link_to project_status.description, project_status, data: { modal: true }
+
+            - if can? :update, ProjectStatus
+
+              td align="right"
+
+                = link_to edit_project_status_path(project_status), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, ProjectStatus
+
+              td align="right"
+
+                = link_to project_status, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, ProjectStatus
     = link_to 'Novo Status de Projeto', new_project_status_path, data: { modal: true }, class:'btn btn-success'

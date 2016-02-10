@@ -239,7 +239,8 @@ conhecimentos = Knowledge.create(a_conhecimentos)
 
 # MEMBROS
 
-a_membros = [{name: "Afonso", last_name: "Dias", email: "afonsodias@cjr.org.br", password: "adias123", 
+a_membros = [
+            {name: "Afonso", last_name: "Dias", email: "afonsodias@cjr.org.br", password: "adias123", 
              sector_id: nut, job_id: lider, area_id: na, member_status_id: ativo, role_id: mod},
 
             {name: "Anne", last_name: "Carolina", email: "annecarolina@cjr.org.br", password: "carolina123",

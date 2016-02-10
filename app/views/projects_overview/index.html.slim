@@ -1,6 +1,11 @@
 = content_for :titulo, 'Membros x Projetos'
 
 .box
+  
+  - if @projetos.empty?
+
+    .alert.alert-info
+      span Não há projetos em desenvolvimento.
 
   table.table.table-responsive.table-hover
 

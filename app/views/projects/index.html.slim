@@ -8,46 +8,52 @@
 
       .box
 
-        table.table.table-responsive.table-hover
+        - if @projects.empty?
 
-          thead
+          .alert.alert-info
+            span = mensagem_tabela_vazia
 
-            tr
-              th Código
-              th Descrição
-              th Status
-              th Início
-              th Entrega
-              - if can? :update, Project
-                th
-              - if can? :destroy, Project
-                th
+        - else
 
-          tbody
+          table.table.table-responsive.table-hover
 
-            - @projects.each do |project|
+            thead
 
               tr
-                td = project.id
-                td = link_to project.description, project, data: { modal: true }
-                td = project.project_status.try(:description)
-                td = project.start_date
-                td = project.end_date
-
+                th Código
+                th Descrição
+                th Status
+                th Início
+                th Entrega
                 - if can? :update, Project
-
-                  td align="right"
-
-                    = link_to edit_project_path(project), data: { modal: true }, title:'Editar' do
-                      i.fa.fa-pencil
-
+                  th
                 - if can? :destroy, Project
+                  th
 
-                  td align="right"
+            tbody
 
-                    = link_to project, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir' do
-                      i.fa.fa-times
+              - @projects.each do |project|
 
+                tr
+                  td = project.id
+                  td = link_to project.description, project, data: { modal: true }
+                  td = project.project_status.try(:description)
+                  td = project.start_date
+                  td = project.end_date
+
+                  - if can? :update, Project
+
+                    td align="right"
+
+                      = link_to edit_project_path(project), data: { modal: true }, title:'Editar' do
+                        i.fa.fa-pencil
+
+                  - if can? :destroy, Project
+
+                    td align="right"
+
+                      = link_to project, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                        i.fa.fa-times
 
 
     .tab-pane.fade.in.active#painel

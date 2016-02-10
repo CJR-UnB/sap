@@ -2,48 +2,55 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @knowledges.empty?
 
-    thead
-      tr
-        th Código
-        th Descrição
-        th Nível
-        th Tecnologia
-        - if can? :update, Knowledge
-          th
-        - if can? :destroy, Knowledge
-          th
-        th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
 
-      - @knowledges.each do |knowledge|
+    table.table.table-responsive.table-hover
 
+      thead
         tr
-          td = knowledge.id
-          td = knowledge.description
-          td = knowledge.try(:knowledge_level).try(:description)
-          td = knowledge.try(:technology).try(:name)
-
+          th Código
+          th Descrição
+          th Nível
+          th Tecnologia
           - if can? :update, Knowledge
-
-            td align="right"
-
-              = link_to edit_knowledge_path(knowledge), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, Knowledge
+            th
+          th
+
+      tbody
+
+        - @knowledges.each do |knowledge|
+
+          tr
+            td = knowledge.id
+            td = knowledge.description
+            td = knowledge.try(:knowledge_level).try(:description)
+            td = knowledge.try(:technology).try(:name)
+
+            - if can? :update, Knowledge
+
+              td align="right"
+
+                = link_to edit_knowledge_path(knowledge), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, Knowledge
+
+              td align="right"
+
+                = link_to knowledge, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                  i.fa.fa-times   
 
             td align="right"
 
-              = link_to knowledge, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
-                i.fa.fa-times   
-
-          td align="right"
-
-            = link_to 'Requisitar', requisitar_conhecimento_path(knowledge), data: { confirm:'Você tem certeza?' }, method: :requisitar, class:'btn btn-xs btn-primary btn-font'
-              
+              = link_to 'Requisitar', requisitar_conhecimento_path(knowledge), data: { confirm:'Você tem certeza?' }, method: :requisitar, class:'btn btn-xs btn-primary btn-font'
+                
   .btn-group
 
     - if can? :create, Knowledge

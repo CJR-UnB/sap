@@ -2,38 +2,45 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @jobs.empty?
 
-    thead
-      tr
-        th Código
-        th Descrição
-        - if can? :update, Job
-          th
-        - if can? :destroy, Job
-          th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
 
-      - @jobs.each do |job|
-      
+    table.table.table-responsive.table-hover
+
+      thead
         tr
-          td = job.id
-          td = link_to job.description, job, data: { modal: true }
-
+          th Código
+          th Descrição
           - if can? :update, Job
-
-            td align="right"
-
-              = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, Job
-          
-            td align="right"
+            th
+
+      tbody
+
+        - @jobs.each do |job|
+        
+          tr
+            td = job.id
+            td = link_to job.description, job, data: { modal: true }
+
+            - if can? :update, Job
+
+              td align="right"
+
+                = link_to edit_job_path(job), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, Job
             
-              = link_to job, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+              td align="right"
+              
+                = link_to job, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, Job
     = link_to 'Novo Cargo', new_job_path, data: { modal: true }, class:'btn btn-success'

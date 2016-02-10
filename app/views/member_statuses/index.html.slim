@@ -1,39 +1,46 @@
 = content_for :titulo, 'Status de Membro'
 
 .box
+  
+  - if @member_statuses.empty?
 
-  table.table.table-responsive.table-hover
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    thead
-      tr
-        th Código
-        th Descrição
-        - if can? :update, MemberStatus
-          th
-        - if can? :destroy, MemberStatus
-          th
+  - else
 
-    tbody
+    table.table.table-responsive.table-hover
 
-      - @member_statuses.each do |member_status|
-
+      thead
         tr
-          td = member_status.id
-          td = link_to member_status.try(:description), member_status, data: { modal: true }
-
+          th Código
+          th Descrição
           - if can? :update, MemberStatus
-
-            td align="right"
-
-              = link_to edit_member_status_path(member_status), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil 
-
+            th
           - if can? :destroy, MemberStatus
+            th
 
-            td align="right"
+      tbody
 
-              = link_to member_status, data: {:confirm => 'Are you sure?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+        - @member_statuses.each do |member_status|
+
+          tr
+            td = member_status.id
+            td = link_to member_status.try(:description), member_status, data: { modal: true }
+
+            - if can? :update, MemberStatus
+
+              td align="right"
+
+                = link_to edit_member_status_path(member_status), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil 
+
+            - if can? :destroy, MemberStatus
+
+              td align="right"
+
+                = link_to member_status, data: {:confirm => 'Are you sure?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, MemberStatus
     = link_to 'Novo Status de Membro', new_member_status_path, data: { modal: true }, class:'btn btn-success'

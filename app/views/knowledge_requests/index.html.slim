@@ -2,66 +2,73 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @knowledge_requests.empty?
 
-    thead
-      tr
-        th Código
-        th Status
-        - if can? :create, KnowledgeRequest
-          th Membro
-        th Conhecimento
-        th Nível
-        th Tecnologia
-        th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
 
-      - @knowledge_requests.each do |knowledge_request|
+    table.table.table-responsive.table-hover
 
+      thead
         tr
-          td = knowledge_request.id
-
-          td
-            - case knowledge_request.request_status.try(:description)
-              - when 'Em análise'
-                strong.text-primary Em análise
-              - when 'Deferido'
-                strong.text-success Deferido
-              - when 'Indeferido'
-                strong.text-warning Indeferido
-          
+          th Código
+          th Status
           - if can? :create, KnowledgeRequest
-            td = knowledge_request.member.try(:member_name)
+            th Membro
+          th Conhecimento
+          th Nível
+          th Tecnologia
+          th
 
-          td = knowledge_request.knowledge.try(:description)
-          td = knowledge_request.knowledge.try(:knowledge_level).try(:description)
-          td = knowledge_request.knowledge.try(:technology).try(:name)
+      tbody
 
-          td align="right"
+        - @knowledge_requests.each do |knowledge_request|
 
-            .btn-group.btn-group-xs
+          tr
+            td = knowledge_request.id
 
-              - if current_member.try(:admin?) and !knowledge_request.analisado?
+            td
+              - case knowledge_request.request_status.try(:description)
+                - when 'Em análise'
+                  strong.text-primary Em análise
+                - when 'Deferido'
+                  strong.text-success Deferido
+                - when 'Indeferido'
+                  strong.text-warning Indeferido
+            
+            - if can? :create, KnowledgeRequest
+              td = knowledge_request.member.try(:member_name)
 
-                = link_to 'Aprovar', aprovar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :aprovar_conhecimento, title:'Aprovar requisição', class:'btn btn-primary'
+            td = knowledge_request.knowledge.try(:description)
+            td = knowledge_request.knowledge.try(:knowledge_level).try(:description)
+            td = knowledge_request.knowledge.try(:technology).try(:name)
 
-                = link_to 'Recusar', recusar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :recusar_conhecimento, title:'Recusar requisição', class:'btn btn-primary'
+            td align="right"
 
-              - elsif knowledge_request.analisado? and current_member.try(:admin?)
+              .btn-group.btn-group-xs
 
-                = link_to analisar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :analisar_conhecimento, title:'Deixa a requisição em análise', class:'btn btn-primary' do
-                  i.fa.fa-question-circle
+                - if current_member.try(:admin?) and !knowledge_request.analisado?
 
-              - if can? :update, KnowledgeRequest
+                  = link_to 'Aprovar', aprovar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :aprovar_conhecimento, title:'Aprovar requisição', class:'btn btn-primary'
 
-                = link_to edit_knowledge_request_path(knowledge_request), data: { modal: true }, title:'Editar', class:'btn btn-primary' do
-                  i.fa.fa-pencil
+                  = link_to 'Recusar', recusar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :recusar_conhecimento, title:'Recusar requisição', class:'btn btn-primary'
 
-              - if can? :destroy, KnowledgeRequest
+                - elsif knowledge_request.analisado? and current_member.try(:admin?)
 
-                = link_to knowledge_request, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir', class:'btn btn-primary' do
-                  i.fa.fa-times
+                  = link_to analisar_conhecimento_path(knowledge_request), data: { confirm:'Você tem certeza?' }, method: :analisar_conhecimento, title:'Deixa a requisição em análise', class:'btn btn-primary' do
+                    i.fa.fa-question-circle
+
+                - if can? :update, KnowledgeRequest
+
+                  = link_to edit_knowledge_request_path(knowledge_request), data: { modal: true }, title:'Editar', class:'btn btn-primary' do
+                    i.fa.fa-pencil
+
+                - if can? :destroy, KnowledgeRequest
+
+                  = link_to knowledge_request, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir', class:'btn btn-primary' do
+                    i.fa.fa-times
 
   .btn-group
 

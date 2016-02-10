@@ -40,7 +40,7 @@ class KnowledgeRequestsController < ApplicationController
 
   def aprovar_conhecimento
 
-    aprovado = RequestStatus.where(description: 'Deferido').first.id
+    aprovado = RequestStatus.where(description: 'Deferido').try(:first).try(:id)
 
     respond_to do |format|
 
@@ -63,7 +63,7 @@ class KnowledgeRequestsController < ApplicationController
 
   def recusar_conhecimento
 
-    recusado = RequestStatus.where(description: 'Indeferido').first.id
+    recusado = RequestStatus.where(description: 'Indeferido').try(:first).try(:id)
 
     respond_to do |format|
 
@@ -82,7 +82,7 @@ class KnowledgeRequestsController < ApplicationController
 
   def analisar_conhecimento
 
-    em_analise = RequestStatus.where(description: 'Em análise').first.id
+    em_analise = RequestStatus.where(description: 'Em análise').try(:first).try(:id)
     membro = @knowledge_request.member.id
     conhecimento = @knowledge_request.knowledge.id
 

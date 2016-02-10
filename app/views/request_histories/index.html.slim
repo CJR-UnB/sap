@@ -9,53 +9,60 @@
 
     .box
 
-      table.table.table-responsive.table-hover
+      - if @request_histories.empty?
 
-        thead
-          tr
-            th Código
-            - unless current_member.try(:user?)
-              th Membro
-            th Conhecimento Requisitado
-            th Nível
-            th Tecnologia
-            th Observação
-            - if can? :update, RequestHistory
-              th
-            - if can? :destroy, RequestHistory
-              th
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-        tbody
+      - else
 
-          - @request_histories.each do |request_history|
+        table.table.table-responsive.table-hover
 
+          thead
             tr
-              td = request_history.id
-
+              th Código
               - unless current_member.try(:user?)
-              td = link_to request_history.knowledge_request.member.try(:member_name), request_history.knowledge_request.member, data: { modal: true }
-
-              td = link_to request_history.knowledge_request.try(:knowledge).try(:description), request_history.knowledge_request.try(:knowledge), data: { modal: true }
-
-              td = request_history.knowledge_request.try(:knowledge).try(:knowledge_level).try(:description)
-              td = request_history.knowledge_request.try(:knowledge).try(:technology).try(:name)
-
-
-              td = request_history.observation
-
+                th Membro
+              th Conhecimento Requisitado
+              th Nível
+              th Tecnologia
+              th Observação
               - if can? :update, RequestHistory
-
-                td align="right"
-
-                  = link_to edit_request_history_path(request_history), data: { modal: true }, title:'Editar' do
-                    i.fa.fa-pencil
-
+                th
               - if can? :destroy, RequestHistory
+                th
 
-                td align="right"
+          tbody
 
-                  = link_to request_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                    i.fa.fa-times
+            - @request_histories.each do |request_history|
+
+              tr
+                td = request_history.id
+
+                - unless current_member.try(:user?)
+                td = link_to request_history.knowledge_request.member.try(:member_name), request_history.knowledge_request.member, data: { modal: true }
+
+                td = link_to request_history.knowledge_request.try(:knowledge).try(:description), request_history.knowledge_request.try(:knowledge), data: { modal: true }
+
+                td = request_history.knowledge_request.try(:knowledge).try(:knowledge_level).try(:description)
+                td = request_history.knowledge_request.try(:knowledge).try(:technology).try(:name)
+
+
+                td = request_history.observation
+
+                - if can? :update, RequestHistory
+
+                  td align="right"
+
+                    = link_to edit_request_history_path(request_history), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
+
+                - if can? :destroy, RequestHistory
+
+                  td align="right"
+
+                    = link_to request_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                      i.fa.fa-times
 
       - if can? :create, RequestHistory
         = link_to 'Novo Histórico de Requisição', new_request_history_path, data: { modal: true }, class:'btn btn-success'
@@ -65,48 +72,55 @@
 
     .box
 
-      table.table.table-responsive.table-hover
+      - if recupera_historicos_individuais.empty?
 
-        thead
-          tr
-            th Código
-            th Conhecimento Requisitado
-            th Nível
-            th Tecnologia
-            th Observação
-            - if can? :update, RequestHistory
-              th
-            - if can? :destroy, RequestHistory
-              th
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-        tbody
+      - else
+        
+        table.table.table-responsive.table-hover
 
-          - recupera_historicos_individuais.each do |request_history|
-
+          thead
             tr
-              td = request_history.id
-
-              td = link_to request_history.knowledge_request.try(:knowledge).try(:description), request_history.knowledge_request.try(:knowledge), data: { modal: true }
-
-              td = request_history.knowledge_request.try(:knowledge).try(:knowledge_level).try(:description)
-              td = request_history.knowledge_request.try(:knowledge).try(:technology).try(:name)
-
-
-              td = request_history.observation
-
+              th Código
+              th Conhecimento Requisitado
+              th Nível
+              th Tecnologia
+              th Observação
               - if can? :update, RequestHistory
-
-                td align="right"
-
-                  = link_to edit_request_history_path(request_history), data: { modal: true }, title:'Editar' do
-                    i.fa.fa-pencil
-
+                th
               - if can? :destroy, RequestHistory
+                th
 
-                td align="right"
+          tbody
 
-                  = link_to request_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                    i.fa.fa-times
+            - recupera_historicos_individuais.each do |request_history|
+
+              tr
+                td = request_history.id
+
+                td = link_to request_history.knowledge_request.try(:knowledge).try(:description), request_history.knowledge_request.try(:knowledge), data: { modal: true }
+
+                td = request_history.knowledge_request.try(:knowledge).try(:knowledge_level).try(:description)
+                td = request_history.knowledge_request.try(:knowledge).try(:technology).try(:name)
+
+
+                td = request_history.observation
+
+                - if can? :update, RequestHistory
+
+                  td align="right"
+
+                    = link_to edit_request_history_path(request_history), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
+
+                - if can? :destroy, RequestHistory
+
+                  td align="right"
+
+                    = link_to request_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                      i.fa.fa-times
 
       - if can? :create, RequestHistory
         = link_to 'Novo Histórico de Requisição', new_request_history_path, data: { modal: true }, class:'btn btn-success'

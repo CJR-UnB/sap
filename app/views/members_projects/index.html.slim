@@ -9,42 +9,49 @@
 
     .box
 
-      table.table.table-responsive.table-hover
+      - if @members_projects.empty?
 
-        thead
-          tr
-            th Código
-            th Membro
-            th Projeto
-            th Função
-            - if can? :update, MembersProject
-              th
-            - if can? :destroy, MembersProject
-              th
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-        tbody
+      - else
 
-          - @members_projects.each do |members_project|
+        table.table.table-responsive.table-hover
 
+          thead
             tr
-              td = members_project.id
-              td = link_to members_project.member.try(:member_name), members_project.member, data: { modal: true }
-              td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
-              td = members_project.project_role.try(:description)
-
+              th Código
+              th Membro
+              th Projeto
+              th Função
               - if can? :update, MembersProject
-
-                td align="right"
-                  
-                  = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
-                    i.fa.fa-pencil
-
+                th
               - if can? :destroy, MembersProject
+                th
 
-                td align="right"
+          tbody
 
-                  = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
-                    i.fa.fa-times
+            - @members_projects.each do |members_project|
+
+              tr
+                td = members_project.id
+                td = link_to members_project.member.try(:member_name), members_project.member, data: { modal: true }
+                td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
+                td = members_project.project_role.try(:description)
+
+                - if can? :update, MembersProject
+
+                  td align="right"
+                    
+                    = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
+
+                - if can? :destroy, MembersProject
+
+                  td align="right"
+
+                    = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
+                      i.fa.fa-times
 
       - if can? :create, MembersProject
         = link_to 'Nova Alocação', new_members_project_path, data: { modal: true }, class:'btn btn-success'        
@@ -54,40 +61,47 @@
 
     .box
 
-      table.table.table-responsive.table-hover
+      - if @members_projects.where(member_id: current_member.id).empty?
 
-        thead
-          tr
-            th Código
-            th Projeto
-            th Função
-            - if can? :update, MembersProject
-              th
-            - if can? :destroy, MembersProject
-              th
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-        tbody
+      - else
 
-          - @members_projects.where(member_id: current_member.id).each do |members_project|
+        table.table.table-responsive.table-hover
 
+          thead
             tr
-              td = members_project.id
-              td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
-              td = members_project.project_role.try(:description)
-
+              th Código
+              th Projeto
+              th Função
               - if can? :update, MembersProject
-
-                td align="right"
-                  
-                  = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
-                    i.fa.fa-pencil
-
+                th
               - if can? :destroy, MembersProject
+                th
 
-                td align="right"
+          tbody
 
-                  = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
-                    i.fa.fa-times
+            - @members_projects.where(member_id: current_member.id).each do |members_project|
+
+              tr
+                td = members_project.id
+                td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
+                td = members_project.project_role.try(:description)
+
+                - if can? :update, MembersProject
+
+                  td align="right"
+                    
+                    = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
+
+                - if can? :destroy, MembersProject
+
+                  td align="right"
+
+                    = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
+                      i.fa.fa-times
 
       - if can? :create, MembersProject
         = link_to 'Nova Alocação', new_members_project_path, data: { modal: true }, class:'btn btn-success'        

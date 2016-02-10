@@ -2,39 +2,46 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @sectors.empty?
 
-    thead
-      tr
-        th Código
-        th Sigla
-        th Nome
-        - if can? :update, Sector
-          th
-        - if can? :destroy, Sector
-        th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
 
-      - @sectors.each do |sector|
-    
+    table.table.table-responsive.table-hover
+
+      thead
         tr
-          td = sector.id
-          td = sector.short_name
-          td = link_to sector.name, sector, data: { modal: true }
-
+          th Código
+          th Sigla
+          th Nome
           - if can? :update, Sector
-
-            td align="right"
-
-              = link_to edit_sector_path(sector), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, Sector
+          th
 
-            td align="right"
-              = link_to sector, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+      tbody
+
+        - @sectors.each do |sector|
+      
+          tr
+            td = sector.id
+            td = sector.short_name
+            td = link_to sector.name, sector, data: { modal: true }
+
+            - if can? :update, Sector
+
+              td align="right"
+
+                = link_to edit_sector_path(sector), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, Sector
+
+              td align="right"
+                = link_to sector, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, Sector
     = link_to 'Novo Núcleo', new_sector_path, data: { modal: true }, class:'btn btn-success'

@@ -2,47 +2,54 @@
 
 .box
 
-  table.table.table-responsive
+  - if @activities.empty?
 
-    thead
-      tr
-        th Código
-        th Descrição
-        th Número de Créditos
-        th Tipo
-        - if can? :update, Activity
-          th
-        - if can? :destroy, Activity
-          th
-        th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
 
-      - @activities.each do |activity|
+    table.table.table-responsive
 
+      thead
         tr
-          td = activity.id
-          td = link_to activity.description, activity, data: { modal: true }
-          td = activity.credit_numbers
-          td = activity.activity_type.description
-
+          th Código
+          th Descrição
+          th Número de Créditos
+          th Tipo
           - if can? :update, Activity
-
-            td align="right"
-
-              = link_to edit_activity_path(activity), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, Activity
+            th
+          th
 
-            td align="right"
+      tbody
 
-              = link_to activity, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
-                i.fa.fa-times
+        - @activities.each do |activity|
 
-            td align="center"
+          tr
+            td = activity.id
+            td = link_to activity.description, activity, data: { modal: true }
+            td = activity.credit_numbers
+            td = activity.activity_type.description
 
-              = link_to 'Associar', associar_atividade_path(activity), data: { confirm:'Você tem certeza?'}, method: :associar, title:'Associa esta atividade diretamente ao seu perfil', class:'btn btn-xs btn-primary btn-font'
+            - if can? :update, Activity
+
+              td align="right"
+
+                = link_to edit_activity_path(activity), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, Activity
+
+              td align="right"
+
+                = link_to activity, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                  i.fa.fa-times
+
+              td align="center"
+
+                = link_to 'Associar', associar_atividade_path(activity), data: { confirm:'Você tem certeza?'}, method: :associar, title:'Associa esta atividade diretamente ao seu perfil', class:'btn btn-xs btn-primary btn-font'
 
   - if can? :create, Activity
     = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }

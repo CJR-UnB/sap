@@ -8,10 +8,10 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all.order(:id).includes(:project_status)
-    @projetos_nao_iniciados = Project.where(project_status_id: ProjectStatus.find_by(description:'Não iniciado').id).includes(:project_status)
-    @projetos_em_desenvolvimento = Project.where(project_status_id: ProjectStatus.find_by(description:'Em desenvolvimento').id).includes(:project_status)
-    @projetos_atrasados = Project.where(project_status_id: ProjectStatus.find_by(description:'Atrasado').id).includes(:project_status)
-    @projetos_concluidos = Project.where(project_status_id: ProjectStatus.find_by(description:'Concluído').id).includes(:project_status)
+    @projetos_nao_iniciados = Project.where(project_status_id: ProjectStatus.find_by(description:'Não iniciado').try(:id)).includes(:project_status)
+    @projetos_em_desenvolvimento = Project.where(project_status_id: ProjectStatus.find_by(description:'Em desenvolvimento').try(:id)).includes(:project_status)
+    @projetos_atrasados = Project.where(project_status_id: ProjectStatus.find_by(description:'Atrasado').try(:id)).includes(:project_status)
+    @projetos_concluidos = Project.where(project_status_id: ProjectStatus.find_by(description:'Concluído').try(:id)).includes(:project_status)
   end
 
   def show

@@ -2,40 +2,47 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @technologies.empty?
 
-    thead
-      tr
-        th Código
-        th Nome
-        th Descrição
-        - if can? :update, Technology
-          th
-        - if can? :destroy, Technology
-          th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
 
-      - @technologies.each do |technology|
+    table.table.table-responsive.table-hover
 
+      thead
         tr
-          td = technology.id
-          td = link_to technology.name, technology, data: { modal: true }
-          td = technology.description
-
+          th Código
+          th Nome
+          th Descrição
           - if can? :update, Technology
-          
-            td align="right"
-
-              = link_to edit_technology_path(technology), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, Technology
+            th
 
-            td align="right"
+      tbody
 
-              = link_to technology, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Editar' do
-                i.fa.fa-times
+        - @technologies.each do |technology|
+
+          tr
+            td = technology.id
+            td = link_to technology.name, technology, data: { modal: true }
+            td = technology.description
+
+            - if can? :update, Technology
+            
+              td align="right"
+
+                = link_to edit_technology_path(technology), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, Technology
+
+              td align="right"
+
+                = link_to technology, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Editar' do
+                  i.fa.fa-times
 
   - if can? :create, Technology
     = link_to 'Nova Tecnologia', new_technology_path, data: { modal: true }, class:'btn btn-success' 

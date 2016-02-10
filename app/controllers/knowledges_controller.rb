@@ -48,7 +48,7 @@ class KnowledgesController < ApplicationController
 
     else
 
-      em_analise = RequestStatus.where(description: 'Em análise').first.id
+      em_analise = RequestStatus.where(description: 'Em análise').try(:first).try(:id)
       @requisicao = KnowledgeRequest.new(knowledge_id: @knowledge.id, member_id: current_member.id, request_status_id: em_analise)
 
       respond_to do |format|

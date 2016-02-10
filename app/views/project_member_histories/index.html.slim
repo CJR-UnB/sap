@@ -5,49 +5,56 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @project_member_histories.empty?
 
-    thead
-      tr
-        th Código
-        - if can? :create, ProjectMemberHistory
-          th Membro
-        th Projeto
-        th Função
-        th Observação
-        - if can? :update, ProjectMemberHistory
-          th
-        - if can? :destroy, ProjectMemberHistory
-          th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
+      
+  - else
 
-    tbody
+    table.table.table-responsive.table-hover
 
-      - @project_member_histories.each do |project_member_history|
-
+      thead
         tr
-          td = project_member_history.id
-
+          th Código
           - if can? :create, ProjectMemberHistory
-            td = project_member_history.member.try(:member_name)
-
-          td = project_member_history.project.try(:description)
-          td = project_member_history.project_role.try(:description)
-
-          td = project_member_history.observation
-
+            th Membro
+          th Projeto
+          th Função
+          th Observação
           - if can? :update, ProjectMemberHistory
-
-            td align="right"
-            
-              = link_to edit_project_member_history_path(project_member_history), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, ProjectMemberHistory
+            th
 
-            td align="right"
+      tbody
 
-              = link_to project_member_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+        - @project_member_histories.each do |project_member_history|
+
+          tr
+            td = project_member_history.id
+
+            - if can? :create, ProjectMemberHistory
+              td = project_member_history.member.try(:member_name)
+
+            td = project_member_history.project.try(:description)
+            td = project_member_history.project_role.try(:description)
+
+            td = project_member_history.observation
+
+            - if can? :update, ProjectMemberHistory
+
+              td align="right"
+              
+                = link_to edit_project_member_history_path(project_member_history), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, ProjectMemberHistory
+
+              td align="right"
+
+                = link_to project_member_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, ProjectMemberHistory
     = link_to 'Novo Histórico de Projeto', new_project_member_history_path, data: { modal: true }, class:'btn btn-success'

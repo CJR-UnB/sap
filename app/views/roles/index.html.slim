@@ -2,38 +2,45 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @roles.empty?
 
-    thead
-      tr
-        th Código
-        th Descrição
-        - if can? :update, Role
-          th
-        - if can? :destroy, Role
-          th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
+    
+    table.table.table-responsive.table-hover
 
-      - @roles.each do |role|
-
+      thead
         tr
-          td = role.id
-          td = link_to role.description, role, data: { modal: true }
-          
+          th Código
+          th Descrição
           - if can? :update, Role
-
-            td align="right"
-
-              = link_to edit_role_path(role), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, Role
+            th
 
-            td align="right"
+      tbody
 
-              = link_to role, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+        - @roles.each do |role|
+
+          tr
+            td = role.id
+            td = link_to role.description, role, data: { modal: true }
+            
+            - if can? :update, Role
+
+              td align="right"
+
+                = link_to edit_role_path(role), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, Role
+
+              td align="right"
+
+                = link_to role, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, Role
     = link_to 'Novo Perfil', new_role_path, data: { modal: true }, class:'btn btn-success'

@@ -2,40 +2,47 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @knowledge_levels.empty?
 
-    thead
-      tr
-        th Código
-        th Nível
-        th Descrição
-        - if can? :update, KnowledgeLevel
-          th
-        - if can? :destroy, KnowledgeLevel
-          th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
+      
+  - else
 
-    tbody
+    table.table.table-responsive.table-hover
 
-      - @knowledge_levels.each do |knowledge_level|
-
+      thead
         tr
-          td = knowledge_level.id
-          td = link_to knowledge_level.level, knowledge_level, data: { modal: true }
-          td = knowledge_level.description
-
+          th Código
+          th Nível
+          th Descrição
           - if can? :update, KnowledgeLevel
-
-            td align="right"
-
-              = link_to edit_knowledge_level_path(knowledge_level), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, KnowledgeLevel
+            th
 
-            td align="right"
+      tbody
 
-              = link_to knowledge_level, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+        - @knowledge_levels.each do |knowledge_level|
+
+          tr
+            td = knowledge_level.id
+            td = link_to knowledge_level.level, knowledge_level, data: { modal: true }
+            td = knowledge_level.description
+
+            - if can? :update, KnowledgeLevel
+
+              td align="right"
+
+                = link_to edit_knowledge_level_path(knowledge_level), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, KnowledgeLevel
+
+              td align="right"
+
+                = link_to knowledge_level, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, KnowledgeLevel
     = link_to 'Novo Nível de Conhecimento', new_knowledge_level_path, data: { modal: true }, class:'btn btn-success'

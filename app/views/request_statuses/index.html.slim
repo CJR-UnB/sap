@@ -2,38 +2,45 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @request_statuses.empty?
 
-    thead
-      tr
-        th Código
-        th Descrição
-        - if can? :update, RequestStatus
-          th
-        - if can? :destroy, RequestStatus
-          th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
+    
+    table.table.table-responsive.table-hover
 
-      - @request_statuses.each do |request_status|
-
+      thead
         tr
-          td = request_status.id
-          td = link_to request_status.description, request_status, data: { modal: true }
-
+          th Código
+          th Descrição
           - if can? :update, RequestStatus
-          
-            td align="right"
-
-              = link_to edit_request_status_path(request_status), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, RequestStatus
+            th
 
-            td align="right"
+      tbody
 
-              = link_to request_status, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+        - @request_statuses.each do |request_status|
+
+          tr
+            td = request_status.id
+            td = link_to request_status.description, request_status, data: { modal: true }
+
+            - if can? :update, RequestStatus
+            
+              td align="right"
+
+                = link_to edit_request_status_path(request_status), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, RequestStatus
+
+              td align="right"
+
+                = link_to request_status, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, RequestStatus
     = link_to 'Novo Status de Requisição', new_request_status_path, data: { modal: true }, class:'btn btn-success'

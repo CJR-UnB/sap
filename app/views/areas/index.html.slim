@@ -1,41 +1,48 @@
 = content_for :titulo, 'Áreas'
 
 .box
+  
+  - if @areas.empty?
 
-  table.table.table-responsive.table-hover
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    thead
-      tr
-        th Código
-        th Nome
-        th Setor
-        - if can? :update, Area
-          th
-        - if can? :destroy, Area
-          th
+  - else
 
-    tbody
+    table.table.table-responsive.table-hover
 
-      - @areas.each do |area|
-
+      thead
         tr
-          td = area.id
-          td = link_to area.name, area, data: { modal: true }
-          td = link_to area.sector.short_name, area.sector, data: { modal: true }
-
+          th Código
+          th Nome
+          th Setor
           - if can? :update, Area
-
-            td align="right"
-
-              = link_to edit_area_path(area), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, Area
+            th
 
-            td align="right"
-            
-              = link_to area, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+      tbody
+
+        - @areas.each do |area|
+
+          tr
+            td = area.id
+            td = link_to area.name, area, data: { modal: true }
+            td = link_to area.sector.short_name, area.sector, data: { modal: true }
+
+            - if can? :update, Area
+
+              td align="right"
+
+                = link_to edit_area_path(area), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, Area
+
+              td align="right"
+              
+                = link_to area, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, Area
     = link_to 'Nova Área', new_area_path, class:'btn btn-success', data: { modal: true }

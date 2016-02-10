@@ -9,39 +9,46 @@
 
     .box
 
-      table.table.table-responsive.table-hover
+      - if @activities_members.empty?
 
-        thead
-          tr
-            th Código
-            - unless current_member.try(:user?)
-              th Membro
-            th Atividade
-            th Créditos
-            th Tipo
-            th
-            th
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-        tbody
+      - else
 
-          - @activities_members.each do |activities_member|
+        table.table.table-responsive.table-hover
 
+          thead
             tr
-              td = activities_member.id
-              td = link_to activities_member.member.try(:member_name), activities_member.member, data: { modal: true }
-              td = link_to activities_member.activity.try(:description), activities_member.activity, data: { modal: true }
-              td = activities_member.activity.try(:credit_numbers)
-              td = activities_member.activity.try(:activity_type).try(:description)
-            
-              td align="right"
+              th Código
+              - unless current_member.try(:user?)
+                th Membro
+              th Atividade
+              th Créditos
+              th Tipo
+              th
+              th
 
-                = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
-                  i.fa.fa-pencil
+          tbody
 
-              td align="right"
+            - @activities_members.each do |activities_member|
 
-                = link_to activities_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
-                  i.fa.fa-times
+              tr
+                td = activities_member.id
+                td = link_to activities_member.member.try(:member_name), activities_member.member, data: { modal: true }
+                td = link_to activities_member.activity.try(:description), activities_member.activity, data: { modal: true }
+                td = activities_member.activity.try(:credit_numbers)
+                td = activities_member.activity.try(:activity_type).try(:description)
+              
+                td align="right"
+
+                  = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
+
+                td align="right"
+
+                  = link_to activities_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                    i.fa.fa-times
 
       = link_to 'Nova Atividade', new_activities_member_path, data: { modal: true }, class:'btn btn-success'
 
@@ -51,36 +58,43 @@
 
     .box
 
-      table.table.table-responsive.table-hover
+      - if @activities_members.where(member_id: current_member.id).empty?
 
-        thead
-          tr
-            th Código
-            th Atividade
-            th Créditos
-            th Tipo
-            th
-            th
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-        tbody
+      - else
+        
+        table.table.table-responsive.table-hover
 
-          - @activities_members.where(member_id: current_member.id).each do |activities_member|
-
+          thead
             tr
-              td = activities_member.id
-              td = link_to activities_member.activity.try(:description), activities_member.activity, data: { modal: true }
-              td = activities_member.activity.try(:credit_numbers)
-              td = activities_member.activity.try(:activity_type).try(:description)
-            
-              td align="right"
+              th Código
+              th Atividade
+              th Créditos
+              th Tipo
+              th
+              th
 
-                = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
-                  i.fa.fa-pencil
+          tbody
 
-              td align="right"
+            - @activities_members.where(member_id: current_member.id).each do |activities_member|
 
-                = link_to activities_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
-                  i.fa.fa-times
+              tr
+                td = activities_member.id
+                td = link_to activities_member.activity.try(:description), activities_member.activity, data: { modal: true }
+                td = activities_member.activity.try(:credit_numbers)
+                td = activities_member.activity.try(:activity_type).try(:description)
+              
+                td align="right"
+
+                  = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
+
+                td align="right"
+
+                  = link_to activities_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                    i.fa.fa-times
 
       - if current_member.try(:user?)
         = link_to 'Nova Atividade', activities_path, class:'btn btn-success'

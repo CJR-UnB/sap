@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :recupera_num_projetos_atuais, :recupera_historicos_individuais, :to_back, 
-                :esta_em_membros?, :esta_em_conhecimentos?, :esta_em_projetos?
-                :recupera_admins
+                :esta_em_membros?, :esta_em_conhecimentos?, :esta_em_projetos?,
+                :recupera_admins, :mensagem_tabela_vazia
 
   def current_ability
     @current_ability ||= Ability.new(current_member)
@@ -80,6 +80,10 @@ class ApplicationController < ActionController::Base
 
   def esta_em_projetos?
     current_page?(projects_path) or current_page?(projects_overview_path) or current_page?(project_histories_path) or current_page?(project_member_histories_path) or current_page?(members_projects_path) or current_page?(project_statuses_path) or current_page?(project_roles_path)
+  end
+
+  def mensagem_tabela_vazia
+    "Ops! Parece que ainda não temos nada aqui :)"
   end
 
 end

@@ -2,40 +2,47 @@
 
 .box
 
-  table.table.table-responsive.table-hover
+  - if @project_histories.empty?
 
-    thead
-      tr
-        th Código
-        th Observação
-        th Projeto
-        - if can? :update, ProjectHistory
-          th
-        - if can? :destroy, ProjectHistory
-          th
+    .alert.alert-info
+      span = mensagem_tabela_vazia
 
-    tbody
+  - else
 
-      - @project_histories.each do |project_history|
+    table.table.table-responsive.table-hover
 
+      thead
         tr
-          td = project_history.id
-          td = link_to 'Ver Observação', project_history, data: { modal: true }
-          td = project_history.project.try(:description)
-
+          th Código
+          th Observação
+          th Projeto
           - if can? :update, ProjectHistory
-
-            td align="right"
-
-              = link_to edit_project_history_path(project_history), data: { modal: true }, title:'Editar' do
-                i.fa.fa-pencil
-
+            th
           - if can? :destroy, ProjectHistory
+            th
 
-            td align="right"
+      tbody
 
-              = link_to project_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
-                i.fa.fa-times
+        - @project_histories.each do |project_history|
+
+          tr
+            td = project_history.id
+            td = link_to 'Ver Observação', project_history, data: { modal: true }
+            td = project_history.project.try(:description)
+
+            - if can? :update, ProjectHistory
+
+              td align="right"
+
+                = link_to edit_project_history_path(project_history), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, ProjectHistory
+
+              td align="right"
+
+                = link_to project_history, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir' do
+                  i.fa.fa-times
 
   - if can? :create, ProjectHistory
     = link_to 'Novo Histórico de Projeto', new_project_history_path, data: { modal: true }, class:'btn btn-success'
