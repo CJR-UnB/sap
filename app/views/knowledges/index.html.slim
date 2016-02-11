@@ -9,7 +9,7 @@
 
   - else
 
-    table.table.table-responsive.table-hover
+    table.table.table-hover#dataTable width="100%"
 
       thead
         tr
@@ -50,7 +50,9 @@
             td align="right"
 
               = link_to 'Requisitar', requisitar_conhecimento_path(knowledge), data: { confirm:'Você tem certeza?' }, method: :requisitar, class:'btn btn-xs btn-primary btn-font'
-                
+  
+  br
+
   .btn-group
 
     - if can? :create, Knowledge
@@ -58,3 +60,12 @@
 
     - if can? :create, KnowledgeRequest
       = link_to 'Nova Requisição', new_knowledge_request_path, data: { modal: true }, class:'btn btn-success'
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

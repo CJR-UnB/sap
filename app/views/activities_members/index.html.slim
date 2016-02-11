@@ -1,108 +1,118 @@
-- if current_member.try(:user?)
-  = content_for :titulo, 'Suas Atividades'
+- unless current_member.try(:user?)
+  = content_for :titulo, 'Atividades Gerais/Individuais'
 - else
-  = content_for :titulo, 'Atividades dos Membros'
+  = content_for :titulo, 'Suas Atividades'
 
-.box
+.tab-content
 
-  - if @activities_members.empty?
+  .tab-pane.fade#atividades_gerais
 
-    .alert.alert-info
-      span = mensagem_tabela_vazia
+    .box
 
-  - else
+      - if @activities_members.empty?
 
-    = search_form_for @search do |f|
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-      .row
+      - else
 
-        - if current_member.try(:user?)
+        table.table.table-hover#dataTable width="100%"
 
-          .col-sm-3
-            = f.collection_select :activity_id_eq, Activity.all, :id, :description, {include_blank: 'Atividade'}, {class:'form-control'}
+          thead
+            tr
+              th Código
+              th Membro
+              th Atividade
+              th Créditos
+              th Tipo
+              th
+              th
 
-          .col-sm-3
-            = f.collection_select :activity_activity_type_id_eq, ActivityType.all, :id, :description, {include_blank: 'Tipo'}, {class:'form-control'}
+          tbody
 
-          .col-sm-2
-            = f.text_field :activity_credit_numbers_gteq, class:'form-control', placeholder:'Créditos de'
+            - @activities_members.each do |activities_member|
 
-          .col-sm-2
-            = f.text_field :activity_credit_numbers_lteq, class:'form-control', placeholder:'até'
-
-        - else
-
-          .col-sm-2
-            = f.collection_select :member_id_eq, Member.all, :id, :member_name, {include_blank: 'Membro'}, {class:'form-control'}
-           
-          .col-sm-3
-            = f.collection_select :activity_id_eq, Activity.all, :id, :description, {include_blank: 'Atividade'}, {class:'form-control'}
-
-          .col-sm-2
-            = f.collection_select :activity_activity_type_id_eq, ActivityType.all, :id, :description, {include_blank: 'Tipo'}, {class:'form-control'}
-
-          .col-sm-2
-            = f.text_field :activity_credit_numbers_gteq, class:'form-control', placeholder:'Créditos de'
-
-          .col-sm-1
-            = f.text_field :activity_credit_numbers_lteq, class:'form-control', placeholder:'até'       
-
-        .col-sm-2
-
-          .btn-group style="margin-top: 2px"
-
-            = f.button 'Buscar', class:'btn btn-default'
-            = link_to 'Limpar', request.path, class:'btn btn-default'
-
-    br
-
-    table.table.table-responsive.table-hover
-
-      thead
-        tr
-          th.dark-link = sort_link @search, :id, 'Código'
-
-          - unless current_member.try(:user?)
-            th.dark-link = sort_link @search, :member_name, 'Membro'
-
-          th.dark-link = sort_link @search, :activity_description, 'Atividade'
-          th.dark-link = sort_link @search, :activity_credit_numbers, 'Créditos'
-          th.dark-link = sort_link @search, :activity_activity_type_description, 'Tipo'
-
-          - if can? :update, ActivitiesMember
-            th
-          - if can? :destroy, ActivitiesMember
-            th
-
-      tbody
-
-        - @activities_members.each do |activities_member|
-
-          tr
-            td = activities_member.id
-
-            - unless current_member.try(:user?)
-              td = link_to activities_member.member.try(:member_name), activities_member.member, data: { modal: true }
+              tr
+                td = activities_member.id
+                td = link_to activities_member.member.try(:member_name), activities_member.member, data: { modal: true }
+                td = link_to activities_member.activity.try(:description), activities_member.activity, data: { modal: true }
+                td = activities_member.activity.try(:credit_numbers)
+                td = activities_member.activity.try(:activity_type).try(:description)
               
-            td = link_to activities_member.activity.try(:description), activities_member.activity, data: { modal: true }
-            td = activities_member.activity.try(:credit_numbers)
-            td = activities_member.activity.try(:activity_type).try(:description)
-            
-            - if can? :update, ActivitiesMember
+                td align="right"
 
-              td align="right"
+                  = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
 
-                = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
-                  i.fa.fa-pencil
+                td align="right"
 
-            - if can? :destroy, ActivitiesMember
+                  = link_to activities_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                    i.fa.fa-times
 
-              td align="right"
-
-                = link_to activities_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
-                  i.fa.fa-times
-
-  .btn-group
-    - if can? :create, ActivitiesMember
+      br
+      
       = link_to 'Nova Atividade', new_activities_member_path, data: { modal: true }, class:'btn btn-success'
-      = link_to 'Atividades', activities_path, class:'btn btn-success'
+
+
+  .tab-pane.active.fade.in#atividades_individuais
+
+    .box
+
+      - if @activities_members.where(member_id: current_member.id).empty?
+
+        .alert.alert-info
+          span = mensagem_tabela_vazia
+
+      - else
+        
+        table.table.table-hover#dataTable2 width="100%"
+
+          thead
+            tr
+              th Código
+              th Atividade
+              th Créditos
+              th Tipo
+              th
+              th
+
+          tbody
+
+            - @activities_members.where(member_id: current_member.id).each do |activities_member|
+
+              tr
+                td = activities_member.id
+                td = link_to activities_member.activity.try(:description), activities_member.activity, data: { modal: true }
+                td = activities_member.activity.try(:credit_numbers)
+                td = activities_member.activity.try(:activity_type).try(:description)
+              
+                td align="right"
+
+                  = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
+                    i.fa.fa-pencil
+
+                td align="right"
+
+                  = link_to activities_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                    i.fa.fa-times
+
+      br
+
+      - if current_member.try(:user?)
+        = link_to 'Nova Atividade', activities_path, class:'btn btn-success'
+      - else
+        = link_to 'Nova Atividade', new_activities_member_path, data: { modal: true }, class:'btn btn-success'
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+      $('#dataTable2').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

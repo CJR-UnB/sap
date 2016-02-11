@@ -16,7 +16,7 @@
 
       - else
 
-        table.table.table-responsive.table-hover
+        table.table.table-hover#dataTable width="100%"
 
           thead
             tr
@@ -65,6 +65,7 @@
                       i.fa.fa-times
 
       - if can? :create, RequestHistory
+        br
         = link_to 'Novo Histórico de Requisição', new_request_history_path, data: { modal: true }, class:'btn btn-success'
 
 
@@ -79,7 +80,7 @@
 
       - else
         
-        table.table.table-responsive.table-hover
+        table.table.table-hover#dataTable2 width="100%"
 
           thead
             tr
@@ -123,4 +124,20 @@
                       i.fa.fa-times
 
       - if can? :create, RequestHistory
+        br
         = link_to 'Novo Histórico de Requisição', new_request_history_path, data: { modal: true }, class:'btn btn-success'
+
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+      $('#dataTable2').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

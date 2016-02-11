@@ -3,14 +3,12 @@
 }
 
 .navbar {
-  border-radius: 0;
   background-color: white;
   border: 1px solid #DCDCDC;
 }
 
 .form-control {
   font-size: 12px;
-  border-radius: 0;
 }
 
 .btn-devise.form-control {
@@ -21,7 +19,7 @@
   border: none !important;
 }
 
-.alert, .btn, .input-group-addon {
+.alert, .btn, .input-group-addon, .form-control, .navbar {
   border-radius: 0;
 }
 
@@ -36,7 +34,7 @@
 
 .modal {
   text-align: center;
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 .modal-content {
@@ -97,4 +95,16 @@
 
 .dark-link a, .dark-link a:hover, .dark-link a:visited {
   color: #545454;
+}
+
+#dataTable_wrapper .row {
+  padding-top: 15px;
+}
+
+#dataTable2_wrapper .row {
+  padding-top: 15px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border-radius: 0;
 }

@@ -9,7 +9,7 @@
 
   - else
 
-    table.table.table-responsive.table-hover
+    table.table.table-hover#dataTable width="100%"
 
       thead
         tr
@@ -43,4 +43,14 @@
                   i.fa.fa-times
 
   - if can? :create, ProjectStatus
+    br
     = link_to 'Novo Status de Projeto', new_project_status_path, data: { modal: true }, class:'btn btn-success'
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

@@ -8,7 +8,6 @@ class MembersController < ApplicationController
 
   def index
     @members = Member.all.order(:id).includes(:role, :member_status, :area, :sector)
-    @sectors = Sector.all
   end
 
   def show

@@ -7,11 +7,7 @@ class KnowledgeRequestsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    if current_member.try(:user?)
-      @knowledge_requests = KnowledgeRequest.where(member_id: current_member.id).order(:id)
-    else
-      @knowledge_requests = KnowledgeRequest.all.order(:id)
-    end
+    @knowledge_requests = KnowledgeRequest.all
   end
 
   def show

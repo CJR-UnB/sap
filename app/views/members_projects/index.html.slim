@@ -1,85 +1,123 @@
 - unless current_member.try(:user?)
-  = content_for :titulo, 'Membros Alocados'
+  = content_for :titulo, 'Membros Alocados/Seus Projetos'
 - else
   = content_for :titulo, 'Seus Projetos'
 
-.box
+.tab-content
 
-  - if @members_projects.empty?
+  .tab-pane.fade#alocacoes_gerais
 
-    .alert.alert-info
-      span = mensagem_tabela_vazia
+    .box
 
-  - else
+      - if @members_projects.empty?
 
-    = search_form_for @search do |f|
-      
-      .row
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-        - unless current_member.try(:user?)
+      - else
 
-          .col-sm-4
-            = f.collection_select :member_id_eq, Member.all, :id, :member_name, {include_blank: 'Membro'}, {class:'form-control'}
+        table.table.table-hover#dataTable width="100%"
 
-          .col-sm-4
-            = f.collection_select :project_id_eq, Project.all, :id, :description, {include_blank: 'Projeto'}, {class:'form-control'}
+          thead
+            tr
+              th Código
+              th Membro
+              th Projeto
+              th Função
+              - if can? :update, MembersProject
+                th
+              - if can? :destroy, MembersProject
+                th
 
-          .col-sm-2
-            = f.collection_select :project_role_id_eq, ProjectRole.all, :id, :description, {include_blank: 'Função'}, {class:'form-control'}
+          tbody
 
-        - else
+            - @members_projects.each do |members_project|
 
-          .col-sm-5
-            = f.collection_select :project_id_eq, Project.all, :id, :description, {include_blank: 'Projeto'}, {class:'form-control'}
+              tr
+                td = members_project.id
+                td = link_to members_project.member.try(:member_name), members_project.member, data: { modal: true }
+                td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
+                td = members_project.project_role.try(:description)
 
-          .col-sm-5
-            = f.collection_select :project_role_id_eq, ProjectRole.all, :id, :description, {include_blank: 'Função'}, {class:'form-control'}
+                - if can? :update, MembersProject
 
-        .col-sm-2
+                  td align="right"
+                    
+                    = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
 
-          .btn-group style="margin-top: 2px"
+                - if can? :destroy, MembersProject
 
-            = f.button 'Buscar', class:'btn btn-default'
-            = link_to 'Limpar', request.path, class:'btn btn-default'
+                  td align="right"
 
-    br
+                    = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
+                      i.fa.fa-times
 
-    table.table.table-responsive.table-hover
+      - if can? :create, MembersProject
+        br
+        = link_to 'Nova Alocação', new_members_project_path, data: { modal: true }, class:'btn btn-success'        
 
-      thead
-        tr
-          th Código
-          th Membro
-          th Projeto
-          th Função
-          - if can? :update, MembersProject
-            th
-          - if can? :destroy, MembersProject
-            th
 
-      tbody
+  .tab-pane.active.fade.in#alocacoes_individuais
 
-        - @members_projects.each do |members_project|
+    .box
 
-          tr
-            td = members_project.id
-            td = link_to members_project.member.try(:member_name), members_project.member, data: { modal: true }
-            td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
-            td = members_project.project_role.try(:description)
+      - if @members_projects.where(member_id: current_member.id).empty?
 
-            - if can? :update, MembersProject
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-              td align="right"
-                
-                = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
-                  i.fa.fa-pencil
+      - else
 
-            - if can? :destroy, MembersProject
+        table.table.table-hover#dataTable2 width="100%"
 
-              td align="right"
+          thead
+            tr
+              th Código
+              th Projeto
+              th Função
+              - if can? :update, MembersProject
+                th
+              - if can? :destroy, MembersProject
+                th
 
-                = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
-                  i.fa.fa-times
+          tbody
 
-  - if can? :create, MembersProject
-    = link_to 'Nova Alocação', new_members_project_path, data: { modal: true }, class:'btn btn-success'
+            - @members_projects.where(member_id: current_member.id).each do |members_project|
+
+              tr
+                td = members_project.id
+                td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
+                td = members_project.project_role.try(:description)
+
+                - if can? :update, MembersProject
+
+                  td align="right"
+                    
+                    = link_to edit_members_project_path(members_project), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
+
+                - if can? :destroy, MembersProject
+
+                  td align="right"
+
+                    = link_to members_project, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Desalocar' do
+                      i.fa.fa-times
+
+      - if can? :create, MembersProject
+        br
+        = link_to 'Nova Alocação', new_members_project_path, data: { modal: true }, class:'btn btn-success'
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+      $('#dataTable2').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

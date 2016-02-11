@@ -7,7 +7,7 @@
     .alert.alert-info
       span Não há projetos em desenvolvimento.
 
-  table.table.table-responsive.table-hover
+  table.table.table-hover#dataTable  width="100%"
 
     thead
 
@@ -35,7 +35,17 @@
               = @membros_alocados.where(project_id: projeto.id, member_id: membro.id).first.try(:project_role).try(:description)
 
   .btn-group
+    br
     - if current_member.try(:admin?)
       = link_to 'Novo Projeto', new_project_path, data: { modal: true }, class:'btn btn-success'
     - unless current_member.try(:user?)
       = link_to 'Nova Alocação', new_members_project_path, data: { modal: true }, class:'btn btn-success'
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

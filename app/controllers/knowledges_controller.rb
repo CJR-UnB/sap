@@ -7,7 +7,7 @@ class KnowledgesController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    @knowledges = Knowledge.all
+    @knowledges = Knowledge.all.includes(:technology, :knowledge_level)
   end
 
   def show

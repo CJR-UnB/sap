@@ -1,97 +1,132 @@
-- if current_member.try(:user?)
-  = content_for :titulo, 'Seus Conhecimentos'
+- unless current_member.try(:user?)
+  = content_for :titulo, 'Conhecimentos Gerais/Individuais'
 - else
-  = content_for :titulo, 'Conhecimentos dos Membros'
+  = content_for :titulo, 'Seus Conhecimentos'
 
-.box
+.tab-content
 
-  - if @knowledges_members.empty?
+  .tab-pane.fade#conhecimentos_gerais
 
-    .alert.alert-info
-      span = mensagem_tabela_vazia
+    .box
 
-  - else
+      - if @knowledges_members.empty?
 
-    = search_form_for @search do |f|
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-      .row
+      - else
 
-        - if current_member.try(:user?)
+        table.table.table-hover#dataTable width="100%"
 
-          .col-sm-4
-            = f.search_field :knowledge_description_cont, class:'form-control', placeholder:'Conhecimento'
+          thead
+            tr
+              th Código
+              - if can? :create, KnowledgesMember
+                th Membro
+              th Conhecimento
+              th Nível
+              th Tecnologia
+              th
+              th
 
-          .col-sm-3
-            = f.collection_select :knowledge_knowledge_level_id_eq, KnowledgeLevel.all, :id, :description, {include_blank: 'Nível'}, {class:'form-control'}
+          tbody
 
-          .col-sm-3
-            = f.collection_select :knowledge_technology_id_eq, Technology.all, :id, :name, {include_blank: 'Tecnologia'}, {class:'form-control'}
+            - @knowledges_members.each do |knowledges_member|
 
-        - else
-           
-          .col-sm-3
-            = f.search_field :knowledge_description_cont, class:'form-control', placeholder:'Conhecimento'
+              tr
+                td = knowledges_member.id
 
-          .col-sm-3
-            = f.collection_select :member_id_eq, Member.all, :id, :member_name, {include_blank: 'Membro'}, {class:'form-control'}
+                - if can? :create, KnowledgesMember
+                  td = link_to knowledges_member.member.try(:member_name), knowledges_member.member, data: { modal: true }
 
-          .col-sm-2
-            = f.collection_select :knowledge_knowledge_level_id_eq, KnowledgeLevel.all, :id, :description, {include_blank: 'Nível'}, {class:'form-control'}
+                td = knowledges_member.knowledge.try(:description)
+                td = knowledges_member.knowledge.knowledge_level.try(:description)
+                td = knowledges_member.knowledge.technology.try(:name)
 
-          .col-sm-2
-            = f.collection_select :knowledge_technology_id_eq, Technology.all, :id, :name, {include_blank: 'Tecnologia'}, {class:'form-control'}
+                - if can? :update, KnowledgesMember
 
-        .col-sm-2
+                  td align="right"
 
-          .btn-group style="margin-top: 2px"
+                    = link_to edit_knowledges_member_path(knowledges_member), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
 
-            = f.button 'Buscar', class:'btn btn-default'
-            = link_to 'Limpar', request.path, class:'btn btn-default'
+                - if can? :destroy, KnowledgesMember
 
-    br
+                  td align="right"
 
-    table.table.table-responsive.table-hover
+                    = link_to knowledges_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                      i.fa.fa-times
 
-      thead
-        tr
-          th.dark-link = sort_link @search, :id, 'Código'
-          - if can? :create, KnowledgesMember
-            th.dark-link = sort_link @search, :member_name, 'Membro'
-          th.dark-link = sort_link @search, :knowledge_description, 'Conhecimento'
-          th.dark-link = sort_link @search, :knowledge_knowledge_level_description, 'Nível'
-          th.dark-link = sort_link @search, :knowledge_technology_name, 'Tecnologia'
-          th
-          th
+      - if can? :create, KnowledgesMember
+        br
+        = link_to 'Novo Conhecimento', new_knowledges_member_path, data: { modal: true }, class:'btn btn-success'
 
-      tbody
 
-        - @knowledges_members.each do |knowledges_member|
+  .tab-pane.active.fade.in#conhecimentos_individuais
 
-          tr
-            td = knowledges_member.id
+    .box
 
-            - if can? :create, KnowledgesMember
-              td = link_to knowledges_member.member.try(:member_name), knowledges_member.member, data: { modal: true }
+      - if @knowledges_members.where(member_id: current_member.id).empty?
 
-            td = knowledges_member.knowledge.try(:description)
-            td = knowledges_member.knowledge.knowledge_level.try(:description)
-            td = knowledges_member.knowledge.technology.try(:name)
+        .alert.alert-info
+          span = mensagem_tabela_vazia
 
-            - if can? :update, KnowledgesMember
+      - else
 
-              td align="right"
+        table.table.table-hover#dataTable2 width="100%"
 
-                = link_to edit_knowledges_member_path(knowledges_member), data: { modal: true }, title:'Editar' do
-                  i.fa.fa-pencil
+          thead
+            tr
+              th Código
+              th Conhecimento
+              th Nível
+              th Tecnologia
+              - if can? :update, KnowledgesMember
+                th
+              - if can? :destroy, KnowledgesMember
+                th
 
-            - if can? :destroy, KnowledgesMember
+          tbody
 
-              td align="right"
+            - @knowledges_members.where(member_id: current_member.id).each do |knowledges_member|
 
-                = link_to knowledges_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
-                  i.fa.fa-times
+              tr
+                td = knowledges_member.id
+                td = knowledges_member.knowledge.try(:description)
+                td = knowledges_member.knowledge.knowledge_level.try(:description)
+                td = knowledges_member.knowledge.technology.try(:name)
 
-  .btn-group
-    - if can? :create, KnowledgesMember
-      = link_to 'Novo Conhecimento', new_knowledges_member_path, data: { modal: true }, class:'btn btn-success'
-    = link_to 'Conhecimentos', knowledges_path, class:'btn btn-success'
+                - if can? :update, KnowledgesMember
+
+                  td align="right"
+
+                    = link_to edit_knowledges_member_path(knowledges_member), data: { modal: true }, title:'Editar' do
+                      i.fa.fa-pencil
+
+                - if can? :destroy, KnowledgesMember
+
+                  td align="right"
+
+                    = link_to knowledges_member, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                      i.fa.fa-times
+
+      - if can? :create, KnowledgesMember
+        br
+        = link_to 'Novo Conhecimento', new_knowledges_member_path, data: { modal: true }, class:'btn btn-success'
+      - elsif current_member.try(:user?)
+        br
+        = link_to 'Novo Conhecimento', knowledges_path, class:'btn btn-success'
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+      $('#dataTable2').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

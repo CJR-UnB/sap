@@ -4,7 +4,7 @@
   
   .tab-content
 
-    .tab-pane.fade#lista
+    .tab-pane.fade.active.in#lista
 
       .box
 
@@ -12,10 +12,13 @@
 
           .alert.alert-info
             span = mensagem_tabela_vazia
+            br
+            br
+            = link_to 'Retornar', request.path
 
         - else
 
-          table.table.table-responsive.table-hover
+          table.table.table-hover#dataTable width="100%"
 
             thead
 
@@ -37,7 +40,19 @@
                 tr
                   td = project.id
                   td = link_to project.description, project, data: { modal: true }
-                  td = project.project_status.try(:description)
+                  td
+
+                    - case project.project_status.try(:description)
+
+                      - when 'Não iniciado'
+                        strong.text-warning Não iniciado
+                      - when 'Em desenvolvimento'
+                        strong.text-primary Em desenvolvimento
+                      - when 'Atrasado'
+                        strong.text-danger Atrasado
+                      - when 'Concluído'
+                        strong.text-success Concluído
+
                   td = project.start_date
                   td = project.end_date
 
@@ -55,28 +70,40 @@
                       = link_to project, data: { confirm: 'Você tem certeza?' }, method: :delete, title:'Excluir' do
                         i.fa.fa-times
 
+          - if can? :create, Project
+            br
+            = link_to 'Novo Projeto', new_project_path, data: { modal: true }, class:'btn btn-success'
 
-    .tab-pane.fade.in.active#painel
+    .tab-pane.fade#painel
 
       .row
 
-        // NÃO INICIADOS
+        - estilos = ['-warning', '-info', '-danger', '-success']
 
-        .col-sm-3
+        - ProjectStatus.all.each do |status|
 
-          .projetos-titulo-box
+          .col-sm-3
 
-            h5.text-center.text-warning Não iniciados
+            .projetos-titulo-box
 
-          - if @projetos_nao_iniciados.empty?
+              h5.text-center
 
-            .projeto-box
+                - case status.description
 
-              h5.text-center Não há projetos não iniciados.
+                  - when 'Não iniciado'
+                    strong.text-warning Não iniciados
+                    - estilo = estilos[0]
+                  - when 'Em desenvolvimento'
+                    strong.text-primary Em desenvolvimento
+                    - estilo = estilos[1]
+                  - when 'Atrasado'
+                    strong.text-danger Atrasados
+                    - estilo = estilos[2]
+                  - when 'Concluído'
+                    strong.text-success Concluídos
+                    - estilo = estilos[3]
 
-          - else
-
-            - @projetos_nao_iniciados.each do |projeto|
+            - status.projects.each do |projeto|
 
               .projeto-box
 
@@ -111,7 +138,7 @@
 
                   - projeto.members.each do |membro|
 
-                    strong.text-warning
+                    strong
                       = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
                     = membro.member_name
 
@@ -121,236 +148,23 @@
 
                 .btn-group.btn-group-sm.btn-group-justified
 
-                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-warning'
+                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn' + estilo
 
                   - if can? :edit, Project
 
-                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-warning' do
+                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn' + estilo do
                       i.fa.fa-pencil
 
                   - if can? :delete, Project
 
-                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-warning' do
+                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn' + estilo do
                       i.fa.fa-times
 
-
-        // EM DESENVOLVIMENTO
-
-        .col-sm-3
-
-          .projetos-titulo-box
-
-            h5.text-center.text-primary Em desenvolvimento
-
-          - if @projetos_em_desenvolvimento.empty?
-
-            .projeto-box
-
-              h5.text-center Não há projetos em desenvolvimento.
-
-          - else
-
-            - @projetos_em_desenvolvimento.each do |projeto|
-
-              .projeto-box
-
-                h5.text-center
-                  = projeto.description
-
-                hr.divider
-
-                strong Início:
-                .pull-right
-                  = projeto.start_date
-                  
-                br
-
-                strong Entrega:
-                .pull-right
-                  = projeto.end_date
-
-                br
-                br
-
-                - if projeto.members.empty?
-
-                  p Não há membros alocados.
-
-                - else
-
-                  strong Membros alocados:
-
-                  br
-                  br
-
-                  - projeto.members.each do |membro|
-
-                    strong.text-primary
-                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
-                    = membro.member_name
-
-                    br
-
-                  br
-
-                .btn-group.btn-group-sm.btn-group-justified
-
-                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-info'
-
-                  - if can? :edit, Project
-
-                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-info' do
-                      i.fa.fa-pencil
-
-                  - if can? :destroy, Project
-
-                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-info' do
-                      i.fa.fa-times
-       
-
-        // ATRASADOS  
-
-        .col-sm-3
-
-          .projetos-titulo-box
-
-            h5.text-center.text-danger Atrasados
-
-          - if @projetos_atrasados.empty?
-
-            .projeto-box
-
-              h5.text-center Não há projetos atrasados.
-
-          - else
-
-            - @projetos_atrasados.each do |projeto|
-
-              .projeto-box
-
-                h5.text-center
-                  = projeto.description
-
-                hr.divider
-
-                strong Início:
-                .pull-right
-                  = projeto.start_date
-                  
-                br
-
-                strong Entrega:
-                .pull-right
-                  = projeto.end_date
-
-                br
-                br
-
-                - if projeto.members.empty?
-
-                  p Não há membros alocados.
-
-                - else
-
-                  strong Membros alocados:
-                
-                  br
-                  br
-
-                  - projeto.members.each do |membro|
-
-                    strong.text-danger
-                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
-                    = membro.member_name
-
-                    br
-
-                  br
-
-                .btn-group.btn-group-sm.btn-group-justified
-
-                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-danger'
-
-                  - if can? :edit, Project
-
-                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-danger' do
-                      i.fa.fa-pencil
-
-                  - if can? :destroy, Project
-
-                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-danger' do
-                      i.fa.fa-times
-
-
-        // CONCLUÍDOS
-
-        .col-sm-3
-        
-          .projetos-titulo-box
-
-            h5.text-center.text-success Concluídos
-
-          - if @projetos_concluidos.empty?
-
-            .projeto-box
-
-              h5.text-center Não há projetos concluídos.
-
-          - else
-
-            - @projetos_concluidos.each do |projeto|
-
-              .projeto-box
-
-                h5.text-center
-                  = projeto.description
-
-                hr.divider
-
-                strong Início:
-                .pull-right
-                  = projeto.start_date
-                  
-                br
-
-                strong Entrega:
-                .pull-right
-                  = projeto.end_date
-
-                br
-                br
-
-                - if projeto.members.empty?
-
-                  p Não há membros alocados.
-
-                - else
-
-                  strong Membros alocados:
-                
-                  br
-                  br
-
-                  - projeto.members.each do |membro|
-
-                    strong.text-success
-                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
-                    = membro.member_name
-
-                    br
-
-                  br
-
-                .btn-group.btn-group-sm.btn-group-justified
-
-                  = link_to 'Detalhes', projeto, data: { modal: true }, class:'btn btn-success'
-
-                  - if can? :edit, Project
-
-                    = link_to edit_project_path(projeto), data: { modal: true }, title:'Editar', class:'btn btn-success' do
-                      i.fa.fa-pencil
-
-                  - if can? :destroy, Project
-                    
-                    = link_to projeto, data: {:confirm => 'Você tem certeza?'}, :method => :delete, title:'Excluir', class:'btn btn-success' do
-                      i.fa.fa-times
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

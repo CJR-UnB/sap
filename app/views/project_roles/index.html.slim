@@ -9,7 +9,7 @@
 
   - else
 
-    table.table.table-responsive.table-hover
+    table.table.table-hover#dataTable
 
       thead
         tr
@@ -43,4 +43,14 @@
                   i.fa.fa-times
 
   - if can? :create, ProjectRole
+    br
     = link_to 'Nova Função de Projeto', new_project_role_path, data: { modal: true }, class:'btn btn-success'
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

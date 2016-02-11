@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
   end
 
   def mensagem_tabela_vazia
-    "Ops! Parece que ainda não temos nada aqui :)"
+    "Ops! Parece que ainda não temos nada aqui."
   end
 
 end

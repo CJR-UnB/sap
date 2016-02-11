@@ -36,8 +36,22 @@
         </ul>
 
         <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; padding-right: 10px">
-          <li class="active" style="border-radius: 0"><a href="#painel" data-toggle="tab">Painel</a></li>
-          <li><a href="#lista" data-toggle="tab">Lista</a></li>
+          <li style="border-radius: 0"><a href="#painel" data-toggle="tab">Painel</a></li>
+          <li class="active"><a href="#lista" data-toggle="tab">Lista</a></li>
+        </ul>
+
+      <% elsif current_page?(knowledges_members_path) and !current_member.try(:user?) %>
+
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
+          <li style="border-radius: 0"><a href="#conhecimentos_gerais" data-toggle="tab">Geral</a></li>
+          <li class="active"><a href="#conhecimentos_individuais" data-toggle="tab">Individual</a></li>
+        </ul>
+
+      <% elsif current_page?(activities_members_path) and !current_member.try(:user?) %>
+
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
+          <li style="border-radius: 0"><a href="#atividades_gerais" data-toggle="tab">Geral</a></li>
+          <li class="active"><a href="#atividades_individuais" data-toggle="tab">Individual</a></li>
         </ul>
 
       <% elsif current_page?(request_histories_path) and !current_member.try(:user?) %>
@@ -45,6 +59,13 @@
         <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
           <li style="border-radius: 0"><a href="#historicos_gerais" data-toggle="tab">Geral</a></li>
           <li class="active"><a href="#historicos_individuais" data-toggle="tab">Individual</a></li>
+        </ul>
+
+      <% elsif current_page?(members_projects_path) and !current_member.try(:user?) %>
+
+        <ul class="nav nav-pills pull-right" style="font: 13px 'Roboto'; margin-top: 8px; margin-left: 10px; margin-right: 10px">
+          <li style="border-radius: 0"><a href="#alocacoes_gerais" data-toggle="tab">Geral</a></li>
+          <li class="active"><a href="#alocacoes_individuais" data-toggle="tab">Individual</a></li>
         </ul>
 
       <% elsif current_page?(members_path) %>

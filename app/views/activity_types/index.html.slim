@@ -9,7 +9,7 @@
 
   - else
 
-    table.table.table-responsive.table-hover
+    table.table.table-hover#dataTable width="100%"
 
       thead
         tr
@@ -43,4 +43,14 @@
                   i.fa.fa-times
 
   - if can? :create, ActivityType
+    br
     = link_to 'Novo Tipo de Atividade', new_activity_type_path, class:'btn btn-success', data: { modal: true }
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

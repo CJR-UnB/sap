@@ -9,39 +9,14 @@
 
   - else
 
-    = search_form_for @search do |f|
-      
-      .row
-
-        .col-sm-3
-          = f.search_field :description_cont, class:'form-control', placeholder:'Atividade'
-
-        .col-sm-3
-          = f.collection_select :activity_type_id_eq, ActivityType.all, :id, :description, {include_blank: 'Tipo'}, {class:'form-control'}
-
-        .col-sm-2
-          = f.text_field :credit_numbers_gteq, class:'form-control', placeholder:'Créditos de'
-
-        .col-sm-2
-          = f.text_field :credit_numbers_lteq, class:'form-control', placeholder:'até'
-
-        .col-sm-2
-
-          .btn-group style="margin-top: 2px"
-
-            = f.button 'Buscar', class:'btn btn-default'
-            = link_to 'Limpar', request.path, class:'btn btn-default'
-
-    br
-
-    table.table.table-responsive
+    table.table.table-hover#dataTable width="100%"
 
       thead
         tr
-          th.dark-link = sort_link(@search, :id, 'Código')
-          th.dark-link = sort_link(@search, :description, 'Descrição')
-          th.dark-link = sort_link(@search, :credit_numbers, 'Número de Créditos')
-          th.dark-link = sort_link(@search, :activity_type_description, 'Tipo')
+          th Código
+          th Descrição
+          th Número de Créditos
+          th Tipo
           - if can? :update, Activity
             th
           - if can? :destroy, Activity
@@ -77,4 +52,14 @@
                 = link_to 'Associar', associar_atividade_path(activity), data: { confirm:'Você tem certeza?'}, method: :associar, title:'Associa esta atividade diretamente ao seu perfil', class:'btn btn-xs btn-primary btn-font'
 
   - if can? :create, Activity
+    br
     = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

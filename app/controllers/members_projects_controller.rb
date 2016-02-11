@@ -7,15 +7,7 @@ class MembersProjectsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-
-    if current_member.try(:user?)
-      @search = MembersProject.where(member_id: current_member.id).ransack(params[:q])
-    else
-      @search = MembersProject.ransack(params[:q])
-    end
-
-    @members_projects = @search.result.joins(:member, :project, :project_role)
-
+    @members_projects = MembersProject.all.includes(:member, :project, :project_role)
   end
 
   def show

@@ -6,7 +6,7 @@
 
     .row
 
-      - @sectors.all.each do |nucleo|
+      - Sector.all.each do |nucleo|
 
         .col-sm-2
 
@@ -63,7 +63,7 @@
           - if member.try(:user?)
             - usuarios = usuarios + 1
 
-      table.table.table-responsive
+      table.table.table-hover#dataTable width="100%"
 
         thead
           tr
@@ -109,4 +109,14 @@
                     i.fa.fa-times
 
       - if can? :create, Member
+        br
         = link_to 'Novo Membro', new_member_path, data: { modal: true }, class:'btn btn-success'
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

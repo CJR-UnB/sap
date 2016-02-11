@@ -7,11 +7,7 @@ class ProjectsController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    @projects = Project.all.order(:id).includes(:project_status)
-    @projetos_nao_iniciados = Project.where(project_status_id: ProjectStatus.find_by(description:'Não iniciado').try(:id)).includes(:project_status)
-    @projetos_em_desenvolvimento = Project.where(project_status_id: ProjectStatus.find_by(description:'Em desenvolvimento').try(:id)).includes(:project_status)
-    @projetos_atrasados = Project.where(project_status_id: ProjectStatus.find_by(description:'Atrasado').try(:id)).includes(:project_status)
-    @projetos_concluidos = Project.where(project_status_id: ProjectStatus.find_by(description:'Concluído').try(:id)).includes(:project_status)
+    @projects = Project.all.includes(:project_status)
   end
 
   def show
