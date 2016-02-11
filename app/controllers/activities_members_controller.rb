@@ -7,7 +7,15 @@ class ActivitiesMembersController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    @activities_members = ActivitiesMember.all
+
+    if current_member.try(:user?)
+      @search = ActivitiesMember.where(member_id: current_member.id).ransack(params[:q])
+    else
+      @search = ActivitiesMember.ransack(params[:q])
+    end
+
+    @activities_members = @search.result.joins(:activity, :member)
+
   end
 
   def show
@@ -22,6 +30,10 @@ class ActivitiesMembersController < ApplicationController
 
   def create
     @activities_member = ActivitiesMember.new(activities_member_params)
+
+    if @activities_member.member_id.nil?
+      @activities_member.member_id = current_member.id
+    end
 
     respond_to do |format|
       if @activities_member.save

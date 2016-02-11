@@ -7,7 +7,15 @@ class KnowledgesMembersController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    @knowledges_members = KnowledgesMember.all
+
+    if current_member.try(:user?)
+      @search = KnowledgesMember.where(member_id: current_member.id).ransack(params[:q])
+    else
+      @search = KnowledgesMember.ransack(params[:q])
+    end
+
+    @knowledges_members = @search.result.joins(:knowledge, :member)
+
   end
 
   def show

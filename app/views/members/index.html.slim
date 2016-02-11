@@ -13,7 +13,7 @@
           .membros-titulo-box
 
             h5.text-center
-              strong = nucleo.short_name
+              strong = nucleo.short_name + ' (' + nucleo.members.count.to_s + ')'
 
           - nucleo.members.each do |member|
 

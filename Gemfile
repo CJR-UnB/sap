@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'devise', '~> 3.5', '>= 3.5.5'
 gem 'cancan', '~> 1.6', '>= 1.6.10'
 
+gem 'ransack'
 gem 'gravatar_image_tag'
 
 gem 'bootstrap-sass', '~> 3.3.6'

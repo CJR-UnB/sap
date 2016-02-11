@@ -22,7 +22,7 @@ class Ability
 
       can :read, :all
       can [:associar], Activity
-      can [:edit, :update, :destroy], ActivitiesMember
+      can [:create, :edit, :update, :destroy], ActivitiesMember
       can [:requisitar], Knowledge
       cannot :read, [Project, ProjectHistory]
       can [:edit, :update], Member

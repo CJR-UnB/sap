@@ -189,8 +189,8 @@ a_atividades = [{description: "Empresa Júnior de Computação", activity_type_i
                 {description: "Trabalho 30h", activity_type_id: trabalho, credit_numbers: 33},
                 {description: "Trabalho 40h", activity_type_id: trabalho, credit_numbers: 44},
                 {description: "Monitoria", activity_type_id: materia_unb, credit_numbers: 2},
-                {description: "Programa de Bolsa de Iniciação Científica", activity_type_id: bolsas, credit_numbers: 2},
-                {description: "Programa de Bolsa de Iniciação à Docência", activity_type_id: bolsas, credit_numbers: 2}]
+                {description: "Programa Institucional de Bolsa de Iniciação Científica", activity_type_id: bolsas, credit_numbers: 2},
+                {description: "Programa Institucional de Bolsa de Iniciação à Docência", activity_type_id: bolsas, credit_numbers: 2}]
 
 atividades = Activity.create(a_atividades)
 

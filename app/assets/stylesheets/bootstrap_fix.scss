@@ -2,22 +2,26 @@
   font: 14px 'Roboto';
 }
 
-
 .navbar {
   border-radius: 0;
   background-color: white;
   border: 1px solid #DCDCDC;
 }
 
-.btn, .form-control {
+.form-control {
+  font-size: 12px;
   border-radius: 0;
+}
+
+.btn-devise.form-control {
+  font-size: 14px;
 }
 
 .borderless td, .borderless th {
   border: none !important;
 }
 
-.popover {
+.alert, .btn, .input-group-addon {
   border-radius: 0;
 }
 
@@ -57,10 +61,6 @@
   vertical-align: middle;
 }
 
-.alert {
-  border-radius: 0;
-}
-
 .btn-group .btn:first-child {
   margin-left: 0;
   -webkit-border-top-left-radius: 0px;
@@ -93,4 +93,8 @@
 
 .img-responsive {
   margin: 0 auto;
+}
+
+.dark-link a, .dark-link a:hover, .dark-link a:visited {
+  color: #545454;
 }

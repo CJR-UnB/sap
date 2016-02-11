@@ -1,8 +1,14 @@
 - if can? :edit, ActivitiesMember
+  
+  - if @activities_member.member_id == current_member.id or current_member.try(:admin?)
 
-  = content_for :title, 'Atualizar Associação'
+    = content_for :title, 'Atualizar Associação'
 
-  == render 'form'
+    == render 'form'
+
+  - else
+
+    - to_back
 
 - else
 

@@ -7,7 +7,8 @@ class ActivitiesController < ApplicationController
   load_and_authorize_resource except: [:create]
 
   def index
-    @activities = Activity.all
+    @search = Activity.ransack(params[:q])
+    @activities = @search.result.joins(:activity_type)
   end
 
   def show
