@@ -2,5 +2,137 @@
 
 .modal-body
 
+  ul.nav.nav-pills.nav-justified
+    li.active
+      a href="#membro_informacoes" data-toggle="tab" Informações
+    li
+      a href="#membro_conhecimentos" data-toggle="tab" Conhecimentos
+    li
+      a href="#membro_atividades" data-toggle="tab" Atividades
+    li
+      a href="#membro_projetos" data-toggle="tab" Projetos
+
+  .tab-content
+
+    .tab-pane.active.fade.in#membro_informacoes
+
+      br
+
+      .row
+
+        .col-sm-3
+
+          div style="padding-top: 12px"
+            = image_tag gravatar_image_url(@member.email, size: 140), title: @member.member_name, class: 'img-circle center-block'
+
+        .col-sm-9
+
+          table.table.borderless
+
+            tbody
+
+              tr
+                td Email:
+                td align="right" = @member.email
+
+              tr
+                td Perfil:
+                td align="right" = @member.try(:role).try(:description)
+
+              tr
+                td Núcleo:
+                td align="right" = @member.try(:sector).try(:short_name)
+
+              tr
+                td Cargo:
+                td align="right" = @member.try(:job).try(:description)
+
+              tr
+                td Último acesso:
+                td align="right" = @member.last_sign_in_at
+
+    .tab-pane.fade#membro_conhecimentos
+
+      br
+
+      table.table.table-hover#dataTable width="100%"
+
+        thead
+          tr
+            th Conhecimento
+            th Nível
+            th Tecnologia
+
+        tbody
+
+          - @member.knowledges.each do |conhecimento|
+
+            tr
+              td = conhecimento.description
+              td = conhecimento.knowledge_level.description
+              td = conhecimento.technology.name
+
+    .tab-pane.fade#membro_atividades
+
+      br
+
+      table.table.table-hover#dataTable2 width="100%"
+
+        thead
+          tr
+            th Atividade
+            th Tipo
+
+        tbody
+
+          - @member.activities.each do |atividade|
+
+            tr
+              td = atividade.description
+              td = atividade.activity_type.description
+
+    .tab-pane.fade#membro_projetos
+
+      br
+
+      table.table.table-hover#dataTable3 width="100%"
+
+        thead
+          tr
+            th Projeto
+            th Cargo
+
+        tbody
+
+          - MembersProject.where(member_id: @member.id).each do |alocacao|
+
+            tr
+              td = alocacao.project.description
+              td = alocacao.project_role.description
+
+
 .modal-footer
   = link_to 'Fechar', :back, class:'btn btn-success'
+
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            dom: "ftip",
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        });
+      $('#dataTable2').dataTable( {
+            dom: "ftip",
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        });
+      $('#dataTable3').dataTable( {
+            dom: "ftip",
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        });
+  } );
