@@ -3,12 +3,16 @@
 .modal-body
 
   ul.nav.nav-pills.nav-justified
+
     li.active
       a href="#membro_informacoes" data-toggle="tab" Informações
-    li
-      a href="#membro_conhecimentos" data-toggle="tab" Conhecimentos
-    li
-      a href="#membro_atividades" data-toggle="tab" Atividades
+
+    - if @member == current_member or !current_member.try(:user?)
+      li
+        a href="#membro_conhecimentos" data-toggle="tab" Conhecimentos
+      li
+        a href="#membro_atividades" data-toggle="tab" Atividades
+        
     li
       a href="#membro_projetos" data-toggle="tab" Projetos
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  # resources :suggested_activities
+  
   # Define a raiz para a página de login e as rotas /login e /logout
   devise_scope :member do
     root to: "devise/sessions#new"
@@ -38,6 +40,7 @@ Rails.application.routes.draw do
   resources :sectors
   
   get '/home' => 'home#index'
+  
   get '/projects_overview' => 'projects_overview#index'
   get '/welcome' => 'welcome#index'
 
@@ -47,5 +50,8 @@ Rails.application.routes.draw do
   post '/knowledge_requests/aprovar_conhecimento/:id' => 'knowledge_requests#aprovar_conhecimento', as: :aprovar_conhecimento
   post '/knowledge_requests/recusar_conhecimento/:id' => 'knowledge_requests#recusar_conhecimento', as: :recusar_conhecimento
   post '/knowledge_requests/analisar_conhecimento/:id' => 'knowledge_requests#analisar_conhecimento', as: :analisar_conhecimento
+
+  post '/suggested_activities/aprovar/:id' => 'suggested_activities#aprovar', as: :aprovar_sugestao
+  post '/suggested_activities/recusar/:id' => 'suggested_activities#recusar', as: :recusar_sugestao
 
 end

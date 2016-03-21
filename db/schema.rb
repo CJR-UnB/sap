@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207232217) do
+ActiveRecord::Schema.define(version: 20160212134333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,6 +222,20 @@ ActiveRecord::Schema.define(version: 20160207232217) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "suggested_activities", force: :cascade do |t|
+    t.string   "activity"
+    t.integer  "activity_type_id"
+    t.integer  "member_id"
+    t.integer  "request_status_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "credit_numbers"
+  end
+
+  add_index "suggested_activities", ["activity_type_id"], name: "index_suggested_activities_on_activity_type_id", using: :btree
+  add_index "suggested_activities", ["member_id"], name: "index_suggested_activities_on_member_id", using: :btree
+  add_index "suggested_activities", ["request_status_id"], name: "index_suggested_activities_on_request_status_id", using: :btree
+
   create_table "technologies", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -254,4 +268,7 @@ ActiveRecord::Schema.define(version: 20160207232217) do
   add_foreign_key "project_member_histories", "projects"
   add_foreign_key "projects", "project_statuses"
   add_foreign_key "request_histories", "knowledge_requests"
+  add_foreign_key "suggested_activities", "activity_types"
+  add_foreign_key "suggested_activities", "members"
+  add_foreign_key "suggested_activities", "request_statuses"
 end

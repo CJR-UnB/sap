@@ -6,7 +6,7 @@
 
     .row
 
-      - Sector.all.each do |nucleo|
+      - @sectors.each do |nucleo|
 
         .col-sm-2
 
@@ -61,7 +61,7 @@
 
         - @members.each do |member|
           - if member.try(:user?)
-            - usuarios = usuarios + 1
+            - usuarios += 1
 
       table.table.table-hover#dataTable width="100%"
 

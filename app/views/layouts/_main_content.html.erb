@@ -6,9 +6,9 @@
 
     <span class="navbar-brand" title="Sistema de Alocação de Projetos"><%= yield :titulo %></span>
 
-      <ul class="nav navbar-nav pull-right">
-        <li><%= link_to 'Sair', logout_path %></li>
-      </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li><%= link_to 'Sair', logout_path %></li>
+    </ul>
 
       <% if current_page?(projects_path) %>
 
@@ -100,6 +100,9 @@
             <li><%= link_to 'Tecnologias', technologies_path %></li>
             <li><%= link_to 'Atividades', activities_path %></li>
             <li><%= link_to 'Tipos de Atividade', activity_types_path %></li>
+            <% unless current_member.try(:user?) %>
+              <li><%= link_to 'Sugestões de Atividade', suggested_activities_path %></li>
+            <% end %>
           </ul>
         </li>
         

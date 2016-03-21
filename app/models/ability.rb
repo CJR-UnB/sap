@@ -21,6 +21,7 @@ class Ability
     else # Outros membros
 
       can :read, :all
+      can [:new, :create], SuggestedActivity
       can [:associar], Activity
       can [:create, :edit, :update, :destroy], ActivitiesMember
       can [:requisitar], Knowledge

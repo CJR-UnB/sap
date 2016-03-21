@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Activity:
+  = @suggested_activity.activity
+p
+  strong Activity type:
+  = @suggested_activity.activity_type
+p
+  strong Member:
+  = @suggested_activity.member
+p
+  strong Request status:
+  = @suggested_activity.request_status
+
+= link_to 'Edit', edit_suggested_activity_path(@suggested_activity)
+'|
+= link_to 'Back', suggested_activities_path
