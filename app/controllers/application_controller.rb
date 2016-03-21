@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
   end
 
   def esta_em_conhecimentos?
-    current_page?(suggested_activities_path) or current_page?(request_statuses_path) or current_page?(knowledges_path) or current_page?(knowledge_requests_path) or current_page?(request_histories_path) or current_page?(knowledge_levels_path) or current_page?(activities_path) or current_page?(activity_types_path) or current_page?(technologies_path) or current_page?(knowledges_members_path) or current_page?(activities_members_path)
+    current_page?(request_statuses_path) or current_page?(knowledges_path) or current_page?(knowledge_requests_path) or current_page?(request_histories_path) or current_page?(knowledge_levels_path) or current_page?(activities_path) or current_page?(activity_types_path) or current_page?(technologies_path) or current_page?(knowledges_members_path) or current_page?(activities_members_path)
   end
 
   def esta_em_projetos?

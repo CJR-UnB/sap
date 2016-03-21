@@ -100,9 +100,6 @@
             <li><%= link_to 'Tecnologias', technologies_path %></li>
             <li><%= link_to 'Atividades', activities_path %></li>
             <li><%= link_to 'Tipos de Atividade', activity_types_path %></li>
-            <% unless current_member.try(:user?) %>
-              <li><%= link_to 'Sugestões de Atividade', suggested_activities_path %></li>
-            <% end %>
           </ul>
         </li>
         
