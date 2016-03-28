@@ -14,7 +14,7 @@
       thead
         tr
           th Código
-          th Descrição
+          th Conhecimento
           th Nível
           th Tecnologia
           - if can? :update, Knowledge
@@ -30,7 +30,7 @@
           tr
             td = knowledge.id
             td = knowledge.description
-            td = knowledge.try(:knowledge_level).try(:description)
+            td = link_to 'Visualizar', knowledge.try(:knowledge_level), data: { modal: true }
             td = knowledge.try(:technology).try(:name)
 
             - if can? :update, Knowledge
