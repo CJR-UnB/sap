@@ -6,6 +6,10 @@
 @import 'home';
 
 .box, #flash {
+  border-radius: 0;
+}
+
+.box {
   background-color: white;
   border: 1px solid #DCDCDC;
   border-radius: 0;
