@@ -1,0 +1,13 @@
+@import 'bootstrap_fix';
+@import 'media_queries';
+@import 'projects';
+@import 'sidebar';
+@import 'members';
+@import 'home';
+
+.box, #flash {
+  background-color: white;
+  border: 1px solid #DCDCDC;
+  border-radius: 0;
+  padding: 25px;
+}
