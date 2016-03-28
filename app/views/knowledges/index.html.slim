@@ -30,7 +30,7 @@
           tr
             td = knowledge.id
             td = knowledge.description
-            td = link_to 'Visualizar', knowledge.try(:knowledge_level), data: { modal: true }
+            td = link_to knowledge.try(:knowledge_level).try(:level), knowledge.try(:knowledge_level), data: { modal: true }
             td = knowledge.try(:technology).try(:name)
 
             - if can? :update, Knowledge
