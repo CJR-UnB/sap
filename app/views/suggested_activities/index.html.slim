@@ -1,0 +1,71 @@
+= content_for :titulo, 'Sugestões de Atividade'
+
+.box
+
+  - if @suggested_activities.empty?
+
+    .alert.alert-info
+      span = mensagem_tabela_vazia
+
+  - else
+
+    table.table.table-hover#dataTable width="100%"
+
+      thead
+
+        tr
+          th Membro
+          th Atividade
+          th Tipo
+          th Créditos
+          th Status
+          - if can? :edit, SuggestedActivity
+            th
+          - if can? :destroy, SuggestedActivity
+            th
+
+      tbody
+
+        - @suggested_activities.each do |suggested_activity|
+
+          tr
+            td = link_to suggested_activity.member.try(:member_name), suggested_activity.member, data: { modal: true }
+            td = suggested_activity.activity
+            td = suggested_activity.activity_type.try(:description)
+            td = suggested_activity.try(:credit_numbers)
+            td
+              - case suggested_activity.request_status.try(:description)
+                - when 'Em análise'
+                  strong.text-primary Em análise
+                - when 'Deferido'
+                  strong.text-success Deferido
+                - when 'Indeferido'
+                  strong.text-warning Indeferido
+
+            - if can? :edit, SuggestedActivity
+
+              td align="right"
+
+                = link_to edit_suggested_activity_path(suggested_activity), data: { modal: true }, title:'Editar' do
+                  i.fa.fa-pencil
+
+            - if can? :destroy, SuggestedActivity
+
+              td align="right" 
+
+                = link_to suggested_activity, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
+                  i.fa.fa-times
+
+  - if can? :create, SuggestedActivity
+    br
+    = link_to 'Nova Sugestão', new_suggested_activity_path, data: { modal: true }, class:'btn btn-success'
+
+
+javascript:
+  $(document).ready( function () {
+      $('#dataTable').dataTable( {
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.11/i18n/Portuguese-Brasil.json"
+            }
+        } );
+  } );

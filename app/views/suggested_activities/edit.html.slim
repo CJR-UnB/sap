@@ -1,0 +1,9 @@
+- if can? :edit, SuggestedActivity
+
+  = content_for :title, 'Atualizar Sugestão'
+
+  == render 'form'
+
+- else
+
+  - to_back

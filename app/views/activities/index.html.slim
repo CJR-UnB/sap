@@ -51,9 +51,12 @@
 
                 = link_to 'Associar', associar_atividade_path(activity), data: { confirm:'Você tem certeza?'}, method: :associar, title:'Associa esta atividade diretamente ao seu perfil', class:'btn btn-xs btn-primary btn-font'
 
-  - if can? :create, Activity
-    br
-    = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }
+  br
+  .btn-group
+    - if can? :create, Activity
+      = link_to 'Nova Atividade', new_activity_path, class:'btn btn-success', data: { modal: true }
+    - if can? :create, SuggestedActivity
+      = link_to 'Sugerir Atividade', new_suggested_activity_path, class:'btn btn-success', data: { modal: true }
 
 javascript:
   $(document).ready( function () {

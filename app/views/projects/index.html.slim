@@ -71,6 +71,7 @@
             br
             = link_to 'Novo Projeto', new_project_path, data: { modal: true }, class:'btn btn-success'
 
+
     .tab-pane.fade#painel
 
       .row
@@ -90,15 +91,26 @@
                   - when 'Não iniciado'
                     strong.text-warning Não iniciados
                     - estilo = estilos[0]
+
                   - when 'Em desenvolvimento'
                     strong.text-primary Em desenvolvimento
                     - estilo = estilos[1]
+
                   - when 'Atrasado'
                     strong.text-danger Atrasados
                     - estilo = estilos[2]
+
                   - when 'Concluído'
                     strong.text-success Concluídos
                     - estilo = estilos[3]
+
+
+            - if status.projects.empty?
+
+              .projeto-box
+
+                h5.text-center
+                  = 'Não há projetos ' + status.description.downcase + 's.'
 
             - status.projects.each do |projeto|
 

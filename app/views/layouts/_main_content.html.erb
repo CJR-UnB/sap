@@ -6,9 +6,9 @@
 
     <span class="navbar-brand" title="Sistema de Alocação de Projetos"><%= yield :titulo %></span>
 
-      <ul class="nav navbar-nav pull-right">
-        <li><%= link_to 'Sair', logout_path %></li>
-      </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li><%= link_to 'Sair', logout_path %></li>
+    </ul>
 
       <% if current_page?(projects_path) %>
 

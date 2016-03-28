@@ -1,0 +1,19 @@
+= form_for @suggested_activity do |f|
+
+  .modal-body
+
+    .form-group
+      = f.label :atividade
+      = f.text_field :activity, class:'form-control', required: true
+
+    .form-group
+      = f.label :tipo
+      = f.select :activity_type_id, ActivityType.all.map { |a| [a.description, a.id] }, { include_blank:'Escolha um tipo' }, { class:'form-control', required: true }
+
+    .form-group
+      = f.label :número_de_créditos
+      = f.number_field :credit_numbers, class:'form-control', required: true
+
+  .modal-footer
+
+    = f.submit 'Enviar', class:'btn btn-success'
