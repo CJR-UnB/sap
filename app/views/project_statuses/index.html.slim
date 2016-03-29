@@ -26,7 +26,7 @@
 
           tr
             td = project_status.id
-            td = link_to project_status.description, project_status, data: { modal: true }
+            td = project_status.description
 
             - if can? :update, ProjectStatus
 
