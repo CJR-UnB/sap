@@ -7,7 +7,7 @@ class ProjectsOverviewController < ApplicationController
       @projetos << x
     end
 
-    @membros = Member.all
+    @membros = Member.where(member_status_id: 1)
     @membros_alocados = MembersProject.all
   end
 

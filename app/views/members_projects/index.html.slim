@@ -71,7 +71,6 @@
 
           thead
             tr
-              th Código
               th Projeto
               th Função
               - if can? :update, MembersProject
@@ -84,7 +83,6 @@
             - @members_projects.where(member_id: current_member.id).each do |members_project|
 
               tr
-                td = members_project.id
                 td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
                 td = members_project.project_role.try(:description)
 

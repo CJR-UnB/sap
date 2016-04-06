@@ -27,7 +27,7 @@
         - @activities.each do |activity|
 
           tr
-            td = link_to activity.description, activity, data: { modal: true }
+            td = activity.description
             td = activity.credit_numbers
             td = activity.activity_type.description
 
