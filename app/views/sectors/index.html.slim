@@ -13,7 +13,6 @@
 
       thead
         tr
-          th Código
           th Sigla
           th Nome
           - if can? :update, Sector
@@ -26,9 +25,8 @@
         - @sectors.each do |sector|
       
           tr
-            td = sector.id
             td = sector.short_name
-            td = link_to sector.name, sector, data: { modal: true }
+            td = sector.name
 
             - if can? :update, Sector
 

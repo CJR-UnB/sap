@@ -6,10 +6,6 @@
     strong Observação: 
     = @project_history.observation
 
-  p
-    strong Projeto: 
-    = @project_history.project.try(:description)
-
 .modal-footer
 
   = link_to 'Fechar', :back, class:'btn btn-success'

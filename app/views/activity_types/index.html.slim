@@ -13,7 +13,6 @@
 
       thead
         tr
-          th Código
           th Descrição
           - if can? :update, ActivityType
             th
@@ -25,8 +24,7 @@
         - @activity_types.each do |activity_type|
 
           tr
-            td = activity_type.id
-            td = link_to activity_type.description, activity_type, data: { modal: true }
+            td = activity_type.description
 
             - if can? :update, ActivityType
 

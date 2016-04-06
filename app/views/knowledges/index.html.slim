@@ -13,7 +13,6 @@
 
       thead
         tr
-          th Código
           th Conhecimento
           th Nível
           th Tecnologia
@@ -28,9 +27,8 @@
         - @knowledges.each do |knowledge|
 
           tr
-            td = knowledge.id
             td = knowledge.description
-            td = link_to knowledge.try(:knowledge_level).try(:level), knowledge.try(:knowledge_level), data: { modal: true }
+            td = knowledge.try(:knowledge_level).try(:level)
             td = knowledge.try(:technology).try(:name)
 
             - if can? :update, Knowledge

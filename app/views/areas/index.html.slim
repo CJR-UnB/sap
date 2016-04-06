@@ -13,7 +13,6 @@
 
       thead
         tr
-          th Código
           th Nome
           th Setor
           - if can? :update, Area
@@ -26,8 +25,7 @@
         - @areas.each do |area|
 
           tr
-            td = area.id
-            td = link_to area.name, area, data: { modal: true }
+            td = area.name
             td = link_to area.sector.short_name, area.sector, data: { modal: true }
 
             - if can? :update, Area

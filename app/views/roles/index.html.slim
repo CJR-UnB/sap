@@ -13,7 +13,6 @@
 
       thead
         tr
-          th Código
           th Descrição
           - if can? :update, Role
             th
@@ -25,8 +24,7 @@
         - @roles.each do |role|
 
           tr
-            td = role.id
-            td = link_to role.description, role, data: { modal: true }
+            td = role.description
             
             - if can? :update, Role
 

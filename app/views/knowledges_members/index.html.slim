@@ -20,7 +20,6 @@
 
           thead
             tr
-              th Código
               - if can? :create, KnowledgesMember
                 th Membro
               th Conhecimento
@@ -34,8 +33,6 @@
             - @knowledges_members.each do |knowledges_member|
 
               tr
-                td = knowledges_member.id
-
                 - if can? :create, KnowledgesMember
                   td = link_to knowledges_member.member.try(:member_name), knowledges_member.member, data: { modal: true }
 

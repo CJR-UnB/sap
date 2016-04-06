@@ -13,7 +13,6 @@
 
       thead
         tr
-          th Código
           th Observação
           th Projeto
           - if can? :update, ProjectHistory
@@ -26,9 +25,8 @@
         - @project_histories.each do |project_history|
 
           tr
-            td = project_history.id
             td = link_to 'Ver Observação', project_history, data: { modal: true }
-            td = project_history.project.try(:description)
+            td = link_to project_history.project.try(:description), project_history.project, data: { modal: true }
 
             - if can? :update, ProjectHistory
 

@@ -13,7 +13,6 @@
 
       thead
         tr
-          th Código
           th Nome
           th Descrição
           - if can? :update, Technology
@@ -26,8 +25,7 @@
         - @technologies.each do |technology|
 
           tr
-            td = technology.id
-            td = link_to technology.name, technology, data: { modal: true }
+            td = technology.name
             td = technology.description
 
             - if can? :update, Technology

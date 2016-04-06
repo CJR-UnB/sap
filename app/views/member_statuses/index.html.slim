@@ -13,7 +13,6 @@
 
       thead
         tr
-          th Código
           th Descrição
           - if can? :update, MemberStatus
             th
@@ -25,8 +24,7 @@
         - @member_statuses.each do |member_status|
 
           tr
-            td = member_status.id
-            td = link_to member_status.try(:description), member_status, data: { modal: true }
+            td = member_status.try(:description)
 
             - if can? :update, MemberStatus
 

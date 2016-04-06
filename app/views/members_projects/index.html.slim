@@ -20,7 +20,6 @@
 
           thead
             tr
-              th Código
               th Membro
               th Projeto
               th Função
@@ -34,7 +33,6 @@
             - @members_projects.each do |members_project|
 
               tr
-                td = members_project.id
                 td = link_to members_project.member.try(:member_name), members_project.member, data: { modal: true }
                 td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
                 td = members_project.project_role.try(:description)

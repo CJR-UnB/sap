@@ -19,7 +19,7 @@
 
       thead
         tr
-          th Código
+
           th Nível
           th Descrição
           - if can? :update, KnowledgeLevel
@@ -32,8 +32,7 @@
         - @knowledge_levels.each do |knowledge_level|
 
           tr
-            td = knowledge_level.id
-            td = link_to knowledge_level.level, knowledge_level, data: { modal: true }
+            td = knowledge_level.level
             td = knowledge_level.description
 
             - if can? :update, KnowledgeLevel

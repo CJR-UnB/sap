@@ -16,7 +16,6 @@
 
       thead
         tr
-          th Código
           - if can? :create, ProjectMemberHistory
             th Membro
           th Projeto
@@ -32,12 +31,10 @@
         - @project_member_histories.each do |project_member_history|
 
           tr
-            td = project_member_history.id
-
             - if can? :create, ProjectMemberHistory
-              td = project_member_history.member.try(:member_name)
+              td = link_to project_member_history.member.try(:member_name), project_member_history.member, data: { modal: true }
 
-            td = project_member_history.project.try(:description)
+            td = link_to project_member_history.project.try(:description), project_member_history.project
             td = project_member_history.project_role.try(:description)
 
             td = project_member_history.observation

@@ -20,7 +20,6 @@
             thead
 
               tr
-                th Código
                 th Descrição
                 th Status
                 th Início
@@ -35,7 +34,6 @@
               - @projects.each do |project|
 
                 tr
-                  td = project.id
                   td = link_to project.description, project, data: { modal: true }
                   td
 

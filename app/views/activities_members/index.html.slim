@@ -20,7 +20,6 @@
 
           thead
             tr
-              th Código
               th Membro
               th Atividade
               th Créditos
@@ -33,7 +32,6 @@
             - @activities_members.each do |activities_member|
 
               tr
-                td = activities_member.id
                 td = link_to activities_member.member.try(:member_name), activities_member.member, data: { modal: true }
                 td = link_to activities_member.activity.try(:description), activities_member.activity, data: { modal: true }
                 td = activities_member.activity.try(:credit_numbers)
