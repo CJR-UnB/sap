@@ -35,7 +35,7 @@
               tr
                 td = link_to members_project.member.try(:member_name), members_project.member, data: { modal: true }
                 td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
-                td = members_project.project_role.try(:description)
+                td = members_project.project_role.try(:name)
 
                 - if can? :update, MembersProject
 
@@ -84,7 +84,7 @@
 
               tr
                 td = link_to members_project.project.try(:description), members_project.project, data: { modal: true }
-                td = members_project.project_role.try(:description)
+                td = members_project.project_role.try(:name)
 
                 - if can? :update, MembersProject
 

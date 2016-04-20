@@ -13,7 +13,7 @@
 
       thead
         tr
-          th Descrição
+          th Papel
           - if can? :update, Role
             th
           - if can? :destroy, Role
@@ -24,7 +24,7 @@
         - @roles.each do |role|
 
           tr
-            td = role.description
+            td = role.role
             
             - if can? :update, Role
 

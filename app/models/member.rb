@@ -20,15 +20,15 @@ class Member < ActiveRecord::Base
   end
 
   def admin?
-    self.role.description == "Administrador"
+    self.role.role == "Administrador"
   end
 
   def mod?
-    self.role.description == "Moderador"
+    self.role.role == "Moderador"
   end
 
   def user?
-    self.role.description == "Usuário"
+    self.role.role == "Usuário"
   end
 
 end

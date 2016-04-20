@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     admins = []
 
     Member.all.each do |member|
-      if member.try(:role_id) == Role.where(description: filtro).first.id
+      if member.try(:role_id) == Role.where(role: filtro).first.id
         admins << member
       end
     end

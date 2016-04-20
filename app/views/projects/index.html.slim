@@ -20,7 +20,7 @@
             thead
 
               tr
-                th Descrição
+                th Nome
                 th Status
                 th Início
                 th Entrega
@@ -34,7 +34,7 @@
               - @projects.each do |project|
 
                 tr
-                  td = link_to project.description, project, data: { modal: true }
+                  td = link_to project.name, project, data: { modal: true }
                   td
 
                     - case project.project_status.try(:status)
