@@ -37,7 +37,7 @@
                   td = link_to project.description, project, data: { modal: true }
                   td
 
-                    - case project.project_status.try(:description)
+                    - case project.project_status.try(:status)
 
                       - when 'Não iniciado'
                         strong.text-warning Não iniciado
@@ -84,7 +84,7 @@
 
               h5.text-center
 
-                - case status.description
+                - case status.status
 
                   - when 'Não iniciado'
                     strong.text-warning Não iniciados
@@ -108,7 +108,7 @@
               .projeto-box
 
                 h5.text-center
-                  = 'Não há projetos ' + status.description.downcase + 's.'
+                  = 'Não há projetos ' + status.status.downcase + 's.'
 
             - status.projects.each do |projeto|
 

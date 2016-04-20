@@ -33,8 +33,8 @@
           span.glyphicon.glyphicon-calendar
       
     .form-group
-      = f.label :project_status
-      = f.select :project_status_id, ProjectStatus.all.map { |p| [p.description, p.id] }, { include_blank:'Escolha um status' }, { class:'form-control', required: true } 
+      = f.label :status
+      = f.select :project_status_id, ProjectStatus.all.map { |p| [p.status, p.id] }, { include_blank:'Escolha um status' }, { class:'form-control', required: true } 
 
   .modal-footer
 
