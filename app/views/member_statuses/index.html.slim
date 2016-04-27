@@ -13,7 +13,7 @@
 
       thead
         tr
-          th Descrição
+          th Status
           - if can? :update, MemberStatus
             th
           - if can? :destroy, MemberStatus
@@ -24,7 +24,7 @@
         - @member_statuses.each do |member_status|
 
           tr
-            td = member_status.try(:description)
+            td = member_status.try(:status)
 
             - if can? :update, MemberStatus
 

@@ -16,7 +16,7 @@
     
     .form-group
       = f.label :função
-      = f.select :project_role_id, ProjectRole.all.map { |p| [p.description, p.id] }, { include_blank:'Escolha uma função' }, { class:'form-control', required: true }
+      = f.select :project_role_id, ProjectRole.all.map { |p| [p.name, p.id] }, { include_blank:'Escolha uma função' }, { class:'form-control', required: true }
 
 
   .modal-footer
