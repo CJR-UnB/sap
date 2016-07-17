@@ -1,16 +1,12 @@
 = content_for :titulo, 'Conhecimentos'
-
 .box
 
   - if @knowledges.empty?
-
     .alert.alert-info
       span = mensagem_tabela_vazia
 
   - else
-
     table.table.table-hover#dataTable width="100%"
-
       thead
         tr
           th Conhecimento
@@ -23,9 +19,7 @@
           th
 
       tbody
-
         - @knowledges.each do |knowledge|
-
           tr
             td = knowledge.description
             td = knowledge.try(:knowledge_level).try(:level)
