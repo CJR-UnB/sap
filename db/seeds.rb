@@ -62,9 +62,15 @@ presidente = cargos[4].id
 
 # NÍVEIS DE CONHECIMENTO
 
-a_niveis_de_conhecimento = [{level: "Baixo", description: "Baixo"}, 
-                            {level: "Médio", description: "Médio"}, 
-                            {level: "Alto", description: "Alto"}]
+a_niveis_de_conhecimento = [
+  {level: "Novato", description: "Nenhum trabalho na area"}, 
+  {level: "Iniciante Avançado", description: "Todos os aspectos do trabalho
+    tratados separadamente com igual importância"}, 
+  {level: "Competente", description: "Lida com múltiplas tarefas, discute 
+    planejamento, formula rotinas"},
+  {level: "Proeficiente", description: "Prioriza importância de aspectos, percebe mudança de padrões regulares"},
+  {level: "Experiente", description: "Atuação intuitiva, visão do que é possível, abordagem analítica"}  
+  ]
 
 niveis_de_conhecimento = KnowledgeLevel.create(a_niveis_de_conhecimento)
 
