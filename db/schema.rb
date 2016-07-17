@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212134333) do
+ActiveRecord::Schema.define(version: 20160420021016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,9 +37,9 @@ ActiveRecord::Schema.define(version: 20160212134333) do
   add_index "activities_members", ["member_id"], name: "index_activities_members_on_member_id", using: :btree
 
   create_table "activity_types", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "areas", force: :cascade do |t|
@@ -98,9 +98,9 @@ ActiveRecord::Schema.define(version: 20160212134333) do
   add_index "knowledges_members", ["member_id"], name: "index_knowledges_members_on_member_id", using: :btree
 
   create_table "member_statuses", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "members", force: :cascade do |t|
@@ -168,19 +168,19 @@ ActiveRecord::Schema.define(version: 20160212134333) do
   add_index "project_member_histories", ["project_role_id"], name: "index_project_member_histories_on_project_role_id", using: :btree
 
   create_table "project_roles", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "project_statuses", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string   "description"
+    t.string   "name"
     t.float    "price"
     t.integer  "project_status_id"
     t.datetime "created_at",        null: false
@@ -209,9 +209,9 @@ ActiveRecord::Schema.define(version: 20160212134333) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sectors", force: :cascade do |t|

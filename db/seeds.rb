@@ -7,8 +7,8 @@
 
 # STATUS DE MEMBRO
 
-a_status_de_membro = [{description: "Ativo"}, 
-                      {description: "Inativo"}]
+a_status_de_membro = [{status: "Ativo"}, 
+                      {status: "Inativo"}]
 
 status_de_membro = MemberStatus.create(a_status_de_membro)
 
@@ -17,10 +17,10 @@ inativo = status_de_membro[1].id
 
 # STATUS DE PROJETO
 
-a_status_de_projeto = [{description: "Não iniciado"}, 
-                       {description: "Em desenvolvimento"}, 
-                       {description: "Atrasado"}, 
-                       {description: "Concluído"}]
+a_status_de_projeto = [{status: "Não iniciado"}, 
+                       {status: "Em desenvolvimento"}, 
+                       {status: "Atrasado"}, 
+                       {status: "Concluído"}]
 
 status_de_projeto = ProjectStatus.create(a_status_de_projeto)
 
@@ -34,9 +34,9 @@ status_de_requisicao = RequestStatus.create(a_status_de_requisicao)
 
 # PERFIS DE MEMBRO
 
-a_perfis = [{description: "Administrador"},
-            {description: "Moderador"},
-            {description: "Usuário"}]
+a_perfis = [{role: "Administrador"},
+            {role: "Moderador"},
+            {role: "Usuário"}]
 
 perfis = Role.create(a_perfis)
 
@@ -123,8 +123,8 @@ na = areas[18].id
 
 # FUNÇÕES DE PROJETO
 
-a_funcoes_de_projeto = [{description: "Gerente"},
-                        {description: "Desenvolvedor"}]
+a_funcoes_de_projeto = [{name: "Gerente"},
+                        {name: "Desenvolvedor"}]
 
 funcoes_de_projeto = ProjectRole.create(a_funcoes_de_projeto)
 
@@ -160,14 +160,14 @@ git = tecnologias[11].id
 
 # TIPOS DE ATIVIDADE
 
-a_tipos_de_atividade = [{description: "Empresa Júnior"}, 
-                        {description: "Matéria da UnB"},
-                        {description: "Cursos"},
-                        {description: "Trabalho"},
-                        {description: "Estágio Remunerado"},
-                        {description: "Estágio Obrigatório"},
-                        {description: "Lazer"},
-                        {description: "Bolsas"}]
+a_tipos_de_atividade = [{name: "Empresa Júnior"}, 
+                        {name: "Matéria da UnB"},
+                        {name: "Cursos"},
+                        {name: "Trabalho"},
+                        {name: "Estágio Remunerado"},
+                        {name: "Estágio Obrigatório"},
+                        {name: "Lazer"},
+                        {name: "Bolsas"}]
 
 tipos_de_atividade = ActivityType.create(a_tipos_de_atividade)
 
