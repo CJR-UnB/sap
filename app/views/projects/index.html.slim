@@ -1,7 +1,7 @@
 = content_for :titulo, 'Projetos'
 
 .projetos
-  
+
   .tab-content
 
     .tab-pane.fade.active.in#lista
@@ -37,16 +37,16 @@
                   td = link_to project.name, project, data: { modal: true }
                   td
 
-                    - case project.project_status.try(:status)
+                    - case project.project_status.try(:name)
 
                       - when 'Não iniciado'
                         strong.text-warning Não iniciado
                       - when 'Em desenvolvimento'
-                        strong.text-primary Em desenvolvimento
+                        strong.text-success-lime-green Em desenvolvimento
                       - when 'Atrasado'
                         strong.text-danger Atrasado
                       - when 'Concluído'
-                        strong.text-success Concluído
+                        text-muted Concluído
 
                   td = project.start_date
                   td = project.end_date
@@ -84,14 +84,14 @@
 
               h5.text-center
 
-                - case status.status
+                - case status.name
 
                   - when 'Não iniciado'
                     strong.text-warning Não iniciados
                     - estilo = estilos[0]
 
                   - when 'Em desenvolvimento'
-                    strong.text-primary Em desenvolvimento
+                    strong.text-success-lime-green Em desenvolvimento
                     - estilo = estilos[1]
 
                   - when 'Atrasado'
@@ -99,7 +99,7 @@
                     - estilo = estilos[2]
 
                   - when 'Concluído'
-                    strong.text-success Concluídos
+                    .text-muted Concluídos
                     - estilo = estilos[3]
 
 
@@ -108,21 +108,21 @@
               .projeto-box
 
                 h5.text-center
-                  = 'Não há projetos ' + status.status.downcase + 's.'
+                  = 'Não há projetos ' + status.name.downcase + 's.'
 
             - status.projects.each do |projeto|
 
               .projeto-box
 
                 h5.text-center
-                  = projeto.description
+                  = projeto.name
 
                 hr.divider
 
                 strong Início:
                 .pull-right
                   = projeto.start_date
-                  
+
                 br
 
                 strong Entrega:
@@ -139,14 +139,14 @@
                 - else
 
                   strong Membros alocados:
-                  
+
                   br
                   br
 
                   - projeto.members.each do |membro|
 
                     strong
-                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.description + '] '
+                      = '[' + MembersProject.where(project_id: projeto.id, member_id: membro.id).first.project_role.name + '] '
                     = membro.member_name
 
                     br

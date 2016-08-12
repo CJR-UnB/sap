@@ -21,7 +21,7 @@
       tbody
         - @knowledges.each do |knowledge|
           tr
-            td = knowledge.description
+            td = knowledge.name
             td = knowledge.try(:knowledge_level).try(:level)
             td = knowledge.try(:technology).try(:name)
 
@@ -37,12 +37,12 @@
               td align="right"
 
                 = link_to knowledge, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
-                  i.fa.fa-times   
+                  i.fa.fa-times
 
             td align="right"
 
               = link_to 'Requisitar', requisitar_conhecimento_path(knowledge), data: { confirm:'Você tem certeza?' }, method: :requisitar, class:'btn btn-xs btn-primary btn-font'
-  
+
   br
 
   .btn-group

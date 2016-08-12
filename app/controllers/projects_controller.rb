@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:description, :price, :git, :heroku, :start_date, :end_date, :project_status_id)
+      params.require(:project).permit(:name, :price, :git, :heroku, :start_date, :end_date, :project_status_id)
     end
 
     def modal_responder
