@@ -7,8 +7,8 @@
 
 # STATUS DE MEMBRO
 
-a_status_de_membro = [{status: "Ativo"}, 
-                      {status: "Inativo"}]
+a_status_de_membro = [{name: "Ativo"},
+                      {name: "Inativo"}]
 
 status_de_membro = MemberStatus.create(a_status_de_membro)
 
@@ -17,26 +17,26 @@ inativo = status_de_membro[1].id
 
 # STATUS DE PROJETO
 
-a_status_de_projeto = [{status: "Não iniciado"}, 
-                       {status: "Em desenvolvimento"}, 
-                       {status: "Atrasado"}, 
-                       {status: "Concluído"}]
+a_status_de_projeto = [{name: "Não iniciado"},
+                       {name: "Em desenvolvimento"},
+                       {name: "Atrasado"},
+                       {name: "Concluído"}]
 
 status_de_projeto = ProjectStatus.create(a_status_de_projeto)
 
 # STATUS DE REQUISIÇÃO DE CONHECIMENTO
 
-a_status_de_requisicao = [{description: "Em análise"}, 
-                          {description: "Deferido"}, 
-                          {description: "Indeferido"}]
+a_status_de_requisicao = [{name: "Em análise"},
+                          {name: "Deferido"},
+                          {name: "Indeferido"}]
 
 status_de_requisicao = RequestStatus.create(a_status_de_requisicao)
 
 # PERFIS DE MEMBRO
 
-a_perfis = [{role: "Administrador"},
-            {role: "Moderador"},
-            {role: "Usuário"}]
+a_perfis = [{name: "Administrador"},
+            {name: "Moderador"},
+            {name: "Usuário"}]
 
 perfis = Role.create(a_perfis)
 
@@ -46,11 +46,11 @@ user = perfis[2].id
 
 # CARGOS DE MEMBRO
 
-a_cargos = [{description: "Trainee"}, 
-            {description: "Consultor"}, 
-            {description: "Gerente"}, 
-            {description: "Líder"}, 
-            {description: "Presidente"}]
+a_cargos = [{name: "Trainee"},
+            {name: "Consultor"},
+            {name: "Gerente"},
+            {name: "Líder"},
+            {name: "Presidente"}]
 
 cargos = Job.create(a_cargos)
 
@@ -63,13 +63,13 @@ presidente = cargos[4].id
 # NÍVEIS DE CONHECIMENTO
 
 a_niveis_de_conhecimento = [
-  {level: "Novato", description: "Nenhum trabalho na area"}, 
+  {level: "Novato", description: "Nenhum trabalho na area"},
   {level: "Iniciante Avançado", description: "Todos os aspectos do trabalho
-    tratados separadamente com igual importância"}, 
-  {level: "Competente", description: "Lida com múltiplas tarefas, discute 
+    tratados separadamente com igual importância"},
+  {level: "Competente", description: "Lida com múltiplas tarefas, discute
     planejamento, formula rotinas"},
   {level: "Proeficiente", description: "Prioriza importância de aspectos, percebe mudança de padrões regulares"},
-  {level: "Experiente", description: "Atuação intuitiva, visão do que é possível, abordagem analítica"}  
+  {level: "Experiente", description: "Atuação intuitiva, visão do que é possível, abordagem analítica"}
   ]
 
 niveis_de_conhecimento = KnowledgeLevel.create(a_niveis_de_conhecimento)
@@ -166,7 +166,7 @@ git = tecnologias[11].id
 
 # TIPOS DE ATIVIDADE
 
-a_tipos_de_atividade = [{name: "Empresa Júnior"}, 
+a_tipos_de_atividade = [{name: "Empresa Júnior"},
                         {name: "Matéria da UnB"},
                         {name: "Cursos"},
                         {name: "Trabalho"},
@@ -188,57 +188,57 @@ bolsas = tipos_de_atividade[7].id
 
 # ATIVIDADES
 
-a_atividades = [{description: "Empresa Júnior de Computação", activity_type_id: empresa_junior, credit_numbers: 16},
-                {description: "Estágio 20h", activity_type_id: estagio_remunerado, credit_numbers: 22},
-                {description: "Estágio 30h", activity_type_id: estagio_remunerado, credit_numbers: 33},
-                {description: "Trabalho 20h", activity_type_id: trabalho, credit_numbers: 22},
-                {description: "Trabalho 30h", activity_type_id: trabalho, credit_numbers: 33},
-                {description: "Trabalho 40h", activity_type_id: trabalho, credit_numbers: 44},
-                {description: "Monitoria", activity_type_id: materia_unb, credit_numbers: 2},
-                {description: "Programa Institucional de Bolsa de Iniciação Científica", activity_type_id: bolsas, credit_numbers: 2},
-                {description: "Programa Institucional de Bolsa de Iniciação à Docência", activity_type_id: bolsas, credit_numbers: 2}]
+a_atividades = [{name: "Empresa Júnior de Computação", activity_type_id: empresa_junior, credit_numbers: 16},
+                {name: "Estágio 20h", activity_type_id: estagio_remunerado, credit_numbers: 22},
+                {name: "Estágio 30h", activity_type_id: estagio_remunerado, credit_numbers: 33},
+                {name: "Trabalho 20h", activity_type_id: trabalho, credit_numbers: 22},
+                {name: "Trabalho 30h", activity_type_id: trabalho, credit_numbers: 33},
+                {name: "Trabalho 40h", activity_type_id: trabalho, credit_numbers: 44},
+                {name: "Monitoria", activity_type_id: materia_unb, credit_numbers: 2},
+                {name: "Programa Institucional de Bolsa de Iniciação Científica", activity_type_id: bolsas, credit_numbers: 2},
+                {name: "Programa Institucional de Bolsa de Iniciação à Docência", activity_type_id: bolsas, credit_numbers: 2}]
 
 atividades = Activity.create(a_atividades)
 
 # CONHECIMENTOS
 
-a_conhecimentos = [{description: "Basic Elements", knowledge_level_id: baixo, technology_id: html},
-                   {description: "Document Metadata", knowledge_level_id: baixo, technology_id: html}, 
-                   {description: "Document Metadata", knowledge_level_id: medio, technology_id: html}, 
-                   {description: "Document Metadata", knowledge_level_id: alto, technology_id: html}, 
-                   {description: "Content Sectioning", knowledge_level_id: baixo, technology_id: html}, 
-                   {description: "Content Sectioning", knowledge_level_id: medio, technology_id: html}, 
-                   {description: "Content Sectioning", knowledge_level_id: alto, technology_id: html}, 
-                   {description: "Text Content", knowledge_level_id: baixo, technology_id: html}, 
-                   {description: "Text Content", knowledge_level_id: medio, technology_id: html}, 
-                   {description: "Text Content", knowledge_level_id: alto, technology_id: html}, 
-                   {description: "Inline Text Semantics", knowledge_level_id: baixo, technology_id: html}, 
-                   {description: "Inline Text Semantics", knowledge_level_id: medio, technology_id: html}, 
-                   {description: "Inline Text Semantics", knowledge_level_id: alto, technology_id: html}, 
-                   {description: "Image and Multimedia", knowledge_level_id: baixo, technology_id: html}, 
-                   {description: "Image and Multimedia", knowledge_level_id: medio, technology_id: html}, 
-                   {description: "Image and Multimedia", knowledge_level_id: alto, technology_id: html}, 
-                   {description: "Embedded Content", knowledge_level_id: baixo, technology_id: html}, 
-                   {description: "Embedded Content", knowledge_level_id: medio, technology_id: html}, 
-                   {description: "Embedded Content", knowledge_level_id: alto, technology_id: html}, 
-                   {description: "Scripting", knowledge_level_id: baixo, technology_id: html}, 
-                   {description: "Scripting", knowledge_level_id: medio, technology_id: html}, 
-                   {description: "Scripting", knowledge_level_id: alto, technology_id: html},
-                   {description: "Demarcating Edits", knowledge_level_id: baixo, technology_id: html},
-                   {description: "Demarcating Edits", knowledge_level_id: medio, technology_id: html},
-                   {description: "Demarcating Edits", knowledge_level_id: alto, technology_id: html},
-                   {description: "Table of Content", knowledge_level_id: baixo, technology_id: html},
-                   {description: "Table of Content", knowledge_level_id: medio, technology_id: html},
-                   {description: "Table of Content", knowledge_level_id: alto, technology_id: html},
-                   {description: "Forms", knowledge_level_id: baixo, technology_id: html},
-                   {description: "Forms", knowledge_level_id: medio, technology_id: html},
-                   {description: "Forms", knowledge_level_id: alto, technology_id: html},
-                   {description: "Interative Elements", knowledge_level_id: baixo, technology_id: html},
-                   {description: "Interative Elements", knowledge_level_id: medio, technology_id: html},
-                   {description: "Interative Elements", knowledge_level_id: alto, technology_id: html},
-                   {description: "Web Content", knowledge_level_id: baixo, technology_id: html},
-                   {description: "Web Content", knowledge_level_id: medio, technology_id: html},
-                   {description: "Web Content", knowledge_level_id: alto, technology_id: html}
+a_conhecimentos = [{name: "Basic Elements", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Document Metadata", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Document Metadata", knowledge_level_id: medio, technology_id: html},
+                   {name: "Document Metadata", knowledge_level_id: alto, technology_id: html},
+                   {name: "Content Sectioning", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Content Sectioning", knowledge_level_id: medio, technology_id: html},
+                   {name: "Content Sectioning", knowledge_level_id: alto, technology_id: html},
+                   {name: "Text Content", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Text Content", knowledge_level_id: medio, technology_id: html},
+                   {name: "Text Content", knowledge_level_id: alto, technology_id: html},
+                   {name: "Inline Text Semantics", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Inline Text Semantics", knowledge_level_id: medio, technology_id: html},
+                   {name: "Inline Text Semantics", knowledge_level_id: alto, technology_id: html},
+                   {name: "Image and Multimedia", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Image and Multimedia", knowledge_level_id: medio, technology_id: html},
+                   {name: "Image and Multimedia", knowledge_level_id: alto, technology_id: html},
+                   {name: "Embedded Content", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Embedded Content", knowledge_level_id: medio, technology_id: html},
+                   {name: "Embedded Content", knowledge_level_id: alto, technology_id: html},
+                   {name: "Scripting", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Scripting", knowledge_level_id: medio, technology_id: html},
+                   {name: "Scripting", knowledge_level_id: alto, technology_id: html},
+                   {name: "Demarcating Edits", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Demarcating Edits", knowledge_level_id: medio, technology_id: html},
+                   {name: "Demarcating Edits", knowledge_level_id: alto, technology_id: html},
+                   {name: "Table of Content", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Table of Content", knowledge_level_id: medio, technology_id: html},
+                   {name: "Table of Content", knowledge_level_id: alto, technology_id: html},
+                   {name: "Forms", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Forms", knowledge_level_id: medio, technology_id: html},
+                   {name: "Forms", knowledge_level_id: alto, technology_id: html},
+                   {name: "Interative Elements", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Interative Elements", knowledge_level_id: medio, technology_id: html},
+                   {name: "Interative Elements", knowledge_level_id: alto, technology_id: html},
+                   {name: "Web Content", knowledge_level_id: baixo, technology_id: html},
+                   {name: "Web Content", knowledge_level_id: medio, technology_id: html},
+                   {name: "Web Content", knowledge_level_id: alto, technology_id: html}
                     ]
 
 conhecimentos = Knowledge.create(a_conhecimentos)
@@ -246,7 +246,7 @@ conhecimentos = Knowledge.create(a_conhecimentos)
 # MEMBROS
 
 a_membros = [
-            {name: "Afonso", last_name: "Dias", email: "afonsodias@cjr.org.br", password: "adias123", 
+            {name: "Afonso", last_name: "Dias", email: "afonsodias@cjr.org.br", password: "adias123",
              sector_id: nut, job_id: lider, area_id: na, member_status_id: ativo, role_id: mod},
 
             {name: "Anne", last_name: "Carolina", email: "annecarolina@cjr.org.br", password: "carolina123",

@@ -1,5 +1,5 @@
 = form_for @member do |f|
-  
+
   .modal-body
 
     .form-group
@@ -14,13 +14,13 @@
 
       .form-group
         = f.label :status
-        = f.select :member_status_id, MemberStatus.all.map { |m| [m.description, m.id] }, { include_blank:'Escolha um status' }, { class:'form-control', required: true }
-      
+        = f.select :member_status_id, MemberStatus.all.map { |m| [m.status, m.id] }, { include_blank:'Escolha um status' }, { class:'form-control', required: true }
+
       - if current_member.try(:admin?)
-      
+
         .form-group
           = f.label :perfil
-          = f.select :role_id, Role.all.map { |r| [r.description, r.id] }, { include_blank:'Escolha um perfil' }, { class:'form-control', required: true }
+          = f.select :role_id, Role.all.map { |r| [r.role, r.id] }, { include_blank:'Escolha um perfil' }, { class:'form-control', required: true }
 
       .form-group
         = f.label :cargo
@@ -47,5 +47,5 @@
       = f.password_field :password_confirmation, class:'form-control'
 
   .modal-footer
-  
+
     = f.submit 'Enviar', class:'btn btn-success'

@@ -23,10 +23,10 @@
 
               br
 
-              - case member.member_status.try(:description)
+              - case member.member_status.try(:name)
 
                 - when 'Ativo'
-                  h6.text-center.text-primary = member.try(:member_name)
+                  h6.text-center.text-success = member.try(:member_name)
                 - when 'Inativo'
                   h6.text-center.text-warning = member.try(:member_name)
 
@@ -86,14 +86,14 @@
               td = link_to member.try(:member_name), member, data: { modal: true }
               td
 
-                - case member.try(:member_status).try(:description)
+                - case member.try(:member_status).try(:name)
                   - when 'Ativo'
-                    strong.text-primary Ativo
+                    strong.text-success-lime-green Ativo
                   - when 'Inativo'
-                    strong.text-warning Inativo
+                    .text-muted Inativo
 
               td = member.try(:email)
-              td = member.try(:role).try(:description)
+              td = member.try(:role).try(:name)
               td = member.try(:sector).try(:name)
 
               - if member == current_member or current_member.try(:admin?) or (member.try(:user?) and current_member.try(:mod?))

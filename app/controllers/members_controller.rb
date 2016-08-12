@@ -26,7 +26,7 @@ class MembersController < ApplicationController
     @member = Member.new(member_params)
 
     if @member.role_id.nil?
-      @member.role_id = Role.where(description:'Usuário').try(:first).try(:id)
+      @member.role_id = Role.where(name:'Usuário').try(:first).try(:id)
     end
 
     respond_to do |format|

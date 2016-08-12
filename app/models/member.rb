@@ -1,5 +1,5 @@
 class Member < ActiveRecord::Base
-  
+
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :area
@@ -20,15 +20,15 @@ class Member < ActiveRecord::Base
   end
 
   def admin?
-    self.role.role == "Administrador"
+    self.role.name == "Administrador"
   end
 
   def mod?
-    self.role.role == "Moderador"
+    self.role.name == "Moderador"
   end
 
   def user?
-    self.role.role == "Usuário"
+    self.role.name == "Usuário"
   end
 
 end

@@ -11,17 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420021016) do
+ActiveRecord::Schema.define(version: 20160812195231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
-    t.string   "description"
     t.integer  "credit_numbers"
     t.integer  "activity_type_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "name"
   end
 
   add_index "activities", ["activity_type_id"], name: "index_activities_on_activity_type_id", using: :btree
@@ -52,9 +52,9 @@ ActiveRecord::Schema.define(version: 20160420021016) do
   add_index "areas", ["sector_id"], name: "index_areas_on_sector_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "knowledge_levels", force: :cascade do |t|
@@ -77,11 +77,11 @@ ActiveRecord::Schema.define(version: 20160420021016) do
   add_index "knowledge_requests", ["request_status_id"], name: "index_knowledge_requests_on_request_status_id", using: :btree
 
   create_table "knowledges", force: :cascade do |t|
-    t.string   "description"
     t.integer  "knowledge_level_id"
     t.integer  "technology_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "name"
   end
 
   add_index "knowledges", ["knowledge_level_id"], name: "index_knowledges_on_knowledge_level_id", using: :btree
@@ -98,9 +98,9 @@ ActiveRecord::Schema.define(version: 20160420021016) do
   add_index "knowledges_members", ["member_id"], name: "index_knowledges_members_on_member_id", using: :btree
 
   create_table "member_statuses", force: :cascade do |t|
-    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "members", force: :cascade do |t|
@@ -174,9 +174,9 @@ ActiveRecord::Schema.define(version: 20160420021016) do
   end
 
   create_table "project_statuses", force: :cascade do |t|
-    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -203,15 +203,15 @@ ActiveRecord::Schema.define(version: 20160420021016) do
   add_index "request_histories", ["knowledge_request_id"], name: "index_request_histories_on_knowledge_request_id", using: :btree
 
   create_table "request_statuses", force: :cascade do |t|
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "sectors", force: :cascade do |t|
