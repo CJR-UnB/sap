@@ -106,7 +106,7 @@
     .notificacao.secao-home-top
 
       a href="/knowledge_requests"
-        
+
         .notificacao-box.border-top-blue
 
           .row
@@ -123,7 +123,7 @@
               .col-sm-10 style="padding: 10px"
                 h4.text-right
                   - if current_member.try(:admin?)
-                    - if @num_requisicoes > 1 
+                    - if @num_requisicoes > 1
                       span Requisições de Conhecimento
                     - else
                       span Requisição de Conhecimento
@@ -134,7 +134,7 @@
   .col-sm-4.col-xs-12
 
     .notificacao.secao-home-top
- 
+
       .notificacao-box.border-top-green
 
         .row
@@ -150,7 +150,7 @@
 
 
   .col-sm-4.col-xs-12
-  
+
     .notificacao.secao-home-top
 
       .notificacao-box.border-top-ocean
@@ -168,7 +168,7 @@
 
 
 .row
-  
+
   .col-sm-4.col-xs-12
 
     .notificacao
@@ -179,7 +179,7 @@
 
           .container-fluid
 
-            .col-sm-12 style="padding-top: 10px"  
+            .col-sm-12 style="padding-top: 10px"
 
               table.table.borderless
 
@@ -198,11 +198,11 @@
                           td
                             strong = requisicao.member.try(:member_name)
                           td align="right"
-                            = requisicao.knowledge.try(:description)
+                            = requisicao.knowledge.try(:name)
                         - else
-                          td = requisicao.knowledge.try(:description)
+                          td = requisicao.knowledge.try(:name)
                           td align="right"
-                            - case requisicao.request_status.try(:description)
+                            - case requisicao.request_status.try(:name)
                               - when 'Em análise'
                                 strong.text-primary Em análise
                               - when 'Deferido'
@@ -221,7 +221,7 @@
 
           .container-fluid
 
-            .col-sm-12 style="padding-top: 10px"  
+            .col-sm-12 style="padding-top: 10px"
 
               table.table.borderless
 
@@ -233,17 +233,17 @@
                     td align="right" CJR
 
                   tr
-                    td 
+                    td
                       strong Membros
                     td align="right" = Member.all.count.to_s
 
                   tr
-                    td 
+                    td
                       strong Núcleos
                     td align="right" = Sector.all.count.to_s
 
                   tr
-                    td 
+                    td
                       strong Áreas
                     td align="right" = Area.all.count.to_s
 
@@ -270,7 +270,7 @@
                 tbody
 
                   tr
-                    td 
+                    td
                       strong Email
                     td align="right"
                       = current_member.email
@@ -279,7 +279,7 @@
                     td
                       strong Perfil
                     td align="right"
-                      = current_member.try(:role).try(:description)
+                      = current_member.try(:role).try(:name)
 
                   tr
                     td
@@ -297,4 +297,4 @@
                     td
                       strong Cargo
                     td align="right"
-                      = current_member.try(:job).try(:description)
+                      = current_member.try(:job).try(:name)

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  helper_method :recupera_num_projetos_atuais, :recupera_historicos_individuais, :to_back, 
+  helper_method :recupera_num_projetos_atuais, :recupera_historicos_individuais, :to_back,
                 :esta_em_membros?, :esta_em_conhecimentos?, :esta_em_projetos?,
                 :recupera_admins, :mensagem_tabela_vazia
 
@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     atuais = 0
 
     projetos.each do |projeto|
-      if projeto.project_status_id == ProjectStatus.where(description: filtro).first.id
+      if projeto.project_status_id == ProjectStatus.where(name: filtro).first.id
         atuais += 1
       end
     end
