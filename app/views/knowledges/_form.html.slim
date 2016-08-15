@@ -3,15 +3,15 @@
   .modal-body
 
     .form-group
-      = f.label :descrição
-      = f.text_field :description, class:'form-control', required: true
+      = f.label :nome
+      = f.text_field :name, class:'form-control', required: true
 
     .form-group
       = f.label :nível
-      = f.select :knowledge_level_id, 
-        KnowledgeLevel.all.map { |k| [k.level, k.id] }, 
-        { include_blank:'Escolha um nível' }, 
-        { class:'form-control', required: true } 
+      = f.select :knowledge_level_id,
+        KnowledgeLevel.all.map { |k| [k.level, k.id] },
+        { include_blank:'Escolha um nível' },
+        { class:'form-control', required: true }
 
     .form-group
       = f.label :tecnologia

@@ -12,7 +12,7 @@
 
     .form-group
       = f.label :status
-      = f.select :request_status_id, RequestStatus.all.map { |r| [r.description, r.id] }, { include_blank:'Escolha um status' }, { class:'form-control', required: true }
+      = f.select :request_status_id, RequestStatus.all.map { |r| [r.name, r.id] }, { include_blank:'Escolha um status' }, { class:'form-control', required: true }
 
   .modal-footer
 

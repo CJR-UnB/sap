@@ -8,7 +8,7 @@
       span = mensagem_tabela_vazia
 
   - else
-    
+
     table.table.table-hover#dataTable width="100%"
 
       thead
@@ -24,8 +24,8 @@
         - @roles.each do |role|
 
           tr
-            td = role.role
-            
+            td = role.name
+
             - if can? :update, Role
 
               td align="right"

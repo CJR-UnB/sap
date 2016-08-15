@@ -13,7 +13,7 @@
 
       thead
         tr
-          th Descrição
+          th Nome
           th Número de Créditos
           th Tipo
           - if can? :update, Activity
@@ -27,9 +27,9 @@
         - @activities.each do |activity|
 
           tr
-            td = activity.description
+            td = activity.name
             td = activity.credit_numbers
-            td = activity.activity_type.description
+            td = activity.activity_type.name
 
             - if can? :update, Activity
 

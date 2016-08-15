@@ -40,7 +40,7 @@
                 td = link_to request_history.knowledge_request.member.try(:member_name), request_history.knowledge_request.member, data: { modal: true }
 
                 td = request_history.knowledge_request.try(:knowledge).try(:description)
-                td = request_history.knowledge_request.try(:knowledge).try(:knowledge_level).try(:description)
+                td = request_history.knowledge_request.try(:knowledge).try(:knowledge_level).try(:name)
                 td = request_history.knowledge_request.try(:knowledge).try(:technology).try(:name)
 
 
@@ -75,7 +75,7 @@
           span = mensagem_tabela_vazia
 
       - else
-        
+
         table.table.table-hover#dataTable2 width="100%"
 
           thead
@@ -97,9 +97,9 @@
               tr
                 td = request_history.id
 
-                td = link_to request_history.knowledge_request.try(:knowledge).try(:description), request_history.knowledge_request.try(:knowledge), data: { modal: true }
+                td = link_to request_history.knowledge_request.try(:knowledge).try(:name), request_history.knowledge_request.try(:knowledge), data: { modal: true }
 
-                td = request_history.knowledge_request.try(:knowledge).try(:knowledge_level).try(:description)
+                td = request_history.knowledge_request.try(:knowledge).try(:knowledge_level).try(:name)
                 td = request_history.knowledge_request.try(:knowledge).try(:technology).try(:name)
 
 

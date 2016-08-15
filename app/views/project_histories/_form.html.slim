@@ -1,14 +1,14 @@
 = form_for @project_history do |f|
 
   .modal-body
-  
+
     .form-group
       = f.label :observação
       = f.text_area :observation, class:'form-control', required: true
 
     .form-group
       = f.label :projeto
-      = f.select :project_id, Project.all.map { |p| [p.description, p.id] }, { include_blank:'Escolha um projeto' }, { class:'form-control', required: true }
+      = f.select :project_id, Project.all.map { |p| [p.name, p.id] }, { include_blank:'Escolha um projeto' }, { class:'form-control', required: true }
 
   .modal-footer
 

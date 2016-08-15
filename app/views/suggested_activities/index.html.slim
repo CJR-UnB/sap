@@ -31,10 +31,10 @@
           tr
             td = link_to suggested_activity.member.try(:member_name), suggested_activity.member, data: { modal: true }
             td = suggested_activity.activity
-            td = suggested_activity.activity_type.try(:description)
+            td = suggested_activity.activity_type.try(:name)
             td = suggested_activity.try(:credit_numbers)
             td
-              - case suggested_activity.request_status.try(:description)
+              - case suggested_activity.request_status.try(:name)
                 - when 'Em análise'
                   strong.text-primary Em análise
                 - when 'Deferido'
@@ -51,7 +51,7 @@
 
             - if can? :destroy, SuggestedActivity
 
-              td align="right" 
+              td align="right"
 
                 = link_to suggested_activity, data: { confirm:'Você tem certeza?' }, method: :delete, title:'Excluir' do
                   i.fa.fa-times

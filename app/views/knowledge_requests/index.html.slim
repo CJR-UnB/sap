@@ -27,19 +27,19 @@
 
           tr
             td
-              - case knowledge_request.request_status.try(:description)
+              - case knowledge_request.request_status.try(:name)
                 - when 'Em análise'
                   strong.text-primary Em análise
                 - when 'Deferido'
                   strong.text-success Deferido
                 - when 'Indeferido'
                   strong.text-warning Indeferido
-            
+
             - if can? :create, KnowledgeRequest
               td = link_to knowledge_request.member.try(:member_name), knowledge_request.member, data: { modal: true }
 
-            td = knowledge_request.knowledge.try(:description)
-            td = knowledge_request.knowledge.try(:knowledge_level).try(:description)
+            td = knowledge_request.knowledge.try(:name)
+            td = knowledge_request.knowledge.try(:knowledge_level).try(:name)
             td = knowledge_request.knowledge.try(:technology).try(:name)
 
             td align="right"
@@ -73,7 +73,7 @@
 
     - if can? :create, KnowledgeRequest
       = link_to 'Nova Requisição de Conhecimento', new_knowledge_request_path, data: { modal: true }, class:'btn btn-success'
-    
+
     - elsif current_member.try(:user?)
       = link_to 'Nova Requisição de Conhecimento', knowledges_path, class:'btn btn-success'
 

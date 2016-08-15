@@ -33,10 +33,10 @@
 
               tr
                 td = link_to activities_member.member.try(:member_name), activities_member.member, data: { modal: true }
-                td = activities_member.activity.try(:description)
+                td = activities_member.activity.try(:name)
                 td = activities_member.activity.try(:credit_numbers)
-                td = activities_member.activity.try(:activity_type).try(:description)
-              
+                td = activities_member.activity.try(:activity_type).try(:name)
+
                 td align="right"
 
                   = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do
@@ -48,7 +48,7 @@
                     i.fa.fa-times
 
       br
-      
+
       = link_to 'Nova Atividade', new_activities_member_path, data: { modal: true }, class:'btn btn-success'
 
 
@@ -62,7 +62,7 @@
           span = mensagem_tabela_vazia
 
       - else
-        
+
         table.table.table-hover#dataTable2 width="100%"
 
           thead
@@ -78,10 +78,10 @@
             - @activities_members.where(member_id: current_member.id).each do |activities_member|
 
               tr
-                td = activities_member.activity.try(:description)
+                td = activities_member.activity.try(:name)
                 td = activities_member.activity.try(:credit_numbers)
-                td = activities_member.activity.try(:activity_type).try(:description)
-              
+                td = activities_member.activity.try(:activity_type).try(:name)
+
                 td align="right"
 
                   = link_to edit_activities_member_path(activities_member), data: { modal: true }, title:'Editar' do

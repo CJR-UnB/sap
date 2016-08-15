@@ -24,7 +24,7 @@
         - @project_statuses.each do |project_status|
 
           tr
-            td = project_status.status
+            td = project_status.name
 
             - if can? :update, ProjectStatus
 

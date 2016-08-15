@@ -1,7 +1,7 @@
 - if can? :update, Activity
 
   = form_for @activity do |f|
-    
+
     .modal-body
 
       .form-group
@@ -14,8 +14,8 @@
 
       .form-group
         = f.label :tipo
-        = f.select :activity_type_id, ActivityType.all.map { |a| [a.description, a.id] }, { include_blank:'Escolha um tipo' }, { class:'form-control', required: true } 
+        = f.select :activity_type_id, ActivityType.all.map { |a| [a.name, a.id] }, { include_blank:'Escolha um tipo' }, { class:'form-control', required: true } 
 
     .modal-footer
-    
+
       = f.submit 'Enviar', class:'btn btn-success'

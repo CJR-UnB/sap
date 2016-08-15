@@ -8,7 +8,7 @@
 
     .form-group
       = f.label :tipo
-      = f.select :activity_type_id, ActivityType.all.map { |a| [a.description, a.id] }, { include_blank:'Escolha um tipo' }, { class:'form-control', required: true }
+      = f.select :activity_type_id, ActivityType.all.map { |a| [a.name, a.id] }, { include_blank:'Escolha um tipo' }, { class:'form-control', required: true }
 
     .form-group
       = f.label :número_de_créditos

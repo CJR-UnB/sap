@@ -1,7 +1,7 @@
 = content_for :titulo, 'Membros x Projetos'
 
 .box
-  
+
   - if @projetos.empty?
 
     .alert.alert-info
@@ -18,7 +18,7 @@
 
         - @projetos.each do |projeto|
 
-          th = projeto.description
+          th = projeto.name
 
     tbody
 

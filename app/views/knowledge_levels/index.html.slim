@@ -1,10 +1,10 @@
 = content_for :titulo, 'Níveis de Conhecimento'
 
 .box
-  
+
   .alert.alert-info
     i.fa.fa-exclamation-circle
-    span &nbsp;&nbsp; Usamos os níveis de conhecimentos do 
+    span &nbsp;&nbsp; Usamos os níveis de conhecimentos do
     strong
       = link_to 'Modelo de Aquisição de Habilidades de Dreyfus.', 'https://pt.wikipedia.org/wiki/Modelo_de_aquisi%C3%A7%C3%A3o_de_habilidades_de_Dreyfus', target: '_blank'
 
@@ -12,7 +12,7 @@
 
     .alert.alert-info
       span = mensagem_tabela_vazia
-      
+
   - else
 
     table.table.table-hover#dataTable width="100%"
@@ -21,7 +21,7 @@
         tr
 
           th Nível
-          th Descrição
+          th Nome
           - if can? :update, KnowledgeLevel
             th
           - if can? :destroy, KnowledgeLevel
@@ -33,7 +33,7 @@
 
           tr
             td = knowledge_level.level
-            td = knowledge_level.description
+            td = knowledge_level.name
 
             - if can? :update, KnowledgeLevel
 
