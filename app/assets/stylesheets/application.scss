@@ -1,10 +1,12 @@
 /*
+ *= require normalize-css/normalize
+ *= require semantic/dist/semantic
  *= require_tree .
  *= require_self
  */
 
-@import 'base/bases';
-@import 'module/modules';
-@import 'layout/layouts';
-@import 'state/states';
-@import 'theme/themes';
+@import 'bases/bases';
+@import 'modules/modules';
+@import 'layouts/layouts';
+@import 'states/states';
+@import 'themes/themes';

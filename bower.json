@@ -1,0 +1,22 @@
+{
+  "name": "sapcjr",
+  "homepage": "https://github.com/unbcjr/sap",
+  "authors": [
+    "Rafael Fernandes <rafaelalves@cjr.org.br>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize-css": "^4.2.0",
+    "semantic": "semantic-ui#^2.2.2"
+  }
+}
